@@ -68,17 +68,14 @@ export function Hero() {
             <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-r from-[#7B2EFF] via-[#6F4BFF] to-[#00F5FF] opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70" />
             <div className="absolute -inset-1 rounded-[1.75rem] bg-gradient-to-r from-[#7B2EFF] via-[#6F4BFF] to-[#00F5FF] opacity-80" />
             <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-black shadow-[0_40px_120px_-20px_rgba(123,46,255,0.6)]">
-              <div className="aspect-video w-full">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  poster="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80"
-                  className="h-full w-full object-cover"
-                >
-                  <source src="https://cdn.coverr.co/videos/coverr-a-gamer-playing-a-video-game-3388/1080p.mp4" type="video/mp4" />
-                </video>
+              <div className="relative aspect-video w-full">
+                <iframe
+                  src="https://drive.google.com/file/d/1WCHjloUawoGohnsC7IDBJg10hNcG128k/preview?autoplay=1&mute=1"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  title="Projeto Radiante — Apresentação"
+                  className="absolute inset-0 h-full w-full"
+                />
               </div>
               {/* Reflection */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10" />
