@@ -1,24 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { AnimatedBackground } from "@/components/radiante/Background";
+import { Navbar } from "@/components/radiante/Navbar";
+import { Hero } from "@/components/radiante/Hero";
+import {
+  ProblemsSection, HowItWorks, LearnSection, ResultsSection,
+  PerksSection, AboutSection, VideosSection, TestimonialsSection,
+  FaqSection, FinalCta, Footer,
+} from "@/components/radiante/Sections";
+import { SmoothScroll } from "@/components/radiante/SmoothScroll";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Projeto Radiante — Mentoria + Curso de Valorant" },
+      { name: "description", content: "Método premium de mentoria e curso para jogadores de Valorant que querem sair do platô e chegar ao Radiante." },
+      { property: "og:title", content: "Projeto Radiante — Mentoria + Curso de Valorant" },
+      { property: "og:description", content: "Aprenda como jogadores Radiantes pensam, treinam e vencem. Mentoria 1:1, curso completo e comunidade exclusiva." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <SmoothScroll />
+      <AnimatedBackground />
+      <Navbar />
+      <main className="relative">
+        <Hero />
+        <ProblemsSection />
+        <HowItWorks />
+        <LearnSection />
+        <ResultsSection />
+        <PerksSection />
+        <AboutSection />
+        <VideosSection />
+        <TestimonialsSection />
+        <FaqSection />
+        <FinalCta />
+      </main>
+      <Footer />
+    </>
   );
 }
