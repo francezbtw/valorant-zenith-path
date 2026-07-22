@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import {
-  Target, Swords, Dumbbell, Move, Brain, Zap, Users, GraduationCap, Sparkles,
-  Crosshair, Map, DollarSign, Rocket, Repeat, MapPin, MessageSquare, Wand2,
-  Check, Shield, Bell, HeartHandshake, LayoutGrid, ChevronDown, Star, Instagram, Youtube, Trophy
+  Swords, Dumbbell, Brain, Zap,
+  Crosshair, Map, Eye, Repeat, MapPin, MessageSquare, Sparkles,
+  Check, Shield, ChevronDown, Star, Instagram, Youtube, Trophy,
+  Rocket, Crown, Gem, ArrowRight,
 } from "lucide-react";
 import { useState } from "react";
 
-import type { Variants } from "framer-motion";
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const } },
@@ -30,27 +31,68 @@ export function SectionHeader({ eyebrow, title, subtitle }: { eyebrow?: string; 
         <motion.p
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="mx-auto mt-4 max-w-2xl text-white/60"
+          className="mx-auto mt-5 max-w-2xl text-white/60 leading-relaxed"
         >{subtitle}</motion.p>
       )}
     </div>
   );
 }
 
+/* Narrative bridge after the video */
+export function NarrativeSection() {
+  return (
+    <section className="relative py-32">
+      <div className="mx-auto max-w-4xl px-4 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="inline-flex rounded-full glass px-3 py-1 text-xs uppercase tracking-widest text-white/70"
+        >
+          Continuação da história
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mt-5 font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight"
+        >
+          Você já <span className="text-gradient-brand">percebeu</span> que...
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, filter: "blur(8px)" }} whileInView={{ opacity: 1, filter: "blur(0px)" }} viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.1 }}
+          className="mx-auto mt-8 max-w-2xl text-lg text-white/70 leading-[1.7]"
+        >
+          A maioria dos jogadores passa <span className="text-white">centenas de horas</span> no Valorant
+          e continua estagnada no mesmo elo. Não porque falta talento —
+          mas porque nunca ensinaram <span className="text-white">como treinar</span>,
+          <span className="text-white"> como pensar</span> e
+          <span className="text-white"> como decidir</span> dentro do jogo.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }} whileInView={{ opacity: 1, scaleX: 1 }} viewport={{ once: true }}
+          transition={{ duration: 1.2, delay: 0.3 }}
+          className="mx-auto mt-12 h-px w-40 bg-gradient-to-r from-transparent via-[#7B2EFF] to-transparent"
+        />
+      </div>
+    </section>
+  );
+}
+
 const problems = [
-  { icon: Crosshair, title: "Mira inconsistente", desc: "Um dia bom, três dias ruins. Sem base técnica." },
-  { icon: Swords, title: "Perde clutch", desc: "Trava na hora decisiva e joga a rodada fora." },
-  { icon: Dumbbell, title: "Não sabe treinar", desc: "Fica horas em deathmatch sem evoluir de verdade." },
-  { icon: Move, title: "Movimentação ruim", desc: "Peekando errado, dando bait pra si mesmo." },
-  { icon: Brain, title: "Mental abalado", desc: "Uma derrota e o resto da noite vai embora." },
-  { icon: Zap, title: "Usa habilidade errado", desc: "Gasta util no início e fica pelado no retake." },
+  { icon: Dumbbell, title: "Você treina errado", desc: "Horas em deathmatch sem plano viram esforço desperdiçado." },
+  { icon: Zap, title: "Você joga no automático", desc: "Decisões repetidas por reflexo, nunca por leitura." },
+  { icon: Crosshair, title: "Você culpa a mira", desc: "Quando o problema real está no posicionamento e no timing." },
+  { icon: Brain, title: "Você não entende decisões", desc: "Cada round parece aleatório porque falta um framework." },
+  { icon: Eye, title: "Você não sabe revisar partidas", desc: "Assistir replay não é o mesmo que analisar erros." },
+  { icon: Repeat, title: "Você repete os mesmos erros", desc: "Sem consciência não existe correção. Sem correção, não existe evolução." },
 ];
 
 export function ProblemsSection() {
   return (
-    <section className="relative py-28">
+    <section id="problema" className="relative py-28">
       <div className="mx-auto max-w-7xl px-4">
-        <SectionHeader eyebrow="O problema" title="Você está preso no mesmo elo?" subtitle="Se você se identifica com um destes pontos, o Projeto Radiante foi feito para você." />
+        <SectionHeader eyebrow="O problema" title="Por que você travou" subtitle="Se um destes pontos te incomoda, você está exatamente no lugar certo." />
         <motion.div
           initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }}
           variants={{ show: { transition: { staggerChildren: 0.08 } } }}
@@ -67,9 +109,7 @@ export function ProblemsSection() {
                   <p.icon className="h-5 w-5 text-[#00F5FF]" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 font-display text-lg font-semibold">
-                    <span className="text-red-400">❌</span>{p.title}
-                  </div>
+                  <div className="font-display text-lg font-semibold">{p.title}</div>
                   <p className="mt-1.5 text-sm text-white/60 leading-relaxed">{p.desc}</p>
                 </div>
               </div>
@@ -81,73 +121,167 @@ export function ProblemsSection() {
   );
 }
 
-const howCards = [
-  { n: "01", icon: GraduationCap, title: "Mentoria Individual", desc: "Sessões 1:1 com análise de VOD, plano de treino sob medida e correção em tempo real dos seus erros." },
-  { n: "02", icon: LayoutGrid, title: "Curso Completo", desc: "Módulos organizados do zero ao Radiante. Fundamentos, mid game, calls e execuções por mapa." },
-  { n: "03", icon: Users, title: "Comunidade Exclusiva", desc: "Discord privado com scrims, sparrings, dailies e networking direto com jogadores em ascensão." },
+/* A Mudança */
+const changeCards = [
+  { icon: Brain, title: "Game Sense", desc: "Ler o mapa, prever o adversário e antecipar rotações antes de acontecerem." },
+  { icon: Sparkles, title: "Mentalidade", desc: "Blindar a cabeça contra tilt, ranked anxiety e sequências ruins." },
+  { icon: Dumbbell, title: "Treino Inteligente", desc: "Rotina de treino com objetivo, métrica e progressão real." },
+  { icon: Swords, title: "Tomada de decisão", desc: "Framework claro para cada situação: 5v5, 3v3, clutch e retake." },
+  { icon: MessageSquare, title: "Comunicação", desc: "Calls curtas, precisas e que fazem o time inteiro jogar melhor." },
+  { icon: MapPin, title: "Posicionamento", desc: "Aparecer no lugar certo, na hora certa, com a util certa." },
 ];
 
-export function HowItWorks() {
+export function ChangeSection() {
   return (
-    <section id="como-funciona" className="relative py-28">
+    <section id="mudanca" className="relative py-28">
       <div className="mx-auto max-w-7xl px-4">
-        <SectionHeader eyebrow="Como funciona" title="Três pilares. Um método." subtitle="Cada peça foi desenhada pra você ter evolução mensurável, não só sensação de progresso." />
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {howCards.map((c, i) => (
-            <motion.div key={c.n}
-              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-3xl glass-strong p-8 hover:border-[#00F5FF]/40 transition-all duration-500 hover:-translate-y-2"
+        <SectionHeader
+          eyebrow="A mudança"
+          title="Muito além da mecânica"
+          subtitle="O Projeto Radiante não ensina só a mirar melhor. Ele muda a forma como você enxerga cada round."
+        />
+        <motion.div
+          initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
+          variants={{ show: { transition: { staggerChildren: 0.06 } } }}
+          className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          {changeCards.map((c) => (
+            <motion.div key={c.title} variants={fadeUp}
+              className="group relative overflow-hidden rounded-3xl glass-strong p-7 transition-all duration-500 hover:-translate-y-2 hover:border-[#00F5FF]/40"
             >
-              <div className="absolute -top-24 -right-24 h-56 w-56 rounded-full bg-[#7B2EFF] opacity-20 blur-3xl transition-opacity duration-700 group-hover:opacity-40" />
+              <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-[#7B2EFF] opacity-15 blur-3xl transition-opacity duration-700 group-hover:opacity-40" />
               <div className="relative">
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-5xl font-bold text-white/10">{c.n}</span>
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7B2EFF] to-[#00AEEF] shadow-[0_10px_30px_-5px_rgba(123,46,255,0.6)]">
-                    <c.icon className="h-6 w-6 text-white" />
-                  </div>
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7B2EFF] to-[#00AEEF] shadow-[0_10px_30px_-5px_rgba(123,46,255,0.6)]">
+                  <c.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 font-display text-2xl font-bold">{c.title}</h3>
-                <p className="mt-3 text-white/60 leading-relaxed">{c.desc}</p>
+                <h3 className="mt-6 font-display text-xl font-bold">{c.title}</h3>
+                <p className="mt-2 text-sm text-white/60 leading-relaxed">{c.desc}</p>
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-const learnItems = [
-  { icon: Crosshair, title: "Aim" }, { icon: Target, title: "Crosshair Placement" },
-  { icon: Move, title: "Movimentação" }, { icon: Brain, title: "Game Sense" },
-  { icon: DollarSign, title: "Economia" }, { icon: Rocket, title: "Execuções" },
-  { icon: Repeat, title: "Retake" }, { icon: Map, title: "Rotação" },
-  { icon: MapPin, title: "Posicionamento" }, { icon: Sparkles, title: "Mental" },
-  { icon: MessageSquare, title: "Comunicação" }, { icon: Wand2, title: "Uso de habilidades" },
+/* Planos */
+const plans = [
+  {
+    id: "basico", tier: "Plano 1", name: "BÁSICO", price: "R$ 97",
+    icon: Rocket, tagline: "Ideal para quem quer começar.",
+    features: ["Curso base completo", "Rotina de treinos", "Atualizações inclusas", "Acesso ao conteúdo"],
+    cta: "Começar",
+  },
+  {
+    id: "intermediario", tier: "Plano 2", name: "INTERMEDIÁRIO", price: "R$ 197",
+    icon: Crown, tagline: "O mais vendido.", highlight: true,
+    features: [
+      "Tudo do Básico",
+      "Conteúdo avançado por mapa",
+      "Aulas extras semanais",
+      "Análises guiadas",
+      "Comunidade exclusiva",
+      "Atualizações prioritárias",
+    ],
+    cta: "Quero Evoluir",
+  },
+  {
+    id: "mentoria", tier: "Plano 3", name: "MENTORIA", price: "R$ 497",
+    icon: Gem, tagline: "Produto premium. Vagas limitadas.",
+    features: [
+      "Tudo do Intermediário",
+      "Mentorias ao vivo",
+      "Correção individual de VOD",
+      "Plano de evolução pessoal",
+      "Contato direto com o coach",
+      "Acompanhamento contínuo",
+    ],
+    cta: "Entrar para Mentoria",
+  },
 ];
 
-export function LearnSection() {
+export function PlansSection() {
   return (
-    <section id="aprender" className="relative py-28">
+    <section id="planos" className="relative py-28">
       <div className="mx-auto max-w-7xl px-4">
-        <SectionHeader eyebrow="O que você vai aprender" title="Do fundamento à execução Radiante" />
-        <motion.div
-          initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.1 }}
-          variants={{ show: { transition: { staggerChildren: 0.05 } } }}
-          className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
-        >
-          {learnItems.map((it) => (
-            <motion.div key={it.title} variants={fadeUp}
-              className="group relative rounded-2xl glass p-5 text-center transition-all duration-500 hover:-translate-y-1 hover:border-[#00F5FF]/40"
-            >
-              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#7B2EFF]/30 to-[#00F5FF]/20 shadow-[0_0_30px_rgba(123,46,255,0.4)] group-hover:shadow-[0_0_50px_rgba(0,245,255,0.5)] transition-shadow">
-                <it.icon className="h-5 w-5 text-white" />
-              </div>
-              <div className="font-display font-semibold text-sm">{it.title}</div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <SectionHeader
+          eyebrow="Planos"
+          title="Escolha como você quer evoluir"
+          subtitle="Três formas de entrar no Projeto Radiante. Do fundamento estruturado até acompanhamento 1:1 com o QCK."
+        />
+
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          {plans.map((p, i) => {
+            const highlight = p.highlight;
+            return (
+              <motion.div key={p.id}
+                initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
+                className={`relative flex flex-col ${highlight ? "lg:-my-6 lg:scale-[1.04]" : ""}`}
+              >
+                {highlight && (
+                  <>
+                    <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-br from-[#7B2EFF] via-[#6F4BFF] to-[#00F5FF] opacity-70 blur-md animate-pulse-glow" />
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10 rounded-full bg-gradient-to-r from-[#7B2EFF] to-[#00F5FF] px-4 py-1.5 text-xs font-semibold tracking-wide shadow-[0_10px_30px_-5px_rgba(123,46,255,0.6)]">
+                      ★ MAIS POPULAR
+                    </div>
+                  </>
+                )}
+                <div className={`relative flex h-full flex-col rounded-[1.75rem] p-8 border ${
+                  highlight
+                    ? "border-white/15 bg-[linear-gradient(180deg,rgba(30,15,60,0.9),rgba(10,5,25,0.9))] shadow-[0_40px_100px_-20px_rgba(123,46,255,0.6)]"
+                    : "glass-strong hover:border-white/15"
+                } transition-all duration-500 ${!highlight ? "hover:-translate-y-1" : ""}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">{p.tier}</span>
+                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${highlight ? "bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF]" : "bg-white/5 border border-white/10"}`}>
+                      <p.icon className="h-5 w-5 text-white" />
+                    </div>
+                  </div>
+                  <h3 className={`mt-5 font-display text-3xl font-bold tracking-tight ${highlight ? "text-gradient-brand" : "text-white"}`}>
+                    {p.name}
+                  </h3>
+                  <p className="mt-2 text-sm text-white/60">{p.tagline}</p>
+
+                  <div className="mt-6 flex items-baseline gap-1.5">
+                    <span className="font-display text-4xl font-bold text-white">{p.price}</span>
+                    <span className="text-xs text-white/40">/ acesso</span>
+                  </div>
+
+                  <div className="my-6 h-px bg-white/10" />
+
+                  <ul className="space-y-3 flex-1">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-start gap-3 text-sm text-white/75">
+                        <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${highlight ? "bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF]" : "bg-white/10"}`}>
+                          <Check className="h-3 w-3 text-white" />
+                        </div>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a href="#cta" className={`mt-8 group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all ${
+                    highlight
+                      ? "btn-primary-radiante"
+                      : "border border-white/15 bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-[#00F5FF]/40"
+                  }`}>
+                    {p.cta}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+
+                  {p.id === "mentoria" && (
+                    <div className="mt-4 inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-widest text-[#00F5FF]/80">
+                      <span className="h-1 w-1 rounded-full bg-[#00F5FF] animate-pulse-glow" />
+                      Vagas limitadas
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -169,7 +303,7 @@ export function ResultsSection() {
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.05 }}
-                className={`relative flex items-center gap-6 ${i % 2 === 0 ? "justify-start pr-1/2" : "justify-end pl-1/2 flex-row-reverse"}`}
+                className={`relative flex items-center gap-6 ${i % 2 === 0 ? "justify-start" : "justify-end flex-row-reverse"}`}
               >
                 <div className={`w-[calc(50%-2rem)] ${i % 2 === 0 ? "text-right" : "text-left"}`}>
                   <div className="inline-flex items-center gap-3 rounded-2xl glass px-5 py-3">
@@ -188,42 +322,9 @@ export function ResultsSection() {
   );
 }
 
-const perks = [
-  { icon: Dumbbell, title: "Treinos personalizados" },
-  { icon: Sparkles, title: "Método atualizado" },
-  { icon: MessageSquare, title: "Discord exclusivo" },
-  { icon: HeartHandshake, title: "Suporte direto" },
-  { icon: Bell, title: "Atualizações constantes" },
-  { icon: Users, title: "Comunidade ativa" },
-  { icon: LayoutGrid, title: "Conteúdo organizado" },
-  { icon: Zap, title: "Sem enrolação" },
-];
-
-export function PerksSection() {
-  return (
-    <section className="relative py-28">
-      <div className="mx-auto max-w-7xl px-4">
-        <SectionHeader eyebrow="Diferenciais" title="O que vai fazer você subir de elo" />
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {perks.map((p, i) => (
-            <motion.div key={p.title}
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="rounded-2xl glass p-6 hover:border-[#7B2EFF]/50 transition-all hover:-translate-y-1"
-            >
-              <p.icon className="h-6 w-6 text-[#00F5FF]" />
-              <div className="mt-4 font-display font-semibold">{p.title}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function AboutSection() {
   return (
-    <section className="relative py-28">
+    <section id="sobre" className="relative py-28">
       <div className="mx-auto max-w-6xl px-4">
         <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 items-center">
           <motion.div
@@ -234,29 +335,30 @@ export function AboutSection() {
             <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF] opacity-40 blur-2xl" />
             <div className="relative h-64 w-64 rounded-full p-[2px] bg-gradient-to-br from-[#7B2EFF] via-[#6F4BFF] to-[#00F5FF]">
               <div className="h-full w-full rounded-full bg-[#0a0a0a] overflow-hidden flex items-center justify-center">
-                <div className="font-display text-7xl font-bold text-gradient-brand">F</div>
+                <div className="font-display text-7xl font-bold text-gradient-brand">QCK</div>
               </div>
             </div>
           </motion.div>
           <div>
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               className="inline-flex rounded-full glass px-3 py-1 text-xs uppercase tracking-widest text-white/70">
-              Sobre o professor
+              Sobre o mentor
             </motion.div>
             <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="mt-3 font-display text-5xl font-bold text-gradient-brand">Francez</motion.h2>
+              className="mt-3 font-display text-5xl font-bold text-gradient-brand">QCK</motion.h2>
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="mt-4 text-white/70 leading-relaxed">
-              Experiência competitiva, coach e criador de conteúdo com milhares de horas em Valorant.
-              Desenvolvi o método Radiante ao longo de anos ensinando jogadores reais a saírem do platô e chegarem ao topo.
+              Trajetória construída no competitivo, com anos de coach ativo e centenas de análises individuais.
+              Todo o método apresentado no vídeo foi lapidado na prática — treinando jogadores reais,
+              corrigindo VODs, revisando calls e transformando estagnação em evolução mensurável.
             </motion.p>
             <div className="mt-8 grid grid-cols-3 gap-4">
               {[
                 { n: "+2.5k", l: "alunos" },
-                { n: "+18k", l: "horas de gameplay" },
-                { n: "+500", l: "conteúdos publicados" },
+                { n: "+500", l: "análises 1:1" },
+                { n: "+18k", l: "horas em VALORANT" },
               ].map((s, i) => (
                 <motion.div key={s.l} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                   transition={{ delay: 0.3 + i * 0.1 }}
@@ -273,51 +375,12 @@ export function AboutSection() {
   );
 }
 
-const videos = [
-  { title: "Como treinar aim de verdade", tag: "Aim", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80" },
-  { title: "Crosshair placement por mapa", tag: "Fundamentos", img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80" },
-  { title: "Como pensar em clutch 1v3", tag: "Mental", img: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=80" },
-  { title: "Rotação e leitura de mapa", tag: "Game sense", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80" },
-];
-
-export function VideosSection() {
-  return (
-    <section id="videos" className="relative py-28">
-      <div className="mx-auto max-w-7xl px-4">
-        <SectionHeader eyebrow="Conteúdo" title="Vídeos do método" subtitle="Uma amostra do que você vai encontrar dentro do Projeto Radiante." />
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {videos.map((v, i) => (
-            <motion.a href="#" key={v.title}
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="group relative overflow-hidden rounded-3xl glass-strong hover:-translate-y-1 transition-all duration-500 hover:shadow-[0_30px_80px_-20px_rgba(123,46,255,0.5)]"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <img src={v.img} alt={v.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 glow-violet">
-                    <div className="ml-1 h-0 w-0 border-l-[14px] border-l-white border-y-[9px] border-y-transparent" />
-                  </div>
-                </div>
-                <span className="absolute top-4 left-4 rounded-full bg-black/50 backdrop-blur border border-white/10 px-3 py-1 text-xs font-medium">{v.tag}</span>
-              </div>
-              <div className="p-5">
-                <h3 className="font-display text-lg font-semibold group-hover:text-[#00F5FF] transition-colors">{v.title}</h3>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 const testimonials = [
   { name: "Rafael M.", from: "Ouro 2", to: "Imortal 1", quote: "Nunca imaginei sair de Ouro. Em 4 meses cheguei em Imortal. O método destrava a cabeça." },
   { name: "Leticia S.", from: "Prata", to: "Diamante 3", quote: "Deixei de jogar no chute. Hoje cada round tem plano. E vencer virou consequência." },
   { name: "João P.", from: "Platina", to: "Ascendente 2", quote: "Análise de VOD mudou tudo. Vi erros que eu jurava que não cometia." },
   { name: "Marina L.", from: "Ouro 3", to: "Diamante 1", quote: "A comunidade acelerou minha evolução. Scrims toda noite com gente que quer o mesmo." },
+  { name: "Diego A.", from: "Ferro", to: "Platina 2", quote: "Do Ferro ao Platina em uma temporada. O plano de treino faz uma diferença absurda." },
 ];
 
 export function TestimonialsSection() {
@@ -358,7 +421,7 @@ export function TestimonialsSection() {
 const faqs = [
   { q: "Preciso ter algum elo mínimo para entrar?", a: "Não. O método funciona de Ferro a Imortal. O conteúdo é organizado por nível." },
   { q: "Quanto tempo por dia preciso dedicar?", a: "A partir de 1h/dia com o plano de treino você já sente evolução consistente." },
-  { q: "Como funciona a mentoria individual?", a: "Sessões 1:1 com análise de VOD, correções ao vivo e plano personalizado semana a semana." },
+  { q: "Qual a diferença entre o Intermediário e a Mentoria?", a: "A Mentoria inclui sessões ao vivo com o QCK, análise individual de VOD e um plano de evolução personalizado." },
   { q: "Tenho acesso vitalício?", a: "Sim. Uma vez dentro, acesso vitalício ao curso, comunidade e atualizações." },
   { q: "Existe garantia?", a: "7 dias de garantia incondicional. Se não gostar, devolvemos 100% do valor." },
 ];
@@ -394,11 +457,6 @@ export function FaqSection() {
   );
 }
 
-const ctaItems = [
-  "Curso completo", "Mentoria individual", "Comunidade exclusiva",
-  "Atualizações constantes", "Suporte direto", "Garantia de 7 dias",
-];
-
 export function FinalCta() {
   return (
     <section id="cta" className="relative py-32">
@@ -413,25 +471,16 @@ export function FinalCta() {
         >
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-[#7B2EFF] opacity-30 blur-3xl" />
           <div className="relative">
-            <div className="mx-auto inline-flex rounded-full glass px-3 py-1 text-xs uppercase tracking-widest">Vagas limitadas</div>
+            <div className="mx-auto inline-flex rounded-full glass px-3 py-1 text-xs uppercase tracking-widest">O próximo passo</div>
             <h2 className="mt-6 font-display text-4xl sm:text-5xl md:text-6xl font-bold text-gradient-brand tracking-tight">
-              Pronto para finalmente subir de elo?
+              Sua evolução começa agora.
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-white/70">
-              Entre no Projeto Radiante e transforme frustração em performance real.
+            <p className="mx-auto mt-5 max-w-2xl text-white/70 leading-relaxed">
+              Você pode continuar jogando da mesma forma — ou aprender com quem já percorreu esse caminho
+              e sabe exatamente onde estão os seus próximos degraus.
             </p>
-            <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-              {ctaItems.map((i) => (
-                <div key={i} className="flex items-center gap-3 rounded-xl glass px-4 py-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF]">
-                    <Check className="h-3.5 w-3.5 text-white" />
-                  </div>
-                  <span className="text-sm">{i}</span>
-                </div>
-              ))}
-            </div>
-            <a href="#" className="btn-primary-radiante mt-10 text-base" style={{ padding: "1.15rem 2.25rem" }}>
-              🔥 QUERO ENTRAR NO PROJETO RADIANTE
+            <a href="#planos" className="btn-primary-radiante mt-10 text-base" style={{ padding: "1.15rem 2.25rem" }}>
+              ENTRAR NO PROJETO RADIANTE
             </a>
             <div className="mt-4 inline-flex items-center gap-2 text-xs text-white/50">
               <Shield className="h-3.5 w-3.5" /> Garantia incondicional de 7 dias
