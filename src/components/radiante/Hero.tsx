@@ -91,11 +91,11 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.55 }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <a href="#cta" className="btn-primary-radiante">
+          <a href="#planos" className="btn-primary-radiante">
             <Flame className="h-4 w-4" /> Quero Evoluir Agora
           </a>
-          <a href="#videos" className="btn-ghost-radiante">
-            <Play className="h-4 w-4" /> Assistir Conteúdo
+          <a href="#hero" className="btn-ghost-radiante">
+            <Play className="h-4 w-4" /> Assistir História
           </a>
         </motion.div>
       </div>
