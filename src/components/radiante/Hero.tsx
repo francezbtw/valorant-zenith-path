@@ -26,8 +26,8 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="mx-auto inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs sm:text-sm text-white/80"
         >
-          <span>🔥</span>
-          <span>Método para jogadores que querem chegar ao próximo nível</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-[#00F5FF] shadow-[0_0_10px_#00F5FF] animate-pulse-glow" />
+          <span>Método para jogadores que realmente querem evoluir</span>
         </motion.div>
 
         <motion.h1
@@ -46,8 +46,8 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-white/70 leading-relaxed"
         >
-          Aprenda exatamente como jogadores <span className="text-white">Radiantes</span> pensam, treinam e vencem.
-          Sem perder meses vendo conteúdos aleatórios.
+          O caminho para jogar como um verdadeiro <span className="text-white">Radiante</span> não começa na mira.
+          Começa na forma como você <span className="text-white">pensa o jogo</span>.
         </motion.p>
 
         {/* Video */}
