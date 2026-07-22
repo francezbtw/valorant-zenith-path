@@ -26,8 +26,8 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="mx-auto inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs sm:text-sm text-white/80"
         >
-          <span>🔥</span>
-          <span>Método para jogadores que querem chegar ao próximo nível</span>
+          <span className="h-1.5 w-1.5 rounded-full bg-[#00F5FF] shadow-[0_0_10px_#00F5FF] animate-pulse-glow" />
+          <span>Método para jogadores que realmente querem evoluir</span>
         </motion.div>
 
         <motion.h1
@@ -46,8 +46,8 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-white/70 leading-relaxed"
         >
-          Aprenda exatamente como jogadores <span className="text-white">Radiantes</span> pensam, treinam e vencem.
-          Sem perder meses vendo conteúdos aleatórios.
+          O caminho para jogar como um verdadeiro <span className="text-white">Radiante</span> não começa na mira.
+          Começa na forma como você <span className="text-white">pensa o jogo</span>.
         </motion.p>
 
         {/* Video */}
@@ -68,17 +68,14 @@ export function Hero() {
             <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-r from-[#7B2EFF] via-[#6F4BFF] to-[#00F5FF] opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70" />
             <div className="absolute -inset-1 rounded-[1.75rem] bg-gradient-to-r from-[#7B2EFF] via-[#6F4BFF] to-[#00F5FF] opacity-80" />
             <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-black shadow-[0_40px_120px_-20px_rgba(123,46,255,0.6)]">
-              <div className="aspect-video w-full">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  poster="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80"
-                  className="h-full w-full object-cover"
-                >
-                  <source src="https://cdn.coverr.co/videos/coverr-a-gamer-playing-a-video-game-3388/1080p.mp4" type="video/mp4" />
-                </video>
+              <div className="relative aspect-video w-full">
+                <iframe
+                  src="https://drive.google.com/file/d/1WCHjloUawoGohnsC7IDBJg10hNcG128k/preview?autoplay=1&mute=1"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  title="Projeto Radiante — Apresentação"
+                  className="absolute inset-0 h-full w-full"
+                />
               </div>
               {/* Reflection */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/10" />
@@ -94,11 +91,11 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.55 }}
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <a href="#cta" className="btn-primary-radiante">
+          <a href="#planos" className="btn-primary-radiante">
             <Flame className="h-4 w-4" /> Quero Evoluir Agora
           </a>
-          <a href="#videos" className="btn-ghost-radiante">
-            <Play className="h-4 w-4" /> Assistir Conteúdo
+          <a href="#hero" className="btn-ghost-radiante">
+            <Play className="h-4 w-4" /> Assistir História
           </a>
         </motion.div>
       </div>

@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 
 const links = [
   { label: "Início", href: "#hero" },
-  { label: "Mentoria", href: "#como-funciona" },
-  { label: "Curso", href: "#aprender" },
+  { label: "A Mudança", href: "#mudanca" },
+  { label: "Planos", href: "#planos" },
   { label: "Resultados", href: "#resultados" },
-  { label: "Depoimentos", href: "#depoimentos" },
+  { label: "QCK", href: "#sobre" },
   { label: "FAQ", href: "#faq" },
 ];
 
