@@ -2,6 +2,7 @@ import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { Rocket } from "lucide-react";
 import { Particles } from "./Background";
 import { useRef, type MouseEvent } from "react";
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
 
 export function Hero() {
   const rx = useMotionValue(0);
@@ -101,7 +102,7 @@ export function Hero() {
                 <div className="relative aspect-video w-full">
                   <video
                     ref={videoRef}
-                    src="/hero-video.mp4"
+                    src={heroVideo.url}
                     autoPlay
                     muted
                     loop
