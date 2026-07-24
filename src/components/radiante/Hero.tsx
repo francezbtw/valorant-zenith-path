@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { Rocket, Volume2, VolumeX } from "lucide-react";
+import { Rocket } from "lucide-react";
 import { Particles } from "./Background";
-import { useRef, useState, type MouseEvent } from "react";
+import { useRef, type MouseEvent } from "react";
 
 export function Hero() {
   const rx = useMotionValue(0);
@@ -12,7 +12,6 @@ export function Hero() {
   const glowY = useTransform(ry, [-0.5, 0.5], ["0%", "100%"]);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -23,13 +22,6 @@ export function Hero() {
 
   const scrollToPlans = () => {
     document.getElementById("planos")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setMuted(videoRef.current.muted);
-    }
   };
 
   return (
@@ -101,13 +93,7 @@ export function Hero() {
                   <span className="h-1.5 w-1.5 rounded-full bg-[#00F5FF] animate-pulse-glow" />
                   radiante.live · qck
                 </div>
-                <button
-                  onClick={toggleMute}
-                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-                  aria-label="Alternar som"
-                >
-                  {muted ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
-                </button>
+                <span className="text-[10px] uppercase tracking-[0.25em] text-white/40">HD</span>
               </div>
 
               {/* Screen */}
@@ -120,18 +106,17 @@ export function Hero() {
                     muted
                     loop
                     playsInline
-                    poster=""
+                    controls
+                    controlsList="nodownload"
+                    preload="auto"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   {/* Scanline */}
                   <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F5FF]/60 to-transparent blur-[1px] animate-scan" />
-                  {/* Vignette + reflection */}
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.55))]" />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/[0.06]" />
                   {/* Mouse-follow highlight */}
                   <motion.div
                     aria-hidden
-                    className="pointer-events-none absolute inset-0 opacity-40 mix-blend-overlay"
+                    className="pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay"
                     style={{
                       background: useTransform(
                         [glowX, glowY],

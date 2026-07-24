@@ -435,30 +435,33 @@ export function AboutSection() {
       <div className="pointer-events-none absolute left-1/4 top-1/2 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-[#7B2EFF] opacity-15 blur-[160px]" />
 
       <div className="relative mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-16 items-center">
-          {/* Poster */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,520px)_1fr] gap-16 items-center">
+          {/* Photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-full max-w-[420px]"
+            className="relative mx-auto w-full max-w-[520px]"
           >
             {/* Aura glow */}
             <div className="absolute -inset-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_center,rgba(123,46,255,0.6),transparent_65%)] blur-3xl" />
             <div className="absolute -inset-6 rounded-[2.5rem] bg-[radial-gradient(ellipse_at_bottom,rgba(0,245,255,0.5),transparent_60%)] blur-3xl" />
 
-            <TiltCard className="relative" intensity={7}>
+            <TiltCard className="relative" intensity={6}>
               <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] holo-border">
-                <div className="absolute inset-[3px] rounded-[1.85rem] bg-[linear-gradient(180deg,#12081f_0%,#1a0d2e_50%,#050510_100%)]">
-                  {/* Background halo */}
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(123,46,255,0.5),transparent_60%)]" />
-                  {/* Silhouette */}
-                  <div className="absolute inset-0 flex items-end justify-center pb-8">
-                    <div className="font-display text-[13rem] font-black leading-none text-gradient-shift opacity-90">
-                      QCK
-                    </div>
-                  </div>
+                <div className="absolute inset-[3px] overflow-hidden rounded-[1.85rem] bg-[linear-gradient(180deg,#12081f_0%,#1a0d2e_50%,#050510_100%)]">
+                  {/* Photo */}
+                  <img
+                    src="/qck.jpg"
+                    alt="QCK — coach do Projeto Radiante"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                  />
+                  {/* Fallback halo + silhouette (shown if image missing) */}
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(123,46,255,0.35),transparent_60%)]" />
+                  {/* Gradient overlay for text contrast */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   {/* Bottom info bar */}
-                  <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/50 backdrop-blur-md p-4">
+                  <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/60 backdrop-blur-md p-4">
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="text-[9px] uppercase tracking-[0.25em] text-white/50">Coach · Mentor</div>
@@ -490,9 +493,16 @@ export function AboutSection() {
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.7 }}
               className="mt-6 max-w-xl text-lg text-white/70 leading-[1.75]">
-              Trajetória construída no competitivo, com anos de coach ativo e centenas de análises individuais.
-              Todo o método apresentado no vídeo foi lapidado na prática — treinando jogadores reais,
-              corrigindo VODs, revisando calls e transformando estagnação em evolução mensurável.
+              QCK construiu sua trajetória no cenário competitivo de Valorant, passando por scrims de alto nível,
+              campeonatos e bootcamps ao lado de jogadores profissionais. Anos como coach ativo consolidaram um método
+              próprio — testado em quadra, refinado em VOD e comprovado por dezenas de alunos que subiram vários elos
+              seguindo o mesmo caminho.
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+              className="mt-5 max-w-xl text-base text-white/55 leading-[1.75]">
+              Hoje, além de continuar competindo, dedica-se a formar a próxima geração de Radiantes —
+              ensinando game sense, tomada de decisão, comunicação e mentalidade de alto rendimento.
             </motion.p>
 
             {/* Dashboard stats */}

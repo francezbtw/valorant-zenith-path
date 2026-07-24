@@ -3,8 +3,7 @@ import { AnimatedBackground } from "@/components/radiante/Background";
 import { Navbar } from "@/components/radiante/Navbar";
 import { Hero } from "@/components/radiante/Hero";
 import {
-  NarrativeSection, ProblemsSection, ChangeSection, PlansSection,
-  ResultsSection, AboutSection, TestimonialsSection,
+  PlansSection, ResultsSection, AboutSection, TestimonialsSection,
   FaqSection, FinalCta, Footer,
 } from "@/components/radiante/Sections";
 import { SmoothScroll } from "@/components/radiante/SmoothScroll";
@@ -36,12 +35,9 @@ function Index() {
       <Navbar />
       <main className="relative">
         <Hero />
-        <NarrativeSection />
-        <ProblemsSection />
-        <ChangeSection />
-        <PlansSection />
         <ResultsSection />
         <AboutSection />
+        <PlansSection />
         <TestimonialsSection />
         <FaqSection />
         <FinalCta />
