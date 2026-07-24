@@ -493,9 +493,16 @@ export function AboutSection() {
             <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.7 }}
               className="mt-6 max-w-xl text-lg text-white/70 leading-[1.75]">
-              Trajetória construída no competitivo, com anos de coach ativo e centenas de análises individuais.
-              Todo o método apresentado no vídeo foi lapidado na prática — treinando jogadores reais,
-              corrigindo VODs, revisando calls e transformando estagnação em evolução mensurável.
+              QCK construiu sua trajetória no cenário competitivo de Valorant, passando por scrims de alto nível,
+              campeonatos e bootcamps ao lado de jogadores profissionais. Anos como coach ativo consolidaram um método
+              próprio — testado em quadra, refinado em VOD e comprovado por dezenas de alunos que subiram vários elos
+              seguindo o mesmo caminho.
+            </motion.p>
+            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+              className="mt-5 max-w-xl text-base text-white/55 leading-[1.75]">
+              Hoje, além de continuar competindo, dedica-se a formar a próxima geração de Radiantes —
+              ensinando game sense, tomada de decisão, comunicação e mentalidade de alto rendimento.
             </motion.p>
 
             {/* Dashboard stats */}
