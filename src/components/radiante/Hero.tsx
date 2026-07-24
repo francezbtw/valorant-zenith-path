@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { Rocket, Volume2, VolumeX } from "lucide-react";
+import { Rocket } from "lucide-react";
 import { Particles } from "./Background";
-import { useRef, useState, type MouseEvent } from "react";
+import { useRef, type MouseEvent } from "react";
 
 export function Hero() {
   const rx = useMotionValue(0);
