@@ -12,7 +12,6 @@ export function Hero() {
   const glowY = useTransform(ry, [-0.5, 0.5], ["0%", "100%"]);
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [muted, setMuted] = useState(true);
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -23,13 +22,6 @@ export function Hero() {
 
   const scrollToPlans = () => {
     document.getElementById("planos")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setMuted(videoRef.current.muted);
-    }
   };
 
   return (
