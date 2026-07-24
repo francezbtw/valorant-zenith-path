@@ -7,6 +7,7 @@ import {
   Rocket, Crown, Gem, ArrowRight, Target, Flame, TrendingUp, Award,
 } from "lucide-react";
 import { useRef, useState, type MouseEvent, type ReactNode } from "react";
+import qckPhoto from "@/assets/qck.jpg.asset.json";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -451,7 +452,7 @@ export function AboutSection() {
                 <div className="absolute inset-[3px] overflow-hidden rounded-[1.85rem] bg-[linear-gradient(180deg,#12081f_0%,#1a0d2e_50%,#050510_100%)]">
                   {/* Photo */}
                   <img
-                    src="/qck.jpg"
+                    src={qckPhoto.url}
                     alt="QCK — coach do Projeto Radiante"
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                     className="absolute inset-0 h-full w-full object-cover object-center"
