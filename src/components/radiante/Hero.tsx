@@ -102,7 +102,7 @@ export function Hero() {
                 <div className="relative aspect-video w-full">
                   <video
                     ref={videoRef}
-                    src="/hero-video.mp4"
+                    src={heroVideo.url}
                     autoPlay
                     muted
                     loop
