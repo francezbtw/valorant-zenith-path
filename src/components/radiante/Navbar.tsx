@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
 const links = [
@@ -60,6 +61,9 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Link to="/auth" className="hidden rounded-full px-3.5 py-1.5 text-sm text-white/70 transition-colors hover:text-white md:inline-flex">
+              Área de Membros
+            </Link>
             <a href="#cta" className="btn-primary-radiante hidden text-sm md:inline-flex" style={{ padding: "0.6rem 1.25rem" }}>
               Entrar Agora
             </a>
