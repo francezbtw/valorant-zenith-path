@@ -15,7 +15,10 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppMentoriaRouteImport } from './routes/_authenticated/app.mentoria'
+import { Route as AuthenticatedAppComunidadeRouteImport } from './routes/_authenticated/app.comunidade'
 import { Route as AuthenticatedAppCursoIndexRouteImport } from './routes/_authenticated/app.curso.index'
+import { Route as AuthenticatedAppCursoSlugRouteImport } from './routes/_authenticated/app.curso.$slug'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -46,10 +49,28 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppMentoriaRoute =
+  AuthenticatedAppMentoriaRouteImport.update({
+    id: '/mentoria',
+    path: '/mentoria',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppComunidadeRoute =
+  AuthenticatedAppComunidadeRouteImport.update({
+    id: '/comunidade',
+    path: '/comunidade',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppCursoIndexRoute =
   AuthenticatedAppCursoIndexRouteImport.update({
     id: '/curso/',
     path: '/curso/',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppCursoSlugRoute =
+  AuthenticatedAppCursoSlugRouteImport.update({
+    id: '/curso/$slug',
+    path: '/curso/$slug',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
 
@@ -58,14 +79,20 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
+  '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/app/curso/': typeof AuthenticatedAppCursoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
+  '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/app/curso': typeof AuthenticatedAppCursoIndexRoute
 }
 export interface FileRoutesById {
@@ -75,7 +102,10 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/comunidade': typeof AuthenticatedAppComunidadeRoute
+  '/_authenticated/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/_authenticated/app/curso/': typeof AuthenticatedAppCursoIndexRoute
 }
 export interface FileRouteTypes {
@@ -85,10 +115,21 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/app'
+    | '/app/comunidade'
+    | '/app/mentoria'
     | '/app/'
+    | '/app/curso/$slug'
     | '/app/curso/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password' | '/app' | '/app/curso'
+  to:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/app/comunidade'
+    | '/app/mentoria'
+    | '/app'
+    | '/app/curso/$slug'
+    | '/app/curso'
   id:
     | '__root__'
     | '/'
@@ -96,7 +137,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_authenticated/app'
+    | '/_authenticated/app/comunidade'
+    | '/_authenticated/app/mentoria'
     | '/_authenticated/app/'
+    | '/_authenticated/app/curso/$slug'
     | '/_authenticated/app/curso/'
   fileRoutesById: FileRoutesById
 }
@@ -151,6 +195,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/mentoria': {
+      id: '/_authenticated/app/mentoria'
+      path: '/mentoria'
+      fullPath: '/app/mentoria'
+      preLoaderRoute: typeof AuthenticatedAppMentoriaRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/comunidade': {
+      id: '/_authenticated/app/comunidade'
+      path: '/comunidade'
+      fullPath: '/app/comunidade'
+      preLoaderRoute: typeof AuthenticatedAppComunidadeRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/curso/': {
       id: '/_authenticated/app/curso/'
       path: '/curso'
@@ -158,16 +216,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppCursoIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/curso/$slug': {
+      id: '/_authenticated/app/curso/$slug'
+      path: '/curso/$slug'
+      fullPath: '/app/curso/$slug'
+      preLoaderRoute: typeof AuthenticatedAppCursoSlugRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
 interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppComunidadeRoute: typeof AuthenticatedAppComunidadeRoute
+  AuthenticatedAppMentoriaRoute: typeof AuthenticatedAppMentoriaRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAppCursoSlugRoute: typeof AuthenticatedAppCursoSlugRoute
   AuthenticatedAppCursoIndexRoute: typeof AuthenticatedAppCursoIndexRoute
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppComunidadeRoute: AuthenticatedAppComunidadeRoute,
+  AuthenticatedAppMentoriaRoute: AuthenticatedAppMentoriaRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAppCursoSlugRoute: AuthenticatedAppCursoSlugRoute,
   AuthenticatedAppCursoIndexRoute: AuthenticatedAppCursoIndexRoute,
 }
 
