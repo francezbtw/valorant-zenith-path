@@ -14,16 +14,243 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      announcements: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          min_tier: Database["public"]["Enums"]["plan_tier"]
+          published: boolean
+          title: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          min_tier?: Database["public"]["Enums"]["plan_tier"]
+          published?: boolean
+          title: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          min_tier?: Database["public"]["Enums"]["plan_tier"]
+          published?: boolean
+          title?: string
+        }
+        Relationships: []
+      }
+      enrollments: {
+        Row: {
+          created_at: string
+          expires_at: string | null
+          id: string
+          plan: Database["public"]["Enums"]["plan_tier"]
+          provider: string | null
+          provider_ref: string | null
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan: Database["public"]["Enums"]["plan_tier"]
+          provider?: string | null
+          provider_ref?: string | null
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan?: Database["public"]["Enums"]["plan_tier"]
+          provider?: string | null
+          provider_ref?: string | null
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      lesson_progress: {
+        Row: {
+          completed: boolean
+          completed_at: string | null
+          last_position_seconds: number
+          lesson_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          completed_at?: string | null
+          last_position_seconds?: number
+          lesson_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          completed_at?: string | null
+          last_position_seconds?: number
+          lesson_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lesson_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lessons: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_seconds: number
+          id: string
+          materials: Json
+          module_id: string
+          position: number
+          slug: string
+          title: string
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number
+          id?: string
+          materials?: Json
+          module_id: string
+          position?: number
+          slug: string
+          title: string
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number
+          id?: string
+          materials?: Json
+          module_id?: string
+          position?: number
+          slug?: string
+          title?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      modules: {
+        Row: {
+          cover_color: string | null
+          created_at: string
+          description: string | null
+          id: string
+          position: number
+          slug: string
+          tier: Database["public"]["Enums"]["plan_tier"]
+          title: string
+        }
+        Insert: {
+          cover_color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          position?: number
+          slug: string
+          tier?: Database["public"]["Enums"]["plan_tier"]
+          title: string
+        }
+        Update: {
+          cover_color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          position?: number
+          slug?: string
+          tier?: Database["public"]["Enums"]["plan_tier"]
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          current_rank: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          riot_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          current_rank?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          riot_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          current_rank?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          riot_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      current_plan: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["plan_tier"]
+      }
+      has_plan_access: {
+        Args: {
+          _required: Database["public"]["Enums"]["plan_tier"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      plan_rank: {
+        Args: { _plan: Database["public"]["Enums"]["plan_tier"] }
+        Returns: number
+      }
     }
     Enums: {
-      [_ in never]: never
+      plan_tier: "basico" | "intermediario" | "mentoria"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +377,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      plan_tier: ["basico", "intermediario", "mentoria"],
+    },
   },
 } as const
