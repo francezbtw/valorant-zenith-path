@@ -78,7 +78,7 @@ function ConfigPage() {
           </div>
           <dl className="mt-5 space-y-2 text-sm text-white/55">
             <div className="flex justify-between"><dt>Status</dt><dd>{enrollment?.status ?? "—"}</dd></div>
-            <div className="flex justify-between"><dt>Origem</dt><dd>{enrollment?.source ?? "—"}</dd></div>
+            <div className="flex justify-between"><dt>Origem</dt><dd>{enrollment?.provider ?? "—"}</dd></div>
             <div className="flex justify-between">
               <dt>Válido até</dt>
               <dd>{enrollment?.expires_at ? new Date(enrollment.expires_at).toLocaleDateString("pt-BR") : "Vitalício"}</dd>

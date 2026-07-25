@@ -15,7 +15,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authenticated/app.suporte'
+import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
+import { Route as AuthenticatedAppPerfilRouteImport } from './routes/_authenticated/app.perfil'
 import { Route as AuthenticatedAppMentoriaRouteImport } from './routes/_authenticated/app.mentoria'
+import { Route as AuthenticatedAppConfiguracoesRouteImport } from './routes/_authenticated/app.configuracoes'
 import { Route as AuthenticatedAppComunidadeRouteImport } from './routes/_authenticated/app.comunidade'
 import { Route as AuthenticatedAppCursoIndexRouteImport } from './routes/_authenticated/app.curso.index'
 import { Route as AuthenticatedAppCursoSlugRouteImport } from './routes/_authenticated/app.curso.$slug'
@@ -49,10 +53,32 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppSuporteRoute = AuthenticatedAppSuporteRouteImport.update({
+  id: '/suporte',
+  path: '/suporte',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppProgressoRoute =
+  AuthenticatedAppProgressoRouteImport.update({
+    id: '/progresso',
+    path: '/progresso',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppPerfilRoute = AuthenticatedAppPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppMentoriaRoute =
   AuthenticatedAppMentoriaRouteImport.update({
     id: '/mentoria',
     path: '/mentoria',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppConfiguracoesRoute =
+  AuthenticatedAppConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
 const AuthenticatedAppComunidadeRoute =
@@ -80,7 +106,11 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
+  '/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
   '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
+  '/app/perfil': typeof AuthenticatedAppPerfilRoute
+  '/app/progresso': typeof AuthenticatedAppProgressoRoute
+  '/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/app/curso/': typeof AuthenticatedAppCursoIndexRoute
@@ -90,7 +120,11 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
+  '/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
   '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
+  '/app/perfil': typeof AuthenticatedAppPerfilRoute
+  '/app/progresso': typeof AuthenticatedAppProgressoRoute
+  '/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/app/curso': typeof AuthenticatedAppCursoIndexRoute
@@ -103,7 +137,11 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/app/comunidade': typeof AuthenticatedAppComunidadeRoute
+  '/_authenticated/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
   '/_authenticated/app/mentoria': typeof AuthenticatedAppMentoriaRoute
+  '/_authenticated/app/perfil': typeof AuthenticatedAppPerfilRoute
+  '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
+  '/_authenticated/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/_authenticated/app/curso/': typeof AuthenticatedAppCursoIndexRoute
@@ -116,7 +154,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/app'
     | '/app/comunidade'
+    | '/app/configuracoes'
     | '/app/mentoria'
+    | '/app/perfil'
+    | '/app/progresso'
+    | '/app/suporte'
     | '/app/'
     | '/app/curso/$slug'
     | '/app/curso/'
@@ -126,7 +168,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/app/comunidade'
+    | '/app/configuracoes'
     | '/app/mentoria'
+    | '/app/perfil'
+    | '/app/progresso'
+    | '/app/suporte'
     | '/app'
     | '/app/curso/$slug'
     | '/app/curso'
@@ -138,7 +184,11 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/app'
     | '/_authenticated/app/comunidade'
+    | '/_authenticated/app/configuracoes'
     | '/_authenticated/app/mentoria'
+    | '/_authenticated/app/perfil'
+    | '/_authenticated/app/progresso'
+    | '/_authenticated/app/suporte'
     | '/_authenticated/app/'
     | '/_authenticated/app/curso/$slug'
     | '/_authenticated/app/curso/'
@@ -195,11 +245,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/suporte': {
+      id: '/_authenticated/app/suporte'
+      path: '/suporte'
+      fullPath: '/app/suporte'
+      preLoaderRoute: typeof AuthenticatedAppSuporteRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/progresso': {
+      id: '/_authenticated/app/progresso'
+      path: '/progresso'
+      fullPath: '/app/progresso'
+      preLoaderRoute: typeof AuthenticatedAppProgressoRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/perfil': {
+      id: '/_authenticated/app/perfil'
+      path: '/perfil'
+      fullPath: '/app/perfil'
+      preLoaderRoute: typeof AuthenticatedAppPerfilRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/mentoria': {
       id: '/_authenticated/app/mentoria'
       path: '/mentoria'
       fullPath: '/app/mentoria'
       preLoaderRoute: typeof AuthenticatedAppMentoriaRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/configuracoes': {
+      id: '/_authenticated/app/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/app/configuracoes'
+      preLoaderRoute: typeof AuthenticatedAppConfiguracoesRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/comunidade': {
@@ -228,7 +306,11 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppComunidadeRoute: typeof AuthenticatedAppComunidadeRoute
+  AuthenticatedAppConfiguracoesRoute: typeof AuthenticatedAppConfiguracoesRoute
   AuthenticatedAppMentoriaRoute: typeof AuthenticatedAppMentoriaRoute
+  AuthenticatedAppPerfilRoute: typeof AuthenticatedAppPerfilRoute
+  AuthenticatedAppProgressoRoute: typeof AuthenticatedAppProgressoRoute
+  AuthenticatedAppSuporteRoute: typeof AuthenticatedAppSuporteRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppCursoSlugRoute: typeof AuthenticatedAppCursoSlugRoute
   AuthenticatedAppCursoIndexRoute: typeof AuthenticatedAppCursoIndexRoute
@@ -236,7 +318,11 @@ interface AuthenticatedAppRouteChildren {
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppComunidadeRoute: AuthenticatedAppComunidadeRoute,
+  AuthenticatedAppConfiguracoesRoute: AuthenticatedAppConfiguracoesRoute,
   AuthenticatedAppMentoriaRoute: AuthenticatedAppMentoriaRoute,
+  AuthenticatedAppPerfilRoute: AuthenticatedAppPerfilRoute,
+  AuthenticatedAppProgressoRoute: AuthenticatedAppProgressoRoute,
+  AuthenticatedAppSuporteRoute: AuthenticatedAppSuporteRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppCursoSlugRoute: AuthenticatedAppCursoSlugRoute,
   AuthenticatedAppCursoIndexRoute: AuthenticatedAppCursoIndexRoute,
