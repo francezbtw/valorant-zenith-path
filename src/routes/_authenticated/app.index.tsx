@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { PlayCircle, Trophy, Flame, BookOpen, Megaphone, ArrowRight } from "lucide-react";
+import { PlayCircle, Trophy, Flame, BookOpen, Megaphone, ArrowRight, History, Gamepad2 } from "lucide-react";
 import { PageHeader } from "@/components/membros/MemberShell";
 import { useProfile, usePlan, useLessons, useModules, useProgress, useAnnouncements } from "@/hooks/use-member";
+import { useRankHistory } from "@/hooks/use-valorant";
 import { PLAN_LABEL, PLAN_ACCENT } from "@/lib/member";
+import { tierColor } from "@/lib/valorant";
+
 
 export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
