@@ -30,6 +30,7 @@ function DashboardHome() {
   const { data: modules = [] } = useModules();
   const { data: progress = [] } = useProgress();
   const { data: announcements = [] } = useAnnouncements();
+  const { data: rankHistory = [] } = useRankHistory();
 
   const completedIds = new Set(progress.filter((p) => p.completed).map((p) => p.lesson_id));
   const total = lessons.length;
@@ -37,6 +38,13 @@ function DashboardHome() {
   const pct = total ? Math.round((done / total) * 100) : 0;
   const next = lessons.find((l) => !completedIds.has(l.id)) ?? lessons[0];
   const nextModule = modules.find((m) => m.id === next?.module_id);
+
+  const lastTouched = [...progress]
+    .filter((p) => p.updated_at)
+    .sort((a, b) => new Date(b.updated_at!).getTime() - new Date(a.updated_at!).getTime())[0];
+  const lastLesson = lessons.find((l) => l.id === lastTouched?.lesson_id);
+  const lastRank = rankHistory[rankHistory.length - 1];
+
 
   const firstName = (profile?.full_name ?? "Radiante").split(" ")[0];
 
