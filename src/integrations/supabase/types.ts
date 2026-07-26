@@ -228,6 +228,72 @@ export type Database = {
         }
         Relationships: []
       }
+      rank_history: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          rank_tier: string
+          recorded_at: string
+          rr: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          rank_tier: string
+          recorded_at?: string
+          rr?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          rank_tier?: string
+          recorded_at?: string
+          rr?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      valorant_accounts: {
+        Row: {
+          created_at: string
+          puuid: string | null
+          region: string
+          riot_name: string
+          riot_tag: string
+          updated_at: string
+          user_id: string
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          puuid?: string | null
+          region?: string
+          riot_name: string
+          riot_tag: string
+          updated_at?: string
+          user_id: string
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          puuid?: string | null
+          region?: string
+          riot_name?: string
+          riot_tag?: string
+          updated_at?: string
+          user_id?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

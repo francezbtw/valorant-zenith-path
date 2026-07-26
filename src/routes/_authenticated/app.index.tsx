@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { PlayCircle, Trophy, Flame, BookOpen, Megaphone, ArrowRight } from "lucide-react";
+import { PlayCircle, Trophy, Flame, BookOpen, Megaphone, ArrowRight, History, Gamepad2 } from "lucide-react";
 import { PageHeader } from "@/components/membros/MemberShell";
 import { useProfile, usePlan, useLessons, useModules, useProgress, useAnnouncements } from "@/hooks/use-member";
+import { useRankHistory } from "@/hooks/use-valorant";
 import { PLAN_LABEL, PLAN_ACCENT } from "@/lib/member";
+import { tierColor } from "@/lib/valorant";
+
 
 export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
@@ -27,6 +30,7 @@ function DashboardHome() {
   const { data: modules = [] } = useModules();
   const { data: progress = [] } = useProgress();
   const { data: announcements = [] } = useAnnouncements();
+  const { data: rankHistory = [] } = useRankHistory();
 
   const completedIds = new Set(progress.filter((p) => p.completed).map((p) => p.lesson_id));
   const total = lessons.length;
@@ -34,6 +38,13 @@ function DashboardHome() {
   const pct = total ? Math.round((done / total) * 100) : 0;
   const next = lessons.find((l) => !completedIds.has(l.id)) ?? lessons[0];
   const nextModule = modules.find((m) => m.id === next?.module_id);
+
+  const lastTouched = [...progress]
+    .filter((p) => p.updated_at)
+    .sort((a, b) => new Date(b.updated_at!).getTime() - new Date(a.updated_at!).getTime())[0];
+  const lastLesson = lessons.find((l) => l.id === lastTouched?.lesson_id);
+  const lastRank = rankHistory[rankHistory.length - 1];
+
 
   const firstName = (profile?.full_name ?? "Radiante").split(" ")[0];
 
@@ -86,7 +97,7 @@ function DashboardHome() {
         </motion.div>
       </div>
 
-      <div className="mt-5 grid gap-5 sm:grid-cols-3">
+      <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <Stat icon={BookOpen} label="Módulos liberados" value={String(modules.length)} />
         <Stat icon={Flame} label="Aulas concluídas" value={String(done)} />
         <Stat
@@ -95,7 +106,54 @@ function DashboardHome() {
           value={plan ? PLAN_LABEL[plan] : "—"}
           accent={plan ? PLAN_ACCENT[plan] : undefined}
         />
+        <Stat
+          icon={Gamepad2}
+          label="Último elo registrado"
+          value={lastRank ? `${lastRank.rank_tier}` : "—"}
+          accent={lastRank ? tierColor(lastRank.rank_tier) : undefined}
+        />
       </div>
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+        <div className="rounded-3xl glass-card p-7">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
+            <History className="h-3.5 w-3.5" /> Última aula assistida
+          </div>
+          <div className="mt-4 font-display text-lg font-semibold">{lastLesson?.title ?? "Nenhuma ainda"}</div>
+          <p className="mt-1 text-sm text-white/50">
+            {lastTouched?.updated_at
+              ? `Atualizada em ${new Date(lastTouched.updated_at).toLocaleDateString("pt-BR")}`
+              : "Comece pela primeira aula da trilha."}
+          </p>
+          {lastLesson && (
+            <Link
+              to="/app/curso/$slug"
+              params={{ slug: lastLesson.slug }}
+              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-[#00F5FF]/50 hover:text-white"
+            >
+              <PlayCircle className="h-4 w-4" /> Continuar estudando
+            </Link>
+          )}
+        </div>
+
+        <div className="rounded-3xl glass-card p-7">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
+            <ArrowRight className="h-3.5 w-3.5" /> Próxima aula
+          </div>
+          <div className="mt-4 font-display text-lg font-semibold">{next?.title ?? "Em preparação"}</div>
+          <p className="mt-1 text-sm text-white/50">{nextModule?.title ?? "Novas aulas em breve."}</p>
+          {next && (
+            <Link
+              to="/app/curso/$slug"
+              params={{ slug: next.slug }}
+              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-[#7B2EFF]/60 hover:text-white"
+            >
+              <PlayCircle className="h-4 w-4" /> Começar agora
+            </Link>
+          )}
+        </div>
+      </div>
+
 
       <div className="mt-5 rounded-3xl glass-card p-7">
         <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
