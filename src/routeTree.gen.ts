@@ -32,6 +32,7 @@ import { Route as AuthenticatedAdminCuponsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminConteudoRouteImport } from './routes/_authenticated/admin.conteudo'
 import { Route as AuthenticatedAdminConfiguracoesRouteImport } from './routes/_authenticated/admin.configuracoes'
 import { Route as AuthenticatedAdminAulasRouteImport } from './routes/_authenticated/admin.aulas'
+import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
 import { Route as AuthenticatedAdminAlunosRouteImport } from './routes/_authenticated/admin.alunos'
 import { Route as AuthenticatedAppCursoIndexRouteImport } from './routes/_authenticated/app.curso.index'
 import { Route as AuthenticatedAppCursoSlugRouteImport } from './routes/_authenticated/app.curso.$slug'
@@ -162,6 +163,12 @@ const AuthenticatedAdminAulasRoute = AuthenticatedAdminAulasRouteImport.update({
   path: '/aulas',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminAnalyticsRoute =
+  AuthenticatedAdminAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminAlunosRoute =
   AuthenticatedAdminAlunosRouteImport.update({
     id: '/alunos',
@@ -188,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
@@ -213,6 +221,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
+  '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
@@ -242,6 +251,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/admin/alunos': typeof AuthenticatedAdminAlunosRoute
+  '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/aulas': typeof AuthenticatedAdminAulasRoute
   '/_authenticated/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/_authenticated/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/admin/alunos'
+    | '/admin/analytics'
     | '/admin/aulas'
     | '/admin/configuracoes'
     | '/admin/conteudo'
@@ -296,6 +307,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/admin/alunos'
+    | '/admin/analytics'
     | '/admin/aulas'
     | '/admin/configuracoes'
     | '/admin/conteudo'
@@ -324,6 +336,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/app'
     | '/_authenticated/admin/alunos'
+    | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/aulas'
     | '/_authenticated/admin/configuracoes'
     | '/_authenticated/admin/conteudo'
@@ -515,6 +528,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAulasRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/analytics': {
+      id: '/_authenticated/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AuthenticatedAdminAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/alunos': {
       id: '/_authenticated/admin/alunos'
       path: '/alunos'
@@ -541,6 +561,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAlunosRoute: typeof AuthenticatedAdminAlunosRoute
+  AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
   AuthenticatedAdminAulasRoute: typeof AuthenticatedAdminAulasRoute
   AuthenticatedAdminConfiguracoesRoute: typeof AuthenticatedAdminConfiguracoesRoute
   AuthenticatedAdminConteudoRoute: typeof AuthenticatedAdminConteudoRoute
@@ -555,6 +576,7 @@ interface AuthenticatedAdminRouteChildren {
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAlunosRoute: AuthenticatedAdminAlunosRoute,
+  AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
   AuthenticatedAdminAulasRoute: AuthenticatedAdminAulasRoute,
   AuthenticatedAdminConfiguracoesRoute: AuthenticatedAdminConfiguracoesRoute,
   AuthenticatedAdminConteudoRoute: AuthenticatedAdminConteudoRoute,
