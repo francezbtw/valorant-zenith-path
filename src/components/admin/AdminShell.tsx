@@ -8,19 +8,19 @@ import {
 } from "lucide-react";
 
 const nav = [
-  { label: "Dashboard", to: "/app/admin", icon: LayoutDashboard },
-  { label: "Alunos", to: "/app/admin/alunos", icon: Users },
-  { label: "Cursos", to: "/app/admin/cursos", icon: GraduationCap },
-  { label: "Módulos", to: "/app/admin/modulos", icon: Layers },
-  { label: "Aulas", to: "/app/admin/aulas", icon: PlayCircle },
-  { label: "Mentorias", to: "/app/admin/mentorias", icon: Sparkles },
-  { label: "Planos", to: "/app/admin/planos", icon: Package },
-  { label: "Pagamentos", to: "/app/admin/pagamentos", icon: CreditCard },
-  { label: "Cupons", to: "/app/admin/cupons", icon: Ticket },
-  { label: "Conteúdo", to: "/app/admin/conteudo", icon: FileText },
-  { label: "Analytics", to: "/app/admin/analytics", icon: BarChart3 },
-  { label: "Configurações", to: "/app/admin/configuracoes", icon: Settings },
-  { label: "Suporte", to: "/app/admin/suporte", icon: LifeBuoy },
+  { label: "Dashboard", to: "/admin", icon: LayoutDashboard },
+  { label: "Alunos", to: "/admin/alunos", icon: Users },
+  { label: "Cursos", to: "/admin/cursos", icon: GraduationCap },
+  { label: "Módulos", to: "/admin/modulos", icon: Layers },
+  { label: "Aulas", to: "/admin/aulas", icon: PlayCircle },
+  { label: "Mentorias", to: "/admin/mentorias", icon: Sparkles },
+  { label: "Planos", to: "/admin/planos", icon: Package },
+  { label: "Pagamentos", to: "/admin/pagamentos", icon: CreditCard },
+  { label: "Cupons", to: "/admin/cupons", icon: Ticket },
+  { label: "Conteúdo", to: "/admin/conteudo", icon: FileText },
+  { label: "Analytics", to: "/admin/analytics", icon: BarChart3 },
+  { label: "Configurações", to: "/admin/configuracoes", icon: Settings },
+  { label: "Suporte", to: "/admin/suporte", icon: LifeBuoy },
 ] as const;
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -46,7 +46,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
         {nav.map((item) => {
-          const active = item.to === "/app/admin" ? pathname === "/app/admin" : pathname.startsWith(item.to);
+          const active = item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
           return (
             <Link
               key={item.to}
