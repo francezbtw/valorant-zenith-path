@@ -41,6 +41,84 @@ export type Database = {
         }
         Relationships: []
       }
+      coupons: {
+        Row: {
+          active: boolean
+          code: string
+          created_at: string
+          discount_type: string
+          discount_value: number
+          expires_at: string | null
+          id: string
+          max_uses: number | null
+          updated_at: string
+          uses: number
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          created_at?: string
+          discount_type?: string
+          discount_value?: number
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          updated_at?: string
+          uses?: number
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          created_at?: string
+          discount_type?: string
+          discount_value?: number
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          updated_at?: string
+          uses?: number
+        }
+        Relationships: []
+      }
+      courses: {
+        Row: {
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          min_tier: Database["public"]["Enums"]["plan_tier"]
+          position: number
+          published: boolean
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          min_tier?: Database["public"]["Enums"]["plan_tier"]
+          position?: number
+          published?: boolean
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          min_tier?: Database["public"]["Enums"]["plan_tier"]
+          position?: number
+          published?: boolean
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       enrollments: {
         Row: {
           created_at: string
@@ -124,8 +202,10 @@ export type Database = {
           materials: Json
           module_id: string
           position: number
+          published: boolean
           slug: string
           title: string
+          updated_at: string
           video_url: string | null
         }
         Insert: {
@@ -136,8 +216,10 @@ export type Database = {
           materials?: Json
           module_id: string
           position?: number
+          published?: boolean
           slug: string
           title: string
+          updated_at?: string
           video_url?: string | null
         }
         Update: {
@@ -148,8 +230,10 @@ export type Database = {
           materials?: Json
           module_id?: string
           position?: number
+          published?: boolean
           slug?: string
           title?: string
+          updated_at?: string
           video_url?: string | null
         }
         Relationships: [
@@ -162,36 +246,188 @@ export type Database = {
           },
         ]
       }
+      mentorships: {
+        Row: {
+          created_at: string
+          duration_minutes: number
+          id: string
+          meeting_url: string | null
+          mentor_name: string
+          notes: string | null
+          scheduled_at: string | null
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          meeting_url?: string | null
+          mentor_name?: string
+          notes?: string | null
+          scheduled_at?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          meeting_url?: string | null
+          mentor_name?: string
+          notes?: string | null
+          scheduled_at?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       modules: {
         Row: {
+          course_id: string | null
           cover_color: string | null
           created_at: string
           description: string | null
           id: string
           position: number
+          published: boolean
           slug: string
           tier: Database["public"]["Enums"]["plan_tier"]
           title: string
+          updated_at: string
         }
         Insert: {
+          course_id?: string | null
           cover_color?: string | null
           created_at?: string
           description?: string | null
           id?: string
           position?: number
+          published?: boolean
           slug: string
           tier?: Database["public"]["Enums"]["plan_tier"]
           title: string
+          updated_at?: string
         }
         Update: {
+          course_id?: string | null
           cover_color?: string | null
           created_at?: string
           description?: string | null
           id?: string
           position?: number
+          published?: boolean
           slug?: string
           tier?: Database["public"]["Enums"]["plan_tier"]
           title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "modules_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          id: string
+          paid_at: string | null
+          plan: Database["public"]["Enums"]["plan_tier"] | null
+          provider: string | null
+          provider_ref: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          paid_at?: string | null
+          plan?: Database["public"]["Enums"]["plan_tier"] | null
+          provider?: string | null
+          provider_ref?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          paid_at?: string | null
+          plan?: Database["public"]["Enums"]["plan_tier"] | null
+          provider?: string | null
+          provider_ref?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      plans: {
+        Row: {
+          active: boolean
+          checkout_url: string | null
+          created_at: string
+          currency: string
+          features: Json
+          highlight: boolean
+          id: string
+          name: string
+          position: number
+          price_cents: number
+          slug: string
+          tagline: string | null
+          tier: Database["public"]["Enums"]["plan_tier"]
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          checkout_url?: string | null
+          created_at?: string
+          currency?: string
+          features?: Json
+          highlight?: boolean
+          id?: string
+          name: string
+          position?: number
+          price_cents?: number
+          slug: string
+          tagline?: string | null
+          tier: Database["public"]["Enums"]["plan_tier"]
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          checkout_url?: string | null
+          created_at?: string
+          currency?: string
+          features?: Json
+          highlight?: boolean
+          id?: string
+          name?: string
+          position?: number
+          price_cents?: number
+          slug?: string
+          tagline?: string | null
+          tier?: Database["public"]["Enums"]["plan_tier"]
+          updated_at?: string
         }
         Relationships: []
       }
@@ -261,6 +497,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       valorant_accounts: {
         Row: {
           created_at: string
@@ -310,12 +567,21 @@ export type Database = {
         }
         Returns: boolean
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: { Args: never; Returns: boolean }
       plan_rank: {
         Args: { _plan: Database["public"]["Enums"]["plan_tier"] }
         Returns: number
       }
     }
     Enums: {
+      app_role: "admin" | "moderator" | "user"
       plan_tier: "basico" | "intermediario" | "mentoria"
     }
     CompositeTypes: {
@@ -444,6 +710,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: ["admin", "moderator", "user"],
       plan_tier: ["basico", "intermediario", "mentoria"],
     },
   },
