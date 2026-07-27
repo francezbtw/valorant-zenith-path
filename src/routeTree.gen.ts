@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authenticated/app.suporte'
 import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
 import { Route as AuthenticatedAppPerfilRouteImport } from './routes/_authenticated/app.perfil'
@@ -67,6 +68,11 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedAppSuporteRoute = AuthenticatedAppSuporteRouteImport.update({
   id: '/suporte',
@@ -189,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/app/curso/': typeof AuthenticatedAppCursoIndexRoute
@@ -197,7 +204,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
@@ -213,6 +219,7 @@ export interface FileRoutesByTo {
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/app/curso': typeof AuthenticatedAppCursoIndexRoute
@@ -240,6 +247,7 @@ export interface FileRoutesById {
   '/_authenticated/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/_authenticated/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/_authenticated/app/curso/': typeof AuthenticatedAppCursoIndexRoute
@@ -267,6 +275,7 @@ export interface FileRouteTypes {
     | '/app/perfil'
     | '/app/progresso'
     | '/app/suporte'
+    | '/admin/'
     | '/app/'
     | '/app/curso/$slug'
     | '/app/curso/'
@@ -275,7 +284,6 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
-    | '/admin'
     | '/admin/aulas'
     | '/admin/configuracoes'
     | '/admin/conteudo'
@@ -291,6 +299,7 @@ export interface FileRouteTypes {
     | '/app/perfil'
     | '/app/progresso'
     | '/app/suporte'
+    | '/admin'
     | '/app'
     | '/app/curso/$slug'
     | '/app/curso'
@@ -317,6 +326,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/perfil'
     | '/_authenticated/app/progresso'
     | '/_authenticated/app/suporte'
+    | '/_authenticated/admin/'
     | '/_authenticated/app/'
     | '/_authenticated/app/curso/$slug'
     | '/_authenticated/app/curso/'
@@ -379,6 +389,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/app/suporte': {
       id: '/_authenticated/app/suporte'
@@ -512,6 +529,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminModulosRoute: typeof AuthenticatedAdminModulosRoute
   AuthenticatedAdminPagamentosRoute: typeof AuthenticatedAdminPagamentosRoute
   AuthenticatedAdminPlanosRoute: typeof AuthenticatedAdminPlanosRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
@@ -524,6 +542,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminModulosRoute: AuthenticatedAdminModulosRoute,
   AuthenticatedAdminPagamentosRoute: AuthenticatedAdminPagamentosRoute,
   AuthenticatedAdminPlanosRoute: AuthenticatedAdminPlanosRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
 const AuthenticatedAdminRouteWithChildren =
