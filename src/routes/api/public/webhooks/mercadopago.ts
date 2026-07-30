@@ -13,7 +13,7 @@ export const Route = createFileRoute("/api/public/webhooks/mercadopago")({
         if (!token) return new Response("Webhook não configurado", { status: 503 });
 
         const body = await request.text();
-        let event: Record<string, unknown> = {};
+        let event: any = {};
         try {
           event = JSON.parse(body);
         } catch {
@@ -21,9 +21,9 @@ export const Route = createFileRoute("/api/public/webhooks/mercadopago")({
         }
 
         const url = new URL(request.url);
-        const type = String((event.type as string) ?? url.searchParams.get("topic") ?? "");
+        const type = String(event.type ?? url.searchParams.get("topic") ?? "");
         const paymentId = String(
-          (event.data as { id?: string } | undefined)?.id ?? url.searchParams.get("id") ?? "",
+          event.data?.id ?? url.searchParams.get("id") ?? "",
         );
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
