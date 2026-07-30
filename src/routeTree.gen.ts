@@ -22,6 +22,7 @@ import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
 import { Route as AuthenticatedAppPerfilRouteImport } from './routes/_authenticated/app.perfil'
 import { Route as AuthenticatedAppMentoriaRouteImport } from './routes/_authenticated/app.mentoria'
+import { Route as AuthenticatedAppEvolucaoRouteImport } from './routes/_authenticated/app.evolucao'
 import { Route as AuthenticatedAppConfiguracoesRouteImport } from './routes/_authenticated/app.configuracoes'
 import { Route as AuthenticatedAppComunidadeRouteImport } from './routes/_authenticated/app.comunidade'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin.usuarios'
@@ -107,6 +108,12 @@ const AuthenticatedAppMentoriaRoute =
   AuthenticatedAppMentoriaRouteImport.update({
     id: '/mentoria',
     path: '/mentoria',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppEvolucaoRoute =
+  AuthenticatedAppEvolucaoRouteImport.update({
+    id: '/evolucao',
+    path: '/evolucao',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
 const AuthenticatedAppConfiguracoesRoute =
@@ -243,6 +250,7 @@ export interface FileRoutesByFullPath {
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
   '/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
+  '/app/evolucao': typeof AuthenticatedAppEvolucaoRoute
   '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
@@ -274,6 +282,7 @@ export interface FileRoutesByTo {
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
   '/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
+  '/app/evolucao': typeof AuthenticatedAppEvolucaoRoute
   '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
@@ -309,6 +318,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/app/comunidade': typeof AuthenticatedAppComunidadeRoute
   '/_authenticated/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
+  '/_authenticated/app/evolucao': typeof AuthenticatedAppEvolucaoRoute
   '/_authenticated/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/_authenticated/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
@@ -344,6 +354,7 @@ export interface FileRouteTypes {
     | '/admin/usuarios'
     | '/app/comunidade'
     | '/app/configuracoes'
+    | '/app/evolucao'
     | '/app/mentoria'
     | '/app/perfil'
     | '/app/progresso'
@@ -375,6 +386,7 @@ export interface FileRouteTypes {
     | '/admin/usuarios'
     | '/app/comunidade'
     | '/app/configuracoes'
+    | '/app/evolucao'
     | '/app/mentoria'
     | '/app/perfil'
     | '/app/progresso'
@@ -409,6 +421,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/usuarios'
     | '/_authenticated/app/comunidade'
     | '/_authenticated/app/configuracoes'
+    | '/_authenticated/app/evolucao'
     | '/_authenticated/app/mentoria'
     | '/_authenticated/app/perfil'
     | '/_authenticated/app/progresso'
@@ -522,6 +535,13 @@ declare module '@tanstack/react-router' {
       path: '/mentoria'
       fullPath: '/app/mentoria'
       preLoaderRoute: typeof AuthenticatedAppMentoriaRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/evolucao': {
+      id: '/_authenticated/app/evolucao'
+      path: '/evolucao'
+      fullPath: '/app/evolucao'
+      preLoaderRoute: typeof AuthenticatedAppEvolucaoRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/configuracoes': {
@@ -700,6 +720,7 @@ const AuthenticatedAdminRouteWithChildren =
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppComunidadeRoute: typeof AuthenticatedAppComunidadeRoute
   AuthenticatedAppConfiguracoesRoute: typeof AuthenticatedAppConfiguracoesRoute
+  AuthenticatedAppEvolucaoRoute: typeof AuthenticatedAppEvolucaoRoute
   AuthenticatedAppMentoriaRoute: typeof AuthenticatedAppMentoriaRoute
   AuthenticatedAppPerfilRoute: typeof AuthenticatedAppPerfilRoute
   AuthenticatedAppProgressoRoute: typeof AuthenticatedAppProgressoRoute
@@ -713,6 +734,7 @@ interface AuthenticatedAppRouteChildren {
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppComunidadeRoute: AuthenticatedAppComunidadeRoute,
   AuthenticatedAppConfiguracoesRoute: AuthenticatedAppConfiguracoesRoute,
+  AuthenticatedAppEvolucaoRoute: AuthenticatedAppEvolucaoRoute,
   AuthenticatedAppMentoriaRoute: AuthenticatedAppMentoriaRoute,
   AuthenticatedAppPerfilRoute: AuthenticatedAppPerfilRoute,
   AuthenticatedAppProgressoRoute: AuthenticatedAppProgressoRoute,
