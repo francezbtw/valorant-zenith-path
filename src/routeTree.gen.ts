@@ -17,10 +17,12 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAppValorantRouteImport } from './routes/_authenticated/app.valorant'
 import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authenticated/app.suporte'
 import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
 import { Route as AuthenticatedAppPerfilRouteImport } from './routes/_authenticated/app.perfil'
 import { Route as AuthenticatedAppMentoriaRouteImport } from './routes/_authenticated/app.mentoria'
+import { Route as AuthenticatedAppEvolucaoRouteImport } from './routes/_authenticated/app.evolucao'
 import { Route as AuthenticatedAppConfiguracoesRouteImport } from './routes/_authenticated/app.configuracoes'
 import { Route as AuthenticatedAppComunidadeRouteImport } from './routes/_authenticated/app.comunidade'
 import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin.usuarios'
@@ -80,6 +82,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAppValorantRoute =
+  AuthenticatedAppValorantRouteImport.update({
+    id: '/valorant',
+    path: '/valorant',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppSuporteRoute = AuthenticatedAppSuporteRouteImport.update({
   id: '/suporte',
   path: '/suporte',
@@ -100,6 +108,12 @@ const AuthenticatedAppMentoriaRoute =
   AuthenticatedAppMentoriaRouteImport.update({
     id: '/mentoria',
     path: '/mentoria',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppEvolucaoRoute =
+  AuthenticatedAppEvolucaoRouteImport.update({
+    id: '/evolucao',
+    path: '/evolucao',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
 const AuthenticatedAppConfiguracoesRoute =
@@ -236,10 +250,12 @@ export interface FileRoutesByFullPath {
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
   '/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
+  '/app/evolucao': typeof AuthenticatedAppEvolucaoRoute
   '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/app/valorant': typeof AuthenticatedAppValorantRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
@@ -266,10 +282,12 @@ export interface FileRoutesByTo {
   '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/app/comunidade': typeof AuthenticatedAppComunidadeRoute
   '/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
+  '/app/evolucao': typeof AuthenticatedAppEvolucaoRoute
   '/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/app/valorant': typeof AuthenticatedAppValorantRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
@@ -300,10 +318,12 @@ export interface FileRoutesById {
   '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
   '/_authenticated/app/comunidade': typeof AuthenticatedAppComunidadeRoute
   '/_authenticated/app/configuracoes': typeof AuthenticatedAppConfiguracoesRoute
+  '/_authenticated/app/evolucao': typeof AuthenticatedAppEvolucaoRoute
   '/_authenticated/app/mentoria': typeof AuthenticatedAppMentoriaRoute
   '/_authenticated/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/_authenticated/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/_authenticated/app/valorant': typeof AuthenticatedAppValorantRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
@@ -334,10 +354,12 @@ export interface FileRouteTypes {
     | '/admin/usuarios'
     | '/app/comunidade'
     | '/app/configuracoes'
+    | '/app/evolucao'
     | '/app/mentoria'
     | '/app/perfil'
     | '/app/progresso'
     | '/app/suporte'
+    | '/app/valorant'
     | '/admin/'
     | '/app/'
     | '/app/curso/$slug'
@@ -364,10 +386,12 @@ export interface FileRouteTypes {
     | '/admin/usuarios'
     | '/app/comunidade'
     | '/app/configuracoes'
+    | '/app/evolucao'
     | '/app/mentoria'
     | '/app/perfil'
     | '/app/progresso'
     | '/app/suporte'
+    | '/app/valorant'
     | '/admin'
     | '/app'
     | '/app/curso/$slug'
@@ -397,10 +421,12 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/usuarios'
     | '/_authenticated/app/comunidade'
     | '/_authenticated/app/configuracoes'
+    | '/_authenticated/app/evolucao'
     | '/_authenticated/app/mentoria'
     | '/_authenticated/app/perfil'
     | '/_authenticated/app/progresso'
     | '/_authenticated/app/suporte'
+    | '/_authenticated/app/valorant'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
     | '/_authenticated/app/curso/$slug'
@@ -476,6 +502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/app/valorant': {
+      id: '/_authenticated/app/valorant'
+      path: '/valorant'
+      fullPath: '/app/valorant'
+      preLoaderRoute: typeof AuthenticatedAppValorantRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/suporte': {
       id: '/_authenticated/app/suporte'
       path: '/suporte'
@@ -502,6 +535,13 @@ declare module '@tanstack/react-router' {
       path: '/mentoria'
       fullPath: '/app/mentoria'
       preLoaderRoute: typeof AuthenticatedAppMentoriaRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/evolucao': {
+      id: '/_authenticated/app/evolucao'
+      path: '/evolucao'
+      fullPath: '/app/evolucao'
+      preLoaderRoute: typeof AuthenticatedAppEvolucaoRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/configuracoes': {
@@ -680,10 +720,12 @@ const AuthenticatedAdminRouteWithChildren =
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppComunidadeRoute: typeof AuthenticatedAppComunidadeRoute
   AuthenticatedAppConfiguracoesRoute: typeof AuthenticatedAppConfiguracoesRoute
+  AuthenticatedAppEvolucaoRoute: typeof AuthenticatedAppEvolucaoRoute
   AuthenticatedAppMentoriaRoute: typeof AuthenticatedAppMentoriaRoute
   AuthenticatedAppPerfilRoute: typeof AuthenticatedAppPerfilRoute
   AuthenticatedAppProgressoRoute: typeof AuthenticatedAppProgressoRoute
   AuthenticatedAppSuporteRoute: typeof AuthenticatedAppSuporteRoute
+  AuthenticatedAppValorantRoute: typeof AuthenticatedAppValorantRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppCursoSlugRoute: typeof AuthenticatedAppCursoSlugRoute
   AuthenticatedAppCursoIndexRoute: typeof AuthenticatedAppCursoIndexRoute
@@ -692,10 +734,12 @@ interface AuthenticatedAppRouteChildren {
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppComunidadeRoute: AuthenticatedAppComunidadeRoute,
   AuthenticatedAppConfiguracoesRoute: AuthenticatedAppConfiguracoesRoute,
+  AuthenticatedAppEvolucaoRoute: AuthenticatedAppEvolucaoRoute,
   AuthenticatedAppMentoriaRoute: AuthenticatedAppMentoriaRoute,
   AuthenticatedAppPerfilRoute: AuthenticatedAppPerfilRoute,
   AuthenticatedAppProgressoRoute: AuthenticatedAppProgressoRoute,
   AuthenticatedAppSuporteRoute: AuthenticatedAppSuporteRoute,
+  AuthenticatedAppValorantRoute: AuthenticatedAppValorantRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppCursoSlugRoute: AuthenticatedAppCursoSlugRoute,
   AuthenticatedAppCursoIndexRoute: AuthenticatedAppCursoIndexRoute,
