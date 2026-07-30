@@ -6,6 +6,8 @@ import { useProfile, usePlan, useLessons, useModules, useProgress, useAnnounceme
 import { useRankHistory } from "@/hooks/use-valorant";
 import { PLAN_LABEL, PLAN_ACCENT } from "@/lib/member";
 import { tierColor } from "@/lib/valorant";
+import { StatCard, Reveal } from "@/components/ui/premium";
+
 
 
 export const Route = createFileRoute("/_authenticated/app/")({
