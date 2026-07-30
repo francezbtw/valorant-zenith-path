@@ -37,6 +37,8 @@ import { Route as AuthenticatedAdminAulasRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
 import { Route as AuthenticatedAdminAlunosRouteImport } from './routes/_authenticated/admin.alunos'
 import { Route as AuthenticatedAppCursoIndexRouteImport } from './routes/_authenticated/app.curso.index'
+import { Route as ApiPublicWebhooksStripeRouteImport } from './routes/api/public/webhooks/stripe'
+import { Route as ApiPublicWebhooksMercadopagoRouteImport } from './routes/api/public/webhooks/mercadopago'
 import { Route as AuthenticatedAppCursoSlugRouteImport } from './routes/_authenticated/app.curso.$slug'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -195,6 +197,17 @@ const AuthenticatedAppCursoIndexRoute =
     path: '/curso/',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const ApiPublicWebhooksStripeRoute = ApiPublicWebhooksStripeRouteImport.update({
+  id: '/api/public/webhooks/stripe',
+  path: '/api/public/webhooks/stripe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWebhooksMercadopagoRoute =
+  ApiPublicWebhooksMercadopagoRouteImport.update({
+    id: '/api/public/webhooks/mercadopago',
+    path: '/api/public/webhooks/mercadopago',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAppCursoSlugRoute =
   AuthenticatedAppCursoSlugRouteImport.update({
     id: '/curso/$slug',
@@ -230,6 +243,8 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
+  '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/app/curso/': typeof AuthenticatedAppCursoIndexRoute
 }
 export interface FileRoutesByTo {
@@ -258,6 +273,8 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
+  '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/app/curso': typeof AuthenticatedAppCursoIndexRoute
 }
 export interface FileRoutesById {
@@ -290,6 +307,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
+  '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/_authenticated/app/curso/': typeof AuthenticatedAppCursoIndexRoute
 }
 export interface FileRouteTypes {
@@ -322,6 +341,8 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/app/'
     | '/app/curso/$slug'
+    | '/api/public/webhooks/mercadopago'
+    | '/api/public/webhooks/stripe'
     | '/app/curso/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -350,6 +371,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/app/curso/$slug'
+    | '/api/public/webhooks/mercadopago'
+    | '/api/public/webhooks/stripe'
     | '/app/curso'
   id:
     | '__root__'
@@ -381,6 +404,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
     | '/_authenticated/app/curso/$slug'
+    | '/api/public/webhooks/mercadopago'
+    | '/api/public/webhooks/stripe'
     | '/_authenticated/app/curso/'
   fileRoutesById: FileRoutesById
 }
@@ -389,6 +414,8 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  ApiPublicWebhooksMercadopagoRoute: typeof ApiPublicWebhooksMercadopagoRoute
+  ApiPublicWebhooksStripeRoute: typeof ApiPublicWebhooksStripeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -589,6 +616,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppCursoIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/api/public/webhooks/stripe': {
+      id: '/api/public/webhooks/stripe'
+      path: '/api/public/webhooks/stripe'
+      fullPath: '/api/public/webhooks/stripe'
+      preLoaderRoute: typeof ApiPublicWebhooksStripeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/webhooks/mercadopago': {
+      id: '/api/public/webhooks/mercadopago'
+      path: '/api/public/webhooks/mercadopago'
+      fullPath: '/api/public/webhooks/mercadopago'
+      preLoaderRoute: typeof ApiPublicWebhooksMercadopagoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/app/curso/$slug': {
       id: '/_authenticated/app/curso/$slug'
       path: '/curso/$slug'
@@ -681,6 +722,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  ApiPublicWebhooksMercadopagoRoute: ApiPublicWebhooksMercadopagoRoute,
+  ApiPublicWebhooksStripeRoute: ApiPublicWebhooksStripeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

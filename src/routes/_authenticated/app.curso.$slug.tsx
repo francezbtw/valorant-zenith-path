@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Download, Loader2 } from "lucide-r
 import { toast } from "sonner";
 import { PageHeader } from "@/components/membros/MemberShell";
 import { LockedContent } from "@/components/membros/LockedContent";
-import { useLessons, useModules, useProgress, useToggleLesson } from "@/hooks/use-member";
+import { useLessons, useModules, useProgress, useToggleLesson, useLessonMedia, useSaveLessonPosition } from "@/hooks/use-member";
+import { VideoPlayer } from "@/components/membros/VideoPlayer";
 import { formatDuration } from "@/lib/member";
 
 export const Route = createFileRoute("/_authenticated/app/curso/$slug")({
@@ -28,6 +29,9 @@ function LessonPage() {
   const { data: modules = [] } = useModules();
   const { data: progress = [] } = useProgress();
   const toggle = useToggleLesson();
+  const savePosition = useSaveLessonPosition();
+  const lessonId = lessons.find((l) => l.slug === slug)?.id;
+  const { data: media } = useLessonMedia(lessonId);
 
   if (isLoading) {
     return (
@@ -53,7 +57,7 @@ function LessonPage() {
   const prev = ordered[idx - 1];
   const next = ordered[idx + 1];
   const isDone = progress.some((p) => p.lesson_id === lesson.id && p.completed);
-  const materials = Array.isArray(lesson.materials) ? lesson.materials : [];
+  const materials = media?.materials ?? (Array.isArray(lesson.materials) ? (lesson.materials as { name: string; url: string }[]).filter((m) => m.url) : []);
 
   return (
     <>
@@ -68,22 +72,17 @@ function LessonPage() {
         <div className="pointer-events-none absolute -inset-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_center,rgba(123,46,255,0.35),transparent_65%)] blur-3xl" />
         <div className="relative monitor-frame holo-border rounded-[1.5rem]">
           <div className="relative overflow-hidden rounded-[1.1rem] border border-white/10 bg-black">
-            <div className="aspect-video w-full">
-              {lesson.video_url ? (
-                <video
-                  key={lesson.id}
-                  src={lesson.video_url}
-                  controls
-                  controlsList="nodownload"
-                  playsInline
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-sm text-white/40">
-                  Vídeo em processamento
-                </div>
-              )}
-            </div>
+            <VideoPlayer
+              key={lesson.id}
+              src={media?.videoUrl ?? lesson.video_url ?? null}
+              startAt={progress.find((p) => p.lesson_id === lesson.id)?.last_position_seconds ?? 0}
+              onProgress={(seconds) => savePosition.mutate({ lessonId: lesson.id, seconds })}
+              onCompleted={() => {
+                if (!progress.some((p) => p.lesson_id === lesson.id && p.completed)) {
+                  toggle.mutate({ lessonId: lesson.id, completed: true });
+                }
+              }}
+            />
           </div>
         </div>
       </motion.div>

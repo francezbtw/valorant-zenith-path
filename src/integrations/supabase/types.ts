@@ -206,6 +206,7 @@ export type Database = {
           slug: string
           title: string
           updated_at: string
+          video_path: string | null
           video_url: string | null
         }
         Insert: {
@@ -220,6 +221,7 @@ export type Database = {
           slug: string
           title: string
           updated_at?: string
+          video_path?: string | null
           video_url?: string | null
         }
         Update: {
@@ -234,6 +236,7 @@ export type Database = {
           slug?: string
           title?: string
           updated_at?: string
+          video_path?: string | null
           video_url?: string | null
         }
         Relationships: [
@@ -338,6 +341,39 @@ export type Database = {
           },
         ]
       }
+      payment_events: {
+        Row: {
+          created_at: string
+          error: string | null
+          event_id: string | null
+          event_type: string | null
+          id: string
+          payload: Json
+          processed: boolean
+          provider: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          event_id?: string | null
+          event_type?: string | null
+          id?: string
+          payload?: Json
+          processed?: boolean
+          provider: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          event_id?: string | null
+          event_type?: string | null
+          id?: string
+          payload?: Json
+          processed?: boolean
+          provider?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount_cents: number
@@ -389,10 +425,12 @@ export type Database = {
           features: Json
           highlight: boolean
           id: string
+          mercadopago_price_cents: number | null
           name: string
           position: number
           price_cents: number
           slug: string
+          stripe_price_id: string | null
           tagline: string | null
           tier: Database["public"]["Enums"]["plan_tier"]
           updated_at: string
@@ -405,10 +443,12 @@ export type Database = {
           features?: Json
           highlight?: boolean
           id?: string
+          mercadopago_price_cents?: number | null
           name: string
           position?: number
           price_cents?: number
           slug: string
+          stripe_price_id?: string | null
           tagline?: string | null
           tier: Database["public"]["Enums"]["plan_tier"]
           updated_at?: string
@@ -421,10 +461,12 @@ export type Database = {
           features?: Json
           highlight?: boolean
           id?: string
+          mercadopago_price_cents?: number | null
           name?: string
           position?: number
           price_cents?: number
           slug?: string
+          stripe_price_id?: string | null
           tagline?: string | null
           tier?: Database["public"]["Enums"]["plan_tier"]
           updated_at?: string
