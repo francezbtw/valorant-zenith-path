@@ -36,24 +36,19 @@ function Page() {
     <>
       <AdminHeader title="Dashboard" subtitle="Panorama completo da operação do Projeto Radiante." />
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((c, i) => (
-          <motion.div
+          <StatCard
             key={c.label}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className="relative overflow-hidden rounded-2xl glass-card p-5"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-[0.22em] text-white/40">{c.label}</span>
-              <c.icon className="h-4 w-4" style={{ color: c.accent }} />
-            </div>
-            <div className="mt-3 font-display text-3xl font-bold tracking-tight">{c.value}</div>
-            <div className="pointer-events-none absolute -bottom-10 -right-10 h-32 w-32 rounded-full opacity-20 blur-3xl" style={{ background: c.accent }} />
-          </motion.div>
+            icon={c.icon}
+            label={c.label}
+            value={c.value}
+            accent={c.accent}
+            delay={i * 0.05}
+          />
         ))}
       </div>
+
 
       <div className="mt-6 rounded-2xl glass-card p-6">
         <h2 className="font-display text-lg font-semibold">Crescimento de alunos</h2>
