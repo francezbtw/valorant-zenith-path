@@ -4,6 +4,8 @@ import { Users, UserPlus, Wallet, GraduationCap, Activity, BookOpen } from "luci
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { useAdminStats, formatBRL } from "@/hooks/use-admin";
+import { StatCard, Reveal } from "@/components/ui/premium";
+
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
