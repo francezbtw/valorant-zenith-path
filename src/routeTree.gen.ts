@@ -17,6 +17,7 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAppValorantRouteImport } from './routes/_authenticated/app.valorant'
 import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authenticated/app.suporte'
 import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
 import { Route as AuthenticatedAppPerfilRouteImport } from './routes/_authenticated/app.perfil'
@@ -80,6 +81,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAppValorantRoute =
+  AuthenticatedAppValorantRouteImport.update({
+    id: '/valorant',
+    path: '/valorant',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppSuporteRoute = AuthenticatedAppSuporteRouteImport.update({
   id: '/suporte',
   path: '/suporte',
@@ -240,6 +247,7 @@ export interface FileRoutesByFullPath {
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/app/valorant': typeof AuthenticatedAppValorantRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
@@ -270,6 +278,7 @@ export interface FileRoutesByTo {
   '/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/app/valorant': typeof AuthenticatedAppValorantRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
@@ -304,6 +313,7 @@ export interface FileRoutesById {
   '/_authenticated/app/perfil': typeof AuthenticatedAppPerfilRoute
   '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/_authenticated/app/suporte': typeof AuthenticatedAppSuporteRoute
+  '/_authenticated/app/valorant': typeof AuthenticatedAppValorantRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/app/perfil'
     | '/app/progresso'
     | '/app/suporte'
+    | '/app/valorant'
     | '/admin/'
     | '/app/'
     | '/app/curso/$slug'
@@ -368,6 +379,7 @@ export interface FileRouteTypes {
     | '/app/perfil'
     | '/app/progresso'
     | '/app/suporte'
+    | '/app/valorant'
     | '/admin'
     | '/app'
     | '/app/curso/$slug'
@@ -401,6 +413,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/perfil'
     | '/_authenticated/app/progresso'
     | '/_authenticated/app/suporte'
+    | '/_authenticated/app/valorant'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
     | '/_authenticated/app/curso/$slug'
@@ -475,6 +488,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/app/valorant': {
+      id: '/_authenticated/app/valorant'
+      path: '/valorant'
+      fullPath: '/app/valorant'
+      preLoaderRoute: typeof AuthenticatedAppValorantRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/suporte': {
       id: '/_authenticated/app/suporte'
@@ -684,6 +704,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppPerfilRoute: typeof AuthenticatedAppPerfilRoute
   AuthenticatedAppProgressoRoute: typeof AuthenticatedAppProgressoRoute
   AuthenticatedAppSuporteRoute: typeof AuthenticatedAppSuporteRoute
+  AuthenticatedAppValorantRoute: typeof AuthenticatedAppValorantRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppCursoSlugRoute: typeof AuthenticatedAppCursoSlugRoute
   AuthenticatedAppCursoIndexRoute: typeof AuthenticatedAppCursoIndexRoute
@@ -696,6 +717,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppPerfilRoute: AuthenticatedAppPerfilRoute,
   AuthenticatedAppProgressoRoute: AuthenticatedAppProgressoRoute,
   AuthenticatedAppSuporteRoute: AuthenticatedAppSuporteRoute,
+  AuthenticatedAppValorantRoute: AuthenticatedAppValorantRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppCursoSlugRoute: AuthenticatedAppCursoSlugRoute,
   AuthenticatedAppCursoIndexRoute: AuthenticatedAppCursoIndexRoute,
@@ -728,13 +750,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
