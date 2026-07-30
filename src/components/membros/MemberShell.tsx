@@ -3,7 +3,7 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Home, GraduationCap, Users, Sparkles, BarChart3, User, Settings,
-  LifeBuoy, LogOut, Menu, X,
+  LifeBuoy, LogOut, Menu, X, Gamepad2, TrendingUp,
 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,10 +16,13 @@ const nav = [
   { label: "Mentoria", to: "/app/mentoria", icon: Sparkles },
   { label: "Comunidade", to: "/app/comunidade", icon: Users },
   { label: "Meu Progresso", to: "/app/progresso", icon: BarChart3 },
+  { label: "Perfil Valorant", to: "/app/valorant", icon: Gamepad2 },
+  { label: "Minha Evolução", to: "/app/evolucao", icon: TrendingUp },
   { label: "Perfil", to: "/app/perfil", icon: User },
   { label: "Configurações", to: "/app/configuracoes", icon: Settings },
   { label: "Suporte", to: "/app/suporte", icon: LifeBuoy },
 ] as const;
+
 
 export function MemberShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
