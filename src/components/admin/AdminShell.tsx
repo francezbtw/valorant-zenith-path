@@ -10,6 +10,7 @@ import {
 const nav = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard },
   { label: "Alunos", to: "/admin/alunos", icon: Users },
+  { label: "Usuários", to: "/admin/usuarios", icon: ShieldCheck },
   { label: "Cursos", to: "/admin/cursos", icon: GraduationCap },
   { label: "Módulos", to: "/admin/modulos", icon: Layers },
   { label: "Aulas", to: "/admin/aulas", icon: PlayCircle },
