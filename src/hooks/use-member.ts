@@ -1,5 +1,7 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { getLessonMedia } from "@/lib/course.functions";
 import type { PlanTier } from "@/lib/member";
 
 export type Module = {
@@ -138,6 +140,38 @@ export function useToggleLesson() {
           lesson_id: lessonId,
           completed,
           completed_at: completed ? new Date().toISOString() : null,
+        },
+        { onConflict: "user_id,lesson_id" },
+      );
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["progress"] }),
+  });
+}
+
+export function useLessonMedia(lessonId: string | undefined) {
+  const fetchMedia = useServerFn(getLessonMedia);
+  return useQuery({
+    queryKey: ["lesson-media", lessonId],
+    enabled: Boolean(lessonId),
+    staleTime: 1000 * 60 * 30,
+    queryFn: async () => fetchMedia({ data: { lessonId: lessonId! } }),
+  });
+}
+
+/** Saves the playback position (auto progress / "continue de onde parou"). */
+export function useSaveLessonPosition() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ lessonId, seconds }: { lessonId: string; seconds: number }) => {
+      const { data: auth } = await supabase.auth.getUser();
+      if (!auth.user) return;
+      const { error } = await supabase.from("lesson_progress").upsert(
+        {
+          user_id: auth.user.id,
+          lesson_id: lessonId,
+          last_position_seconds: seconds,
+          updated_at: new Date().toISOString(),
         },
         { onConflict: "user_id,lesson_id" },
       );
