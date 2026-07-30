@@ -52,7 +52,9 @@ function Page() {
       </div>
 
 
-      <div className="mt-6 rounded-2xl glass-card p-6">
+      <Reveal className="mt-6">
+      <div className="rounded-2xl glass-card p-6 hover-lift">
+
         <h2 className="font-display text-lg font-semibold">Crescimento de alunos</h2>
         <div className="mt-6 h-[280px]">
           <ResponsiveContainer width="100%" height="100%">
