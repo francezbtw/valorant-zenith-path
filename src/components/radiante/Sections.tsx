@@ -7,6 +7,8 @@ import {
   Rocket, Crown, Gem, ArrowRight, Target, Flame, TrendingUp, Award,
 } from "lucide-react";
 import { useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { createCheckout } from "@/lib/checkout.functions";
 import qckPhoto from "@/assets/qck.jpg.asset.json";
 
 const fadeUp: Variants = {
