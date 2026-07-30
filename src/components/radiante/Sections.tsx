@@ -242,6 +242,46 @@ const plans = [
   },
 ];
 
+function CheckoutButton({ planSlug, label, highlight }: { planSlug: string; label: string; highlight?: boolean }) {
+  const [loading, setLoading] = useState(false);
+  const startCheckout = useServerFn(createCheckout);
+
+  async function go() {
+    setLoading(true);
+    try {
+      const origin = window.location.origin;
+      const { url } = await startCheckout({
+        data: {
+          planSlug,
+          provider: "stripe",
+          successUrl: `${origin}/app?compra=sucesso`,
+          cancelUrl: `${origin}/#planos`,
+        },
+      });
+      window.location.href = url;
+    } catch {
+      document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <button
+      onClick={go}
+      disabled={loading}
+      className={`mt-10 group inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-sm font-semibold transition-all disabled:opacity-60 ${
+        highlight
+          ? "btn-primary-radiante"
+          : "border border-white/15 bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-[#00F5FF]/40 hover:-translate-y-0.5"
+      }`}
+    >
+      {loading ? "Abrindo checkout…" : label}
+      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+    </button>
+  );
+}
+
 export function PlansSection() {
   return (
     <section id="planos" className="relative py-32">
@@ -307,14 +347,7 @@ export function PlansSection() {
                       ))}
                     </ul>
 
-                    <a href="#cta" className={`mt-10 group inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-sm font-semibold transition-all ${
-                      highlight
-                        ? "btn-primary-radiante"
-                        : "border border-white/15 bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-[#00F5FF]/40 hover:-translate-y-0.5"
-                    }`}>
-                      {p.cta}
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </a>
+                    <CheckoutButton planSlug={p.id} label={p.cta} highlight={highlight} />
 
                     {p.id === "mentoria" && (
                       <div className="mt-4 inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.2em] text-[#00F5FF]/80">
