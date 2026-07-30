@@ -1,13 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { CrudTable, type Field } from "@/components/admin/CrudTable";
+import { LessonMediaManager } from "@/components/admin/LessonMedia";
 
 const fields: Field[] = [
   { key: "title", label: "Título", required: true },
   { key: "slug", label: "Slug", required: true },
   { key: "module_id", label: "ID do módulo", required: true },
   { key: "description", label: "Descrição", type: "textarea", hideInTable: true },
-  { key: "video_url", label: "Vídeo (URL)", hideInTable: true },
+  { key: "video_url", label: "Vídeo (URL externa)", hideInTable: true },
+  { key: "video_path", label: "Vídeo (arquivo enviado)", type: "readonly", hideInTable: true },
   { key: "duration_seconds", label: "Duração (s)", type: "number" },
   { key: "materials", label: "Materiais (JSON)", type: "json", hideInTable: true, defaultValue: "[]" },
   { key: "position", label: "Posição", type: "number" },
@@ -33,6 +35,7 @@ function Page() {
   return (
     <>
       <AdminHeader title="Aulas" subtitle="Gerencie vídeos, materiais e ordem das aulas." />
+      <LessonMediaManager />
       <CrudTable table="lessons" title="Aulas" fields={fields} orderBy={"position"} />
     </>
   );
