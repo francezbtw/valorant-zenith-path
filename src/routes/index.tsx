@@ -16,16 +16,31 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Projeto Radiante — Mentoria e Curso de Valorant" },
       { property: "og:description", content: "Aprenda com QCK como Radiantes pensam, treinam e vencem. Método completo com mentoria 1:1, curso avançado e comunidade." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Course",
+          name: "Projeto Radiante",
+          description:
+            "Mentoria e curso de Valorant com QCK: mentalidade, leitura de jogo, treino estruturado e evolução de elo.",
+          inLanguage: "pt-BR",
+          provider: {
+            "@type": "Organization",
+            name: "Projeto Radiante",
+            url: "https://valorant-zenith-path.lovable.app/",
+          },
+        }),
+      },
     ],
   }),
   component: Index,
 });
+
 
 function Index() {
   return (

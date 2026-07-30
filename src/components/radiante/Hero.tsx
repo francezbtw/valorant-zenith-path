@@ -109,9 +109,11 @@ export function Hero() {
                     playsInline
                     controls
                     controlsList="nodownload"
-                    preload="auto"
+                    preload="metadata"
+                    aria-label="Vídeo de apresentação do Projeto Radiante com QCK"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
+
                   {/* Scanline */}
                   <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-[#00F5FF]/60 to-transparent blur-[1px] animate-scan" />
                   {/* Mouse-follow highlight */}

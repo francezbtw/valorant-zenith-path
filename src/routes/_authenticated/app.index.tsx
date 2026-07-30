@@ -6,6 +6,8 @@ import { useProfile, usePlan, useLessons, useModules, useProgress, useAnnounceme
 import { useRankHistory } from "@/hooks/use-valorant";
 import { PLAN_LABEL, PLAN_ACCENT } from "@/lib/member";
 import { tierColor } from "@/lib/valorant";
+import { StatCard, Reveal } from "@/components/ui/premium";
+
 
 
 export const Route = createFileRoute("/_authenticated/app/")({
@@ -98,83 +100,94 @@ function DashboardHome() {
       </div>
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat icon={BookOpen} label="Módulos liberados" value={String(modules.length)} />
-        <Stat icon={Flame} label="Aulas concluídas" value={String(done)} />
-        <Stat
+        <StatCard icon={BookOpen} label="Módulos liberados" value={String(modules.length)} accent="#6F4BFF" />
+        <StatCard icon={Flame} label="Aulas concluídas" value={String(done)} accent="#00AEEF" delay={0.05} />
+        <StatCard
           icon={Trophy}
           label="Seu plano"
           value={plan ? PLAN_LABEL[plan] : "—"}
-          accent={plan ? PLAN_ACCENT[plan] : undefined}
+          accent={plan ? PLAN_ACCENT[plan] : "#7B2EFF"}
+          delay={0.1}
         />
-        <Stat
+        <StatCard
           icon={Gamepad2}
           label="Último elo registrado"
           value={lastRank ? `${lastRank.rank_tier}` : "—"}
-          accent={lastRank ? tierColor(lastRank.rank_tier) : undefined}
+          accent={lastRank ? tierColor(lastRank.rank_tier) : "#00F5FF"}
+          delay={0.15}
         />
       </div>
 
+
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
-        <div className="rounded-3xl glass-card p-7">
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
-            <History className="h-3.5 w-3.5" /> Última aula assistida
-          </div>
-          <div className="mt-4 font-display text-lg font-semibold">{lastLesson?.title ?? "Nenhuma ainda"}</div>
-          <p className="mt-1 text-sm text-white/50">
-            {lastTouched?.updated_at
-              ? `Atualizada em ${new Date(lastTouched.updated_at).toLocaleDateString("pt-BR")}`
-              : "Comece pela primeira aula da trilha."}
-          </p>
-          {lastLesson && (
-            <Link
-              to="/app/curso/$slug"
-              params={{ slug: lastLesson.slug }}
-              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-[#00F5FF]/50 hover:text-white"
-            >
-              <PlayCircle className="h-4 w-4" /> Continuar estudando
-            </Link>
-          )}
-        </div>
-
-        <div className="rounded-3xl glass-card p-7">
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
-            <ArrowRight className="h-3.5 w-3.5" /> Próxima aula
-          </div>
-          <div className="mt-4 font-display text-lg font-semibold">{next?.title ?? "Em preparação"}</div>
-          <p className="mt-1 text-sm text-white/50">{nextModule?.title ?? "Novas aulas em breve."}</p>
-          {next && (
-            <Link
-              to="/app/curso/$slug"
-              params={{ slug: next.slug }}
-              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-[#7B2EFF]/60 hover:text-white"
-            >
-              <PlayCircle className="h-4 w-4" /> Começar agora
-            </Link>
-          )}
-        </div>
-      </div>
-
-
-      <div className="mt-5 rounded-3xl glass-card p-7">
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
-          <Megaphone className="h-3.5 w-3.5" /> Avisos
-        </div>
-        <div className="mt-5 space-y-4">
-          {announcements.length === 0 && (
-            <p className="text-sm text-white/45">Nenhum aviso por enquanto. Bons treinos.</p>
-          )}
-          {announcements.map((a) => (
-            <div key={a.id} className="rounded-2xl border border-white/8 bg-white/[0.03] p-5">
-              <div className="text-sm font-semibold">{a.title}</div>
-              <p className="mt-1 text-sm text-white/55">{a.body}</p>
+        <Reveal>
+          <div className="h-full rounded-3xl glass-card p-7 hover-lift sheen">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
+              <History className="h-3.5 w-3.5" /> Última aula assistida
             </div>
-          ))}
-        </div>
+            <div className="mt-4 font-display text-lg font-semibold">{lastLesson?.title ?? "Nenhuma ainda"}</div>
+            <p className="mt-1 text-sm text-white/50">
+              {lastTouched?.updated_at
+                ? `Atualizada em ${new Date(lastTouched.updated_at).toLocaleDateString("pt-BR")}`
+                : "Comece pela primeira aula da trilha."}
+            </p>
+            {lastLesson && (
+              <Link
+                to="/app/curso/$slug"
+                params={{ slug: lastLesson.slug }}
+                className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-[#00F5FF]/50 hover:text-white"
+              >
+                <PlayCircle className="h-4 w-4" /> Continuar estudando
+              </Link>
+            )}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <div className="h-full rounded-3xl glass-card p-7 hover-lift sheen">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
+              <ArrowRight className="h-3.5 w-3.5" /> Próxima aula
+            </div>
+            <div className="mt-4 font-display text-lg font-semibold">{next?.title ?? "Em preparação"}</div>
+            <p className="mt-1 text-sm text-white/50">{nextModule?.title ?? "Novas aulas em breve."}</p>
+            {next && (
+              <Link
+                to="/app/curso/$slug"
+                params={{ slug: next.slug }}
+                className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-[#7B2EFF]/60 hover:text-white"
+              >
+                <PlayCircle className="h-4 w-4" /> Começar agora
+              </Link>
+            )}
+          </div>
+        </Reveal>
       </div>
+
+      <Reveal className="mt-5">
+        <div className="rounded-3xl glass-card p-7">
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.24em] text-white/45">
+            <Megaphone className="h-3.5 w-3.5" /> Avisos
+          </div>
+          <div className="mt-5 space-y-4">
+            {announcements.length === 0 && (
+              <p className="text-sm text-white/45">Nenhum aviso por enquanto. Bons treinos.</p>
+            )}
+            {announcements.map((a) => (
+              <div
+                key={a.id}
+                className="rounded-2xl border border-white/8 bg-white/[0.03] p-5 transition hover:border-[#7B2EFF]/40 hover:bg-white/[0.05]"
+              >
+                <div className="text-sm font-semibold">{a.title}</div>
+                <p className="mt-1 text-sm text-white/55">{a.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
 
       <Link
         to="/app/curso"
-        className="group mt-5 flex items-center justify-between rounded-3xl glass-card p-6 transition hover:border-white/20"
+        className="group mt-5 flex items-center justify-between rounded-3xl glass-card p-6 transition hover:-translate-y-0.5 hover:border-white/20"
       >
         <span className="text-sm text-white/70">Ver toda a trilha de aulas</span>
         <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -183,14 +196,3 @@ function DashboardHome() {
   );
 }
 
-function Stat({
-  icon: Icon, label, value, accent,
-}: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; accent?: string }) {
-  return (
-    <div className="rounded-3xl glass-card p-6">
-      <Icon className="h-4 w-4 text-white/45" />
-      <div className="mt-4 font-display text-2xl font-bold" style={accent ? { color: accent } : undefined}>{value}</div>
-      <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-white/40">{label}</div>
-    </div>
-  );
-}

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /app
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+Disallow: /api/
+
+Sitemap: https://valorant-zenith-path.lovable.app/sitemap.xml

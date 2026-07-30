@@ -15,17 +15,24 @@ export function AnimatedBackground() {
   );
 }
 
+/** Deterministic pseudo-random so SSR and client render identical particles. */
+function rand(seed: number) {
+  const x = Math.sin(seed * 127.1) * 43758.5453;
+  return x - Math.floor(x);
+}
+
 export function Particles() {
   const particles = Array.from({ length: 24 });
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       {particles.map((_, i) => {
-        const size = Math.random() * 3 + 1;
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        const delay = Math.random() * 6;
-        const dur = 8 + Math.random() * 10;
+        const size = Number((rand(i + 1) * 3 + 1).toFixed(3));
+        const left = Number((rand(i + 11) * 100).toFixed(3));
+        const top = Number((rand(i + 23) * 100).toFixed(3));
+        const delay = Number((rand(i + 37) * 6).toFixed(3));
+        const dur = Number((8 + rand(i + 53) * 10).toFixed(3));
         const color = i % 3 === 0 ? "#00F5FF" : "#7B2EFF";
+
         return (
           <span
             key={i}
