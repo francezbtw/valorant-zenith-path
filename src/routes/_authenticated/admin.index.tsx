@@ -90,7 +90,7 @@ function Page() {
             {(s?.latestPayments ?? []).length === 0 && <li className="text-white/40">Nenhum pagamento registrado.</li>}
           </ul>
         </div>
-        <div className="rounded-2xl glass-card p-6">
+        <div className="rounded-2xl glass-card p-6 hover-lift">
           <h2 className="font-display text-lg font-semibold">Últimos acessos</h2>
           <ul className="mt-4 space-y-3 text-sm">
             {(s?.latestStudents ?? []).map((p) => (
