@@ -98,21 +98,24 @@ function DashboardHome() {
       </div>
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <Stat icon={BookOpen} label="Módulos liberados" value={String(modules.length)} />
-        <Stat icon={Flame} label="Aulas concluídas" value={String(done)} />
-        <Stat
+        <StatCard icon={BookOpen} label="Módulos liberados" value={String(modules.length)} accent="#6F4BFF" />
+        <StatCard icon={Flame} label="Aulas concluídas" value={String(done)} accent="#00AEEF" delay={0.05} />
+        <StatCard
           icon={Trophy}
           label="Seu plano"
           value={plan ? PLAN_LABEL[plan] : "—"}
-          accent={plan ? PLAN_ACCENT[plan] : undefined}
+          accent={plan ? PLAN_ACCENT[plan] : "#7B2EFF"}
+          delay={0.1}
         />
-        <Stat
+        <StatCard
           icon={Gamepad2}
           label="Último elo registrado"
           value={lastRank ? `${lastRank.rank_tier}` : "—"}
-          accent={lastRank ? tierColor(lastRank.rank_tier) : undefined}
+          accent={lastRank ? tierColor(lastRank.rank_tier) : "#00F5FF"}
+          delay={0.15}
         />
       </div>
+
 
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <div className="rounded-3xl glass-card p-7">
