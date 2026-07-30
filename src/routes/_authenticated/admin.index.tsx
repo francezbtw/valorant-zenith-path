@@ -74,9 +74,11 @@ function Page() {
           </ResponsiveContainer>
         </div>
       </div>
+      </Reveal>
 
       <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-2xl glass-card p-6">
+        <div className="rounded-2xl glass-card p-6 hover-lift">
+
           <h2 className="font-display text-lg font-semibold">Últimos pagamentos</h2>
           <ul className="mt-4 space-y-3 text-sm">
             {(s?.latestPayments ?? []).map((p) => (
