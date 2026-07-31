@@ -400,3 +400,9 @@ img, video { max-width: 100%; }
   }
 }
 
+
+/* Performance: skip rendering work for off-screen sections */
+@utility cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

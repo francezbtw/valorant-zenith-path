@@ -36,6 +36,24 @@ export const Route = createFileRoute("/")({
           },
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            ["Preciso ter algum elo mínimo para entrar?", "Não. O método funciona de Ferro a Imortal. O conteúdo é organizado por nível."],
+            ["Quanto tempo por dia preciso dedicar?", "A partir de 1h/dia com o plano de treino você já sente evolução consistente."],
+            ["Qual a diferença entre o Intermediário e a Mentoria?", "A Mentoria inclui sessões ao vivo com o QCK, análise individual de VOD e um plano de evolução personalizado."],
+            ["Tenho acesso vitalício?", "Sim. Uma vez dentro, acesso vitalício ao curso, comunidade e atualizações."],
+            ["Existe garantia?", "7 dias de garantia incondicional. Se não gostar, devolvemos 100% do valor."],
+          ].map(([q, a]) => ({
+            "@type": "Question",
+            name: q,
+            acceptedAnswer: { "@type": "Answer", text: a },
+          })),
+        }),
+      },
     ],
   }),
   component: Index,
