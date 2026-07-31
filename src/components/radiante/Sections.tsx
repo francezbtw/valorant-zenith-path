@@ -10,6 +10,8 @@ import { useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createCheckout } from "@/lib/checkout.functions";
 import qckPhoto from "@/assets/qck.jpg.asset.json";
+import alunoRadiante1 from "@/assets/aluno-radiante-1.png.asset.json";
+import alunoRadiante2 from "@/assets/aluno-radiante-2.png.asset.json";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
