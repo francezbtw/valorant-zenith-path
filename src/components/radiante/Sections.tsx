@@ -131,7 +131,7 @@ const problems = [
 
 export function ProblemsSection() {
   return (
-    <section id="problema" className="relative py-32">
+    <section id="problema" className="relative cv-auto py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader eyebrow="O problema" title="Por que você travou" subtitle="Se um destes pontos te incomoda, você está exatamente no lugar certo." />
         <motion.div
@@ -174,7 +174,7 @@ const changeCards = [
 
 export function ChangeSection() {
   return (
-    <section id="mudanca" className="relative py-32">
+    <section id="mudanca" className="relative cv-auto py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="A mudança"
@@ -286,7 +286,7 @@ function CheckoutButton({ planSlug, label, highlight }: { planSlug: string; labe
 
 export function PlansSection() {
   return (
-    <section id="planos" className="relative py-32">
+    <section id="planos" className="relative cv-auto py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Planos"
@@ -378,7 +378,7 @@ const matches = [
 
 export function ResultsSection() {
   return (
-    <section id="resultados" className="relative py-32">
+    <section id="resultados" className="relative cv-auto py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Resultados"
@@ -466,7 +466,7 @@ export function ResultsSection() {
 
 export function AboutSection() {
   return (
-    <section id="sobre" className="relative py-32 overflow-hidden">
+    <section id="sobre" className="relative cv-auto overflow-hidden py-20 sm:py-28 lg:py-32">
       {/* Background ambient */}
       <div className="pointer-events-none absolute left-1/4 top-1/2 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-[#7B2EFF] opacity-15 blur-[160px]" />
 
@@ -488,7 +488,9 @@ export function AboutSection() {
                   {/* Photo */}
                   <img
                     src={qckPhoto.url}
-                    alt="QCK — coach do Projeto Radiante"
+                    alt="QCK — coach e mentor do Projeto Radiante"
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                     className="absolute inset-0 h-full w-full object-cover object-center"
                   />
@@ -542,7 +544,7 @@ export function AboutSection() {
             </motion.p>
 
             {/* Dashboard stats */}
-            <div className="mt-10 grid grid-cols-3 gap-4">
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
               {[
                 { n: "+2.5k", l: "alunos", icon: Trophy, accent: "#7B2EFF" },
                 { n: "+500", l: "análises 1:1", icon: Target, accent: "#00F5FF" },
@@ -587,13 +589,13 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section id="depoimentos" className="relative py-32">
+    <section id="depoimentos" className="relative cv-auto py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader eyebrow="Depoimentos" title="Alunos que subiram de elo" />
         <div className="mt-16 -mx-4 overflow-x-auto pb-4 [scrollbar-width:thin]">
           <div className="flex gap-5 px-4 min-w-max">
             {testimonials.map((t) => (
-              <TiltCard key={t.name} className="w-[360px] shrink-0" intensity={5}>
+              <TiltCard key={t.name} className="w-[80vw] max-w-[360px] shrink-0 sm:w-[360px]" intensity={5}>
                 <div className="rounded-3xl glass-card p-7 h-full">
                   <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF] p-[2px] shadow-[0_0_20px_rgba(123,46,255,0.5)]">
@@ -633,7 +635,7 @@ const faqs = [
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="relative py-32">
+    <section id="faq" className="relative cv-auto py-20 sm:py-28 lg:py-32">
       <div className="mx-auto max-w-3xl px-4">
         <SectionHeader eyebrow="FAQ" title="Perguntas frequentes" />
         <div className="mt-14 space-y-3">
@@ -643,8 +645,10 @@ export function FaqSection() {
               transition={{ delay: i * 0.05 }}
               className="rounded-2xl glass-card overflow-hidden"
             >
-              <button onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 p-6 text-left">
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                aria-expanded={open === i}
+                className="flex w-full items-center justify-between gap-4 p-5 text-left sm:p-6">
                 <span className="font-display font-semibold text-lg">{f.q}</span>
                 <ChevronDown className={`h-5 w-5 shrink-0 transition-transform duration-300 ${open === i ? "rotate-180 text-[#00F5FF]" : "text-white/50"}`} />
               </button>
@@ -663,7 +667,7 @@ export function FaqSection() {
 
 export function FinalCta() {
   return (
-    <section id="cta" className="relative py-40">
+    <section id="cta" className="relative cv-auto py-24 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-5xl px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
@@ -709,8 +713,17 @@ export function Footer() {
             <span className="font-display font-semibold">Projeto <span className="text-gradient-brand">Radiante</span></span>
           </div>
           <div className="flex items-center gap-3">
-            {[Instagram, Youtube, MessageSquare].map((I, i) => (
-              <a key={i} href="#" className="flex h-10 w-10 items-center justify-center rounded-full glass hover:border-[#00F5FF]/50 hover:-translate-y-0.5 transition-all">
+            {[
+              { I: Instagram, label: "Instagram do Projeto Radiante" },
+              { I: Youtube, label: "YouTube do Projeto Radiante" },
+              { I: MessageSquare, label: "Comunidade do Projeto Radiante" },
+            ].map(({ I, label }) => (
+              <a
+                key={label}
+                href="#"
+                aria-label={label}
+                className="flex h-11 w-11 items-center justify-center rounded-full glass transition-all hover:-translate-y-0.5 hover:border-[#00F5FF]/50"
+              >
                 <I className="h-4 w-4" />
               </a>
             ))}
