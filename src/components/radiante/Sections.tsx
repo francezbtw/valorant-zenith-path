@@ -368,12 +368,20 @@ export function PlansSection() {
   );
 }
 
-/* Results — scoreboard style match history */
-const matches = [
-  { rank: "Ouro → Diamante", agent: "Jett", map: "Ascent", kda: "24 / 11 / 6", score: "13-8", result: "W", acs: 312, hs: "38%", accent: "#00F5FF" },
-  { rank: "Prata → Platina", agent: "Reyna", map: "Bind", kda: "22 / 9 / 4", score: "13-6", result: "W", acs: 298, hs: "34%", accent: "#7B2EFF" },
-  { rank: "Platina → Imortal", agent: "Chamber", map: "Haven", kda: "19 / 8 / 8", score: "13-10", result: "W", acs: 275, hs: "31%", accent: "#c46bff" },
-  { rank: "Diamante → Radiante", agent: "Omen", map: "Split", kda: "27 / 12 / 5", score: "13-11", result: "W", acs: 334, hs: "41%", accent: "#00AEEF" },
+/* Results — provas reais de alunos */
+const proofs = [
+  {
+    src: alunoRadiante1.url,
+    alt: "Aluno pain (@thisispain09) agradecendo a mentoria do QCK após chegar ao Radiante",
+    caption: "De Imortal a Radiante logo no começo do ato — com a mentoria do QCK.",
+    accent: "#7B2EFF",
+  },
+  {
+    src: alunoRadiante2.url,
+    alt: "Aluno neednz alcançando Radiante #294 no ranking",
+    caption: "Radiante #294 no ranking — evolução em apenas 1 mês de mentoria.",
+    accent: "#00F5FF",
+  },
 ];
 
 export function ResultsSection() {
@@ -383,80 +391,38 @@ export function ResultsSection() {
         <SectionHeader
           eyebrow="Resultados"
           title="Histórico real de evolução"
-          subtitle="Cada card representa a jornada de um aluno — partida por partida, elo por elo."
+          subtitle="Dois alunos, um mês de mentoria — os dois chegaram ao Radiante."
         />
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-5">
-          {matches.map((m, i) => (
-            <motion.div key={m.map}
-              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {proofs.map((p, i) => (
+            <motion.div
+              key={p.src}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <TiltCard className="h-full" intensity={5}>
-                <div
-                  className="group relative h-full overflow-hidden rounded-2xl glass-card p-6 transition-all duration-500 hover:border-white/20"
-                  style={{ boxShadow: `0 30px 80px -30px ${m.accent}55` }}
+              <TiltCard className="h-full" intensity={4}>
+                <figure
+                  className="group relative h-full overflow-hidden rounded-2xl glass-card p-4 transition-all duration-500 hover:border-white/20"
+                  style={{ boxShadow: `0 30px 80px -30px ${p.accent}55` }}
                 >
-                  {/* Win stripe */}
-                  <div className="absolute left-0 top-0 h-full w-1" style={{ background: `linear-gradient(180deg, ${m.accent}, transparent)` }} />
-                  {/* Result badge */}
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="text-[10px] uppercase tracking-[0.25em] text-white/40">Evolução</div>
-                      <div className="mt-1 font-display text-xl font-bold text-white">{m.rank}</div>
-                    </div>
-                    <div
-                      className="flex h-12 w-12 items-center justify-center rounded-xl font-display text-lg font-bold text-white"
-                      style={{ background: `linear-gradient(135deg, ${m.accent}, ${m.accent}88)`, boxShadow: `0 0 30px ${m.accent}88` }}
-                    >
-                      {m.result}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 grid grid-cols-3 gap-3">
-                    <div className="rounded-xl bg-white/[0.03] border border-white/10 p-3">
-                      <div className="text-[9px] uppercase tracking-[0.2em] text-white/40">Agente</div>
-                      <div className="mt-1 text-sm font-semibold text-white">{m.agent}</div>
-                    </div>
-                    <div className="rounded-xl bg-white/[0.03] border border-white/10 p-3">
-                      <div className="text-[9px] uppercase tracking-[0.2em] text-white/40">Mapa</div>
-                      <div className="mt-1 text-sm font-semibold text-white">{m.map}</div>
-                    </div>
-                    <div className="rounded-xl bg-white/[0.03] border border-white/10 p-3">
-                      <div className="text-[9px] uppercase tracking-[0.2em] text-white/40">Score</div>
-                      <div className="mt-1 text-sm font-semibold text-white">{m.score}</div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-between rounded-xl border border-white/10 bg-black/30 px-4 py-3">
-                    <div>
-                      <div className="text-[9px] uppercase tracking-[0.2em] text-white/40">K / D / A</div>
-                      <div className="mt-0.5 font-display text-lg font-bold text-white">{m.kda}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-[9px] uppercase tracking-[0.2em] text-white/40">ACS · HS</div>
-                      <div className="mt-0.5 font-display text-lg font-bold" style={{ color: m.accent }}>{m.acs} · {m.hs}</div>
-                    </div>
-                  </div>
-
-                  {/* Hover glow */}
+                  <img
+                    src={p.src}
+                    alt={p.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full rounded-xl border border-white/10"
+                  />
+                  <figcaption className="mt-4 px-2 pb-1 text-sm text-white/60">{p.caption}</figcaption>
                   <div
                     className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
-                    style={{ background: m.accent }}
+                    style={{ background: p.accent }}
                   />
-                </div>
+                </figure>
               </TiltCard>
             </motion.div>
-          ))}
-        </div>
-
-        {/* Rank timeline mini */}
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-2 text-xs">
-          {["Ferro", "Bronze", "Prata", "Ouro", "Platina", "Diamante", "Ascendente", "Imortal", "Radiante"].map((r, i, arr) => (
-            <div key={r} className="flex items-center gap-2">
-              <span className="rounded-full glass px-3 py-1 text-white/70">{r}</span>
-              {i < arr.length - 1 && <ArrowRight className="h-3 w-3 text-white/30" />}
-            </div>
           ))}
         </div>
       </div>
