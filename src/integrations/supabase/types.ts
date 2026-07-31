@@ -41,6 +41,39 @@ export type Database = {
         }
         Relationships: []
       }
+      community_posts: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          image_url: string | null
+          kind: Database["public"]["Enums"]["post_kind"]
+          meta: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          kind?: Database["public"]["Enums"]["post_kind"]
+          meta?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          kind?: Database["public"]["Enums"]["post_kind"]
+          meta?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       coupons: {
         Row: {
           active: boolean
@@ -473,6 +506,67 @@ export type Database = {
         }
         Relationships: []
       }
+      post_comments: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          post_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          post_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      post_likes: {
+        Row: {
+          created_at: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -539,6 +633,117 @@ export type Database = {
         }
         Relationships: []
       }
+      student_stats: {
+        Row: {
+          active_days: number
+          created_at: string
+          current_tier: string | null
+          entry_tier: string | null
+          goal_tier: string
+          headshot_pct: number
+          hours_studied: number
+          joined_at: string
+          last_active_date: string | null
+          mentorships_done: number
+          streak_days: number
+          updated_at: string
+          user_id: string
+          win_rate: number
+          xp: number
+        }
+        Insert: {
+          active_days?: number
+          created_at?: string
+          current_tier?: string | null
+          entry_tier?: string | null
+          goal_tier?: string
+          headshot_pct?: number
+          hours_studied?: number
+          joined_at?: string
+          last_active_date?: string | null
+          mentorships_done?: number
+          streak_days?: number
+          updated_at?: string
+          user_id: string
+          win_rate?: number
+          xp?: number
+        }
+        Update: {
+          active_days?: number
+          created_at?: string
+          current_tier?: string | null
+          entry_tier?: string | null
+          goal_tier?: string
+          headshot_pct?: number
+          hours_studied?: number
+          joined_at?: string
+          last_active_date?: string | null
+          mentorships_done?: number
+          streak_days?: number
+          updated_at?: string
+          user_id?: string
+          win_rate?: number
+          xp?: number
+        }
+        Relationships: []
+      }
+      student_tasks: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          done: boolean
+          id: string
+          position: number
+          task_key: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          done?: boolean
+          id?: string
+          position?: number
+          task_key: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          done?: boolean
+          id?: string
+          position?: number
+          task_key?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          awarded_at: string
+          badge_key: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          awarded_at?: string
+          badge_key: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          awarded_at?: string
+          badge_key?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -595,7 +800,33 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          current_rank: string | null
+          full_name: string | null
+          id: string | null
+          riot_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          current_rank?: string | null
+          full_name?: string | null
+          id?: string | null
+          riot_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          current_rank?: string | null
+          full_name?: string | null
+          id?: string | null
+          riot_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       current_plan: {
@@ -625,6 +856,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "moderator" | "user"
       plan_tier: "basico" | "intermediario" | "mentoria"
+      post_kind: "post" | "achievement" | "evolution" | "certificate"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -754,6 +986,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "moderator", "user"],
       plan_tier: ["basico", "intermediario", "mentoria"],
+      post_kind: ["post", "achievement", "evolution", "certificate"],
     },
   },
 } as const

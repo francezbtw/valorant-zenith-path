@@ -42,6 +42,7 @@ import { Route as AuthenticatedAppCursoIndexRouteImport } from './routes/_authen
 import { Route as ApiPublicWebhooksStripeRouteImport } from './routes/api/public/webhooks/stripe'
 import { Route as ApiPublicWebhooksMercadopagoRouteImport } from './routes/api/public/webhooks/mercadopago'
 import { Route as AuthenticatedAppCursoSlugRouteImport } from './routes/_authenticated/app.curso.$slug'
+import { Route as AuthenticatedAppAlunoIdRouteImport } from './routes/_authenticated/app.aluno.$id'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -228,6 +229,11 @@ const AuthenticatedAppCursoSlugRoute =
     path: '/curso/$slug',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppAlunoIdRoute = AuthenticatedAppAlunoIdRouteImport.update({
+  id: '/aluno/$id',
+  path: '/aluno/$id',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -258,6 +264,7 @@ export interface FileRoutesByFullPath {
   '/app/valorant': typeof AuthenticatedAppValorantRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/aluno/$id': typeof AuthenticatedAppAlunoIdRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/app/valorant': typeof AuthenticatedAppValorantRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/app/aluno/$id': typeof AuthenticatedAppAlunoIdRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
@@ -326,6 +334,7 @@ export interface FileRoutesById {
   '/_authenticated/app/valorant': typeof AuthenticatedAppValorantRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/aluno/$id': typeof AuthenticatedAppAlunoIdRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
@@ -362,6 +371,7 @@ export interface FileRouteTypes {
     | '/app/valorant'
     | '/admin/'
     | '/app/'
+    | '/app/aluno/$id'
     | '/app/curso/$slug'
     | '/api/public/webhooks/mercadopago'
     | '/api/public/webhooks/stripe'
@@ -394,6 +404,7 @@ export interface FileRouteTypes {
     | '/app/valorant'
     | '/admin'
     | '/app'
+    | '/app/aluno/$id'
     | '/app/curso/$slug'
     | '/api/public/webhooks/mercadopago'
     | '/api/public/webhooks/stripe'
@@ -429,6 +440,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/valorant'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
+    | '/_authenticated/app/aluno/$id'
     | '/_authenticated/app/curso/$slug'
     | '/api/public/webhooks/mercadopago'
     | '/api/public/webhooks/stripe'
@@ -677,6 +689,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppCursoSlugRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/aluno/$id': {
+      id: '/_authenticated/app/aluno/$id'
+      path: '/aluno/$id'
+      fullPath: '/app/aluno/$id'
+      preLoaderRoute: typeof AuthenticatedAppAlunoIdRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
@@ -727,6 +746,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppSuporteRoute: typeof AuthenticatedAppSuporteRoute
   AuthenticatedAppValorantRoute: typeof AuthenticatedAppValorantRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAppAlunoIdRoute: typeof AuthenticatedAppAlunoIdRoute
   AuthenticatedAppCursoSlugRoute: typeof AuthenticatedAppCursoSlugRoute
   AuthenticatedAppCursoIndexRoute: typeof AuthenticatedAppCursoIndexRoute
 }
@@ -741,6 +761,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppSuporteRoute: AuthenticatedAppSuporteRoute,
   AuthenticatedAppValorantRoute: AuthenticatedAppValorantRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAppAlunoIdRoute: AuthenticatedAppAlunoIdRoute,
   AuthenticatedAppCursoSlugRoute: AuthenticatedAppCursoSlugRoute,
   AuthenticatedAppCursoIndexRoute: AuthenticatedAppCursoIndexRoute,
 }
