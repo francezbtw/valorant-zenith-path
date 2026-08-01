@@ -12,7 +12,11 @@ export type AdminTable =
   | "announcements"
   | "enrollments"
   | "profiles"
+  | "site_settings"
+  | "community_posts"
+  | "post_comments"
   | "user_roles";
+
 
 /** True when the signed-in user has the admin role. */
 export function useIsAdmin() {
