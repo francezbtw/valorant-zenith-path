@@ -231,12 +231,14 @@ export type Database = {
           created_at: string
           description: string | null
           duration_seconds: number
+          exercises: Json
           id: string
           materials: Json
           module_id: string
           position: number
           published: boolean
           slug: string
+          thumbnail_url: string | null
           title: string
           updated_at: string
           video_path: string | null
@@ -246,12 +248,14 @@ export type Database = {
           created_at?: string
           description?: string | null
           duration_seconds?: number
+          exercises?: Json
           id?: string
           materials?: Json
           module_id: string
           position?: number
           published?: boolean
           slug: string
+          thumbnail_url?: string | null
           title: string
           updated_at?: string
           video_path?: string | null
@@ -261,12 +265,14 @@ export type Database = {
           created_at?: string
           description?: string | null
           duration_seconds?: number
+          exercises?: Json
           id?: string
           materials?: Json
           module_id?: string
           position?: number
           published?: boolean
           slug?: string
+          thumbnail_url?: string | null
           title?: string
           updated_at?: string
           video_path?: string | null
@@ -570,31 +576,37 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          blocked: boolean
           created_at: string
           current_rank: string | null
           email: string | null
           full_name: string | null
           id: string
+          last_seen_at: string | null
           riot_id: string | null
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
+          blocked?: boolean
           created_at?: string
           current_rank?: string | null
           email?: string | null
           full_name?: string | null
           id: string
+          last_seen_at?: string | null
           riot_id?: string | null
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
+          blocked?: boolean
           created_at?: string
           current_rank?: string | null
           email?: string | null
           full_name?: string | null
           id?: string
+          last_seen_at?: string | null
           riot_id?: string | null
           updated_at?: string
         }
@@ -630,6 +642,51 @@ export type Database = {
           rr?: number
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          banner_url: string | null
+          created_at: string
+          discord_url: string | null
+          id: string
+          instagram_url: string | null
+          logo_url: string | null
+          project_name: string
+          support_email: string | null
+          tiktok_url: string | null
+          twitter_url: string | null
+          updated_at: string
+          youtube_url: string | null
+        }
+        Insert: {
+          banner_url?: string | null
+          created_at?: string
+          discord_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          logo_url?: string | null
+          project_name?: string
+          support_email?: string | null
+          tiktok_url?: string | null
+          twitter_url?: string | null
+          updated_at?: string
+          youtube_url?: string | null
+        }
+        Update: {
+          banner_url?: string | null
+          created_at?: string
+          discord_url?: string | null
+          id?: string
+          instagram_url?: string | null
+          logo_url?: string | null
+          project_name?: string
+          support_email?: string | null
+          tiktok_url?: string | null
+          twitter_url?: string | null
+          updated_at?: string
+          youtube_url?: string | null
         }
         Relationships: []
       }
