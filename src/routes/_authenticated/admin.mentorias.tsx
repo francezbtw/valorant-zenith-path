@@ -8,7 +8,7 @@ const fields: Field[] = [
   { key: "mentor_name", label: "Mentor", defaultValue: "QCK" },
   { key: "scheduled_at", label: "Agendada para", type: "datetime" },
   { key: "duration_minutes", label: "Duração (min)", type: "number", defaultValue: 60 },
-  { key: "status", label: "Status", type: "select", options: [{ value: "scheduled", label: "Agendada" }, { value: "done", label: "Concluída" }, { value: "canceled", label: "Cancelada" }], defaultValue: "scheduled" },
+  { key: "status", label: "Status", type: "select", options: [{ value: "requested", label: "Pedido pendente" }, { value: "approved", label: "Aprovada" }, { value: "rejected", label: "Rejeitada" }, { value: "scheduled", label: "Agendada" }, { value: "done", label: "Concluída" }, { value: "canceled", label: "Cancelada" }], defaultValue: "requested" },
   { key: "meeting_url", label: "Link da reunião", hideInTable: true },
   { key: "notes", label: "Notas", type: "textarea", hideInTable: true },
 ];
