@@ -3,7 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, CreditCard, Loader2, Lock, ShieldCheck, Sparkles } from "lucide-react";
-import { getPlan } from "@/lib/plans.functions";
+import { getPlan, type PublicPlan } from "@/lib/plans.functions";
 import { createCheckout } from "@/lib/checkout.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { PLAN_LABEL } from "@/lib/member";
@@ -61,7 +61,7 @@ function brl(cents: number, currency: string) {
 }
 
 function CheckoutPage() {
-  const plan = Route.useLoaderData();
+  const plan = Route.useLoaderData() as PublicPlan;
   const startCheckout = useServerFn(createCheckout);
   const [method, setMethod] = useState<"stripe" | "mercadopago">("stripe");
   const [email, setEmail] = useState("");
