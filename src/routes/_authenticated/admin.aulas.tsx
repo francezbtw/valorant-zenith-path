@@ -8,13 +8,16 @@ const fields: Field[] = [
   { key: "slug", label: "Slug", required: true },
   { key: "module_id", label: "ID do módulo", required: true },
   { key: "description", label: "Descrição", type: "textarea", hideInTable: true },
+  { key: "thumbnail_url", label: "Thumbnail (URL)", hideInTable: true },
   { key: "video_url", label: "Vídeo (URL externa)", hideInTable: true },
   { key: "video_path", label: "Vídeo (arquivo enviado)", type: "readonly", hideInTable: true },
-  { key: "duration_seconds", label: "Duração (s)", type: "number" },
-  { key: "materials", label: "Materiais (JSON)", type: "json", hideInTable: true, defaultValue: "[]" },
-  { key: "position", label: "Posição", type: "number" },
+  { key: "duration_seconds", label: "Tempo (s)", type: "number" },
+  { key: "materials", label: "Materiais / PDFs (JSON)", type: "json", hideInTable: true, defaultValue: "[]" },
+  { key: "exercises", label: "Exercícios (JSON)", type: "json", hideInTable: true, defaultValue: "[]" },
+  { key: "position", label: "Ordem", type: "number" },
   { key: "published", label: "Publicado", type: "boolean", defaultValue: true },
 ];
+
 
 export const Route = createFileRoute("/_authenticated/admin/aulas")({
   head: () => ({

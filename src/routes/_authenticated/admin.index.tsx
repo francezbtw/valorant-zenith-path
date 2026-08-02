@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Users, UserPlus, Wallet, GraduationCap, Activity, BookOpen } from "lucide-react";
+import { Users, UserPlus, Wallet, GraduationCap, Activity, BookOpen, CalendarClock, ShoppingBag } from "lucide-react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { useAdminStats, formatBRL } from "@/hooks/use-admin";
@@ -27,12 +27,15 @@ function Page() {
 
   const cards = [
     { label: "Total de alunos", value: String(s?.totalStudents ?? 0), icon: Users, accent: "#7B2EFF" },
-    { label: "Novos (30 dias)", value: String(s?.newStudents ?? 0), icon: UserPlus, accent: "#00F5FF" },
-    { label: "Receita", value: formatBRL(s?.revenueCents ?? 0), icon: Wallet, accent: "#00AEEF" },
-    { label: "Matrículas", value: String(s?.enrollments ?? 0), icon: GraduationCap, accent: "#6F4BFF" },
+    { label: "Assinaturas ativas", value: String(s?.activeSubscriptions ?? 0), icon: GraduationCap, accent: "#6F4BFF" },
+    { label: "Receita mensal", value: formatBRL(s?.monthlyRevenueCents ?? 0), icon: CalendarClock, accent: "#00AEEF" },
+    { label: "Receita total", value: formatBRL(s?.revenueCents ?? 0), icon: Wallet, accent: "#00F5FF" },
+    { label: "Novos alunos (30 dias)", value: String(s?.newStudents ?? 0), icon: UserPlus, accent: "#00F5FF" },
     { label: "Alunos ativos", value: String(s?.activeStudents ?? 0), icon: Activity, accent: "#c46bff" },
-    { label: "Cursos · Aulas", value: `${s?.courses ?? 0} · ${s?.lessons ?? 0}`, icon: BookOpen, accent: "#00F5FF" },
+    { label: "Cursos vendidos", value: String(s?.coursesSold ?? 0), icon: ShoppingBag, accent: "#7B2EFF" },
+    { label: "Cursos · Aulas", value: `${s?.courses ?? 0} · ${s?.lessons ?? 0}`, icon: BookOpen, accent: "#00AEEF" },
   ];
+
 
   return (
     <>

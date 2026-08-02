@@ -35,6 +35,7 @@ import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminCuponsRouteImport } from './routes/_authenticated/admin.cupons'
 import { Route as AuthenticatedAdminConteudoRouteImport } from './routes/_authenticated/admin.conteudo'
 import { Route as AuthenticatedAdminConfiguracoesRouteImport } from './routes/_authenticated/admin.configuracoes'
+import { Route as AuthenticatedAdminComunidadeRouteImport } from './routes/_authenticated/admin.comunidade'
 import { Route as AuthenticatedAdminAulasRouteImport } from './routes/_authenticated/admin.aulas'
 import { Route as AuthenticatedAdminAnalyticsRouteImport } from './routes/_authenticated/admin.analytics'
 import { Route as AuthenticatedAdminAlunosRouteImport } from './routes/_authenticated/admin.alunos'
@@ -189,6 +190,12 @@ const AuthenticatedAdminConfiguracoesRoute =
     path: '/configuracoes',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminComunidadeRoute =
+  AuthenticatedAdminComunidadeRouteImport.update({
+    id: '/comunidade',
+    path: '/comunidade',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminAulasRoute = AuthenticatedAdminAulasRouteImport.update({
   id: '/aulas',
   path: '/aulas',
@@ -244,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
+  '/admin/comunidade': typeof AuthenticatedAdminComunidadeRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
   '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
@@ -277,6 +285,7 @@ export interface FileRoutesByTo {
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
+  '/admin/comunidade': typeof AuthenticatedAdminComunidadeRoute
   '/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
   '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
@@ -314,6 +323,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/alunos': typeof AuthenticatedAdminAlunosRoute
   '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/aulas': typeof AuthenticatedAdminAulasRoute
+  '/_authenticated/admin/comunidade': typeof AuthenticatedAdminComunidadeRoute
   '/_authenticated/admin/configuracoes': typeof AuthenticatedAdminConfiguracoesRoute
   '/_authenticated/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
   '/_authenticated/admin/cupons': typeof AuthenticatedAdminCuponsRoute
@@ -351,6 +361,7 @@ export interface FileRouteTypes {
     | '/admin/alunos'
     | '/admin/analytics'
     | '/admin/aulas'
+    | '/admin/comunidade'
     | '/admin/configuracoes'
     | '/admin/conteudo'
     | '/admin/cupons'
@@ -384,6 +395,7 @@ export interface FileRouteTypes {
     | '/admin/alunos'
     | '/admin/analytics'
     | '/admin/aulas'
+    | '/admin/comunidade'
     | '/admin/configuracoes'
     | '/admin/conteudo'
     | '/admin/cupons'
@@ -420,6 +432,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/alunos'
     | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/aulas'
+    | '/_authenticated/admin/comunidade'
     | '/_authenticated/admin/configuracoes'
     | '/_authenticated/admin/conteudo'
     | '/_authenticated/admin/cupons'
@@ -640,6 +653,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminConfiguracoesRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/comunidade': {
+      id: '/_authenticated/admin/comunidade'
+      path: '/comunidade'
+      fullPath: '/admin/comunidade'
+      preLoaderRoute: typeof AuthenticatedAdminComunidadeRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/aulas': {
       id: '/_authenticated/admin/aulas'
       path: '/aulas'
@@ -703,6 +723,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminAlunosRoute: typeof AuthenticatedAdminAlunosRoute
   AuthenticatedAdminAnalyticsRoute: typeof AuthenticatedAdminAnalyticsRoute
   AuthenticatedAdminAulasRoute: typeof AuthenticatedAdminAulasRoute
+  AuthenticatedAdminComunidadeRoute: typeof AuthenticatedAdminComunidadeRoute
   AuthenticatedAdminConfiguracoesRoute: typeof AuthenticatedAdminConfiguracoesRoute
   AuthenticatedAdminConteudoRoute: typeof AuthenticatedAdminConteudoRoute
   AuthenticatedAdminCuponsRoute: typeof AuthenticatedAdminCuponsRoute
@@ -720,6 +741,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminAlunosRoute: AuthenticatedAdminAlunosRoute,
   AuthenticatedAdminAnalyticsRoute: AuthenticatedAdminAnalyticsRoute,
   AuthenticatedAdminAulasRoute: AuthenticatedAdminAulasRoute,
+  AuthenticatedAdminComunidadeRoute: AuthenticatedAdminComunidadeRoute,
   AuthenticatedAdminConfiguracoesRoute: AuthenticatedAdminConfiguracoesRoute,
   AuthenticatedAdminConteudoRoute: AuthenticatedAdminConteudoRoute,
   AuthenticatedAdminCuponsRoute: AuthenticatedAdminCuponsRoute,

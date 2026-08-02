@@ -1,13 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminHeader } from "@/components/admin/AdminShell";
+import { StudentsManager } from "@/components/admin/StudentsManager";
 import { CrudTable, type Field } from "@/components/admin/CrudTable";
-
-const profileFields: Field[] = [
-  { key: "full_name", label: "Nome" },
-  { key: "email", label: "E-mail" },
-  { key: "riot_id", label: "Riot ID" },
-  { key: "current_rank", label: "Elo" },
-];
 
 const enrollmentFields: Field[] = [
   { key: "user_id", label: "Aluno (ID)", required: true },
@@ -21,9 +15,9 @@ export const Route = createFileRoute("/_authenticated/admin/alunos")({
   head: () => ({
     meta: [
       { title: "Alunos · Console Admin — Projeto Radiante" },
-      { name: "description", content: "Gerencie os alunos e as matrículas do Projeto Radiante." },
+      { name: "description", content: "Gerencie alunos, planos, bloqueios e progresso no Projeto Radiante." },
       { property: "og:title", content: "Alunos — Console Admin" },
-      { property: "og:description", content: "Perfis cadastrados e liberação de planos." },
+      { property: "og:description", content: "Planos, status, último acesso, progresso e bloqueio de contas." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
@@ -35,8 +29,8 @@ export const Route = createFileRoute("/_authenticated/admin/alunos")({
 function Page() {
   return (
     <>
-      <AdminHeader title="Alunos" subtitle="Perfis cadastrados e liberação de planos." />
-      <CrudTable table="profiles" title="Alunos" fields={profileFields} canCreate={false} canDelete={false} />
+      <AdminHeader title="Alunos" subtitle="Planos, status, último acesso, progresso e bloqueio de contas." />
+      <StudentsManager />
       <div className="mt-8">
         <h2 className="mb-4 font-display text-xl font-semibold">Matrículas</h2>
         <CrudTable table="enrollments" title="Matrículas" fields={enrollmentFields} />

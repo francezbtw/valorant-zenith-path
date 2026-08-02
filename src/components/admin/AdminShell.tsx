@@ -4,25 +4,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, Users, GraduationCap, Layers, PlayCircle, Sparkles,
   CreditCard, Ticket, FileText, Settings, BarChart3, LifeBuoy, Menu, X,
-  ArrowLeft, ShieldCheck, Package,
+  ArrowLeft, ShieldCheck, Package, MessagesSquare,
 } from "lucide-react";
 
 const nav = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard },
   { label: "Alunos", to: "/admin/alunos", icon: Users },
-  { label: "Usuários", to: "/admin/usuarios", icon: ShieldCheck },
   { label: "Cursos", to: "/admin/cursos", icon: GraduationCap },
   { label: "Módulos", to: "/admin/modulos", icon: Layers },
   { label: "Aulas", to: "/admin/aulas", icon: PlayCircle },
-  { label: "Mentorias", to: "/admin/mentorias", icon: Sparkles },
   { label: "Planos", to: "/admin/planos", icon: Package },
   { label: "Pagamentos", to: "/admin/pagamentos", icon: CreditCard },
+  { label: "Mentorias", to: "/admin/mentorias", icon: Sparkles },
+  { label: "Comunidade", to: "/admin/comunidade", icon: MessagesSquare },
+  { label: "Configurações", to: "/admin/configuracoes", icon: Settings },
+  { label: "Usuários", to: "/admin/usuarios", icon: ShieldCheck },
   { label: "Cupons", to: "/admin/cupons", icon: Ticket },
   { label: "Conteúdo", to: "/admin/conteudo", icon: FileText },
   { label: "Analytics", to: "/admin/analytics", icon: BarChart3 },
-  { label: "Configurações", to: "/admin/configuracoes", icon: Settings },
   { label: "Suporte", to: "/admin/suporte", icon: LifeBuoy },
 ] as const;
+
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
