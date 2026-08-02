@@ -1,7 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { PlanTier } from "@/lib/member";
 
-type CheckoutInput = { planSlug: string; provider: "stripe" | "mercadopago"; successUrl: string; cancelUrl: string };
+type CheckoutInput = {
+  planSlug: string;
+  provider: "stripe" | "mercadopago";
+  successUrl: string;
+  cancelUrl: string;
+  customerEmail?: string | null;
+};
 
 /**
  * Creates a checkout session. Works as soon as STRIPE_SECRET_KEY /
