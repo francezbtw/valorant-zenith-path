@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Users, UserPlus, Wallet, GraduationCap, Activity, BookOpen } from "lucide-react";
+import { Users, UserPlus, Wallet, GraduationCap, Activity, BookOpen, CalendarClock, ShoppingBag } from "lucide-react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { useAdminStats, formatBRL } from "@/hooks/use-admin";
