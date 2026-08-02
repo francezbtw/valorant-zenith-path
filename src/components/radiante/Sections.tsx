@@ -7,8 +7,7 @@ import {
   Rocket, Crown, Gem, ArrowRight, Target, Flame, TrendingUp, Award,
 } from "lucide-react";
 import { useRef, useState, type MouseEvent, type ReactNode } from "react";
-import { useServerFn } from "@tanstack/react-start";
-import { createCheckout } from "@/lib/checkout.functions";
+import { Link } from "@tanstack/react-router";
 import qckPhoto from "@/assets/qck.jpg.asset.json";
 import alunoRadiante1 from "@/assets/aluno-radiante-1.png.asset.json";
 import alunoRadiante2 from "@/assets/aluno-radiante-2.png.asset.json";
@@ -247,42 +246,19 @@ const plans = [
 ];
 
 function CheckoutButton({ planSlug, label, highlight }: { planSlug: string; label: string; highlight?: boolean }) {
-  const [loading, setLoading] = useState(false);
-  const startCheckout = useServerFn(createCheckout);
-
-  async function go() {
-    setLoading(true);
-    try {
-      const origin = window.location.origin;
-      const { url } = await startCheckout({
-        data: {
-          planSlug,
-          provider: "stripe",
-          successUrl: `${origin}/app?compra=sucesso`,
-          cancelUrl: `${origin}/#planos`,
-        },
-      });
-      window.location.href = url;
-    } catch {
-      document.getElementById("cta")?.scrollIntoView({ behavior: "smooth" });
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
-    <button
-      onClick={go}
-      disabled={loading}
-      className={`mt-10 group inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-sm font-semibold transition-all disabled:opacity-60 ${
+    <Link
+      to="/checkout/$slug"
+      params={{ slug: planSlug }}
+      className={`mt-10 group inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-sm font-semibold transition-all ${
         highlight
           ? "btn-primary-radiante"
           : "border border-white/15 bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-[#00F5FF]/40 hover:-translate-y-0.5"
       }`}
     >
-      {loading ? "Abrindo checkout…" : label}
+      {label}
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-    </button>
+    </Link>
   );
 }
 

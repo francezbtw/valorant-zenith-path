@@ -1,7 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { PlanTier } from "@/lib/member";
 
-type CheckoutInput = { planSlug: string; provider: "stripe" | "mercadopago"; successUrl: string; cancelUrl: string };
+type CheckoutInput = {
+  planSlug: string;
+  provider: "stripe" | "mercadopago";
+  successUrl: string;
+  cancelUrl: string;
+  customerEmail?: string | null;
+};
 
 /**
  * Creates a checkout session. Works as soon as STRIPE_SECRET_KEY /
@@ -46,6 +52,8 @@ export const createCheckout = createServerFn({ method: "POST" })
       body.set("success_url", data.successUrl);
       body.set("cancel_url", data.cancelUrl);
       body.set("metadata[plan]", plan.tier as PlanTier);
+      body.set("metadata[plan_slug]", plan.slug);
+      if (data.customerEmail) body.set("customer_email", data.customerEmail);
       if (plan.stripe_price_id) {
         body.set("line_items[0][price]", plan.stripe_price_id);
         body.set("line_items[0][quantity]", "1");
@@ -81,7 +89,8 @@ export const createCheckout = createServerFn({ method: "POST" })
             unit_price: plan.price_cents / 100,
           },
         ],
-        metadata: { plan: plan.tier },
+        ...(data.customerEmail ? { payer: { email: data.customerEmail } } : {}),
+        metadata: { plan: plan.tier, plan_slug: plan.slug },
         external_reference: plan.tier,
         back_urls: { success: data.successUrl, failure: data.cancelUrl, pending: data.cancelUrl },
         auto_return: "approved",

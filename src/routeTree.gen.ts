@@ -13,6 +13,8 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CheckoutSucessoRouteImport } from './routes/checkout.sucesso'
+import { Route as CheckoutSlugRouteImport } from './routes/checkout.$slug'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
@@ -62,6 +64,16 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutSucessoRoute = CheckoutSucessoRouteImport.update({
+  id: '/checkout/sucesso',
+  path: '/checkout/sucesso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutSlugRoute = CheckoutSlugRouteImport.update({
+  id: '/checkout/$slug',
+  path: '/checkout/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
@@ -248,6 +260,8 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/checkout/$slug': typeof CheckoutSlugRoute
+  '/checkout/sucesso': typeof CheckoutSucessoRoute
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
@@ -282,6 +296,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/checkout/$slug': typeof CheckoutSlugRoute
+  '/checkout/sucesso': typeof CheckoutSucessoRoute
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
   '/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/admin/aulas': typeof AuthenticatedAdminAulasRoute
@@ -320,6 +336,8 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/checkout/$slug': typeof CheckoutSlugRoute
+  '/checkout/sucesso': typeof CheckoutSucessoRoute
   '/_authenticated/admin/alunos': typeof AuthenticatedAdminAlunosRoute
   '/_authenticated/admin/analytics': typeof AuthenticatedAdminAnalyticsRoute
   '/_authenticated/admin/aulas': typeof AuthenticatedAdminAulasRoute
@@ -358,6 +376,8 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/admin'
     | '/app'
+    | '/checkout/$slug'
+    | '/checkout/sucesso'
     | '/admin/alunos'
     | '/admin/analytics'
     | '/admin/aulas'
@@ -392,6 +412,8 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/checkout/$slug'
+    | '/checkout/sucesso'
     | '/admin/alunos'
     | '/admin/analytics'
     | '/admin/aulas'
@@ -429,6 +451,8 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/admin'
     | '/_authenticated/app'
+    | '/checkout/$slug'
+    | '/checkout/sucesso'
     | '/_authenticated/admin/alunos'
     | '/_authenticated/admin/analytics'
     | '/_authenticated/admin/aulas'
@@ -465,6 +489,8 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  CheckoutSlugRoute: typeof CheckoutSlugRoute
+  CheckoutSucessoRoute: typeof CheckoutSucessoRoute
   ApiPublicWebhooksMercadopagoRoute: typeof ApiPublicWebhooksMercadopagoRoute
   ApiPublicWebhooksStripeRoute: typeof ApiPublicWebhooksStripeRoute
 }
@@ -497,6 +523,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/sucesso': {
+      id: '/checkout/sucesso'
+      path: '/checkout/sucesso'
+      fullPath: '/checkout/sucesso'
+      preLoaderRoute: typeof CheckoutSucessoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/$slug': {
+      id: '/checkout/$slug'
+      path: '/checkout/$slug'
+      fullPath: '/checkout/$slug'
+      preLoaderRoute: typeof CheckoutSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/app': {
@@ -809,6 +849,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  CheckoutSlugRoute: CheckoutSlugRoute,
+  CheckoutSucessoRoute: CheckoutSucessoRoute,
   ApiPublicWebhooksMercadopagoRoute: ApiPublicWebhooksMercadopagoRoute,
   ApiPublicWebhooksStripeRoute: ApiPublicWebhooksStripeRoute,
 }

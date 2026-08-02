@@ -154,6 +154,7 @@ export type Database = {
       }
       enrollments: {
         Row: {
+          canceled_at: string | null
           created_at: string
           expires_at: string | null
           id: string
@@ -166,6 +167,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          canceled_at?: string | null
           created_at?: string
           expires_at?: string | null
           id?: string
@@ -178,6 +180,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          canceled_at?: string | null
           created_at?: string
           expires_at?: string | null
           id?: string
@@ -461,6 +464,7 @@ export type Database = {
           checkout_url: string | null
           created_at: string
           currency: string
+          description: string | null
           features: Json
           highlight: boolean
           id: string
@@ -479,6 +483,7 @@ export type Database = {
           checkout_url?: string | null
           created_at?: string
           currency?: string
+          description?: string | null
           features?: Json
           highlight?: boolean
           id?: string
@@ -497,6 +502,7 @@ export type Database = {
           checkout_url?: string | null
           created_at?: string
           currency?: string
+          description?: string | null
           features?: Json
           highlight?: boolean
           id?: string

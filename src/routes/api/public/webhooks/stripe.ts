@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
-import { fulfillPayment, planFromMetadata } from "@/lib/payments.server";
+import { fulfillPayment, planFromMetadata, syncSubscriptionStatus } from "@/lib/payments.server";
 
 function verifyStripeSignature(header: string | null, payload: string, secret: string) {
   if (!header) return false;
@@ -33,26 +33,58 @@ export const Route = createFileRoute("/api/public/webhooks/stripe")({
           { onConflict: "provider,event_id" },
         );
 
-        if (event.type !== "checkout.session.completed" && event.type !== "checkout.session.async_payment_succeeded") {
-          return new Response("ignored");
+        const markProcessed = () =>
+          supabaseAdmin
+            .from("payment_events")
+            .update({ processed: true })
+            .eq("provider", "stripe")
+            .eq("event_id", event.id);
+
+        const isPurchase =
+          event.type === "checkout.session.completed" ||
+          event.type === "checkout.session.async_payment_succeeded";
+
+        // Ciclo de vida da assinatura: cancelada / expirada / pendente.
+        if (event.type.startsWith("customer.subscription.") || event.type === "invoice.payment_failed") {
+          const object = event.data.object;
+          const subscriptionId = String(object.subscription ?? object.id ?? "");
+          const stripeStatus = String(object.status ?? "");
+          const status =
+            event.type === "customer.subscription.deleted"
+              ? "canceled"
+              : stripeStatus === "canceled"
+                ? "canceled"
+                : stripeStatus === "active" || stripeStatus === "trialing"
+                  ? "active"
+                  : stripeStatus === "past_due" || stripeStatus === "unpaid" || event.type === "invoice.payment_failed"
+                    ? "pending"
+                    : "expired";
+          const periodEnd = Number(object.current_period_end ?? 0);
+          await syncSubscriptionStatus({
+            provider: "stripe",
+            providerRef: subscriptionId,
+            status,
+            expiresAt: periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
+            email: object.customer_email ?? null,
+          });
+          await markProcessed();
+          return new Response("ok");
         }
+
+        if (!isPurchase) return new Response("ignored");
 
         const session = event.data.object;
         try {
           await fulfillPayment({
             provider: "stripe",
-            providerRef: String(session.id),
+            providerRef: String(session.subscription ?? session.id),
             email: session.customer_details?.email ?? session.customer_email ?? null,
             fullName: session.customer_details?.name ?? null,
             plan: planFromMetadata(session.metadata?.plan),
             amountCents: Number(session.amount_total ?? 0),
             currency: String(session.currency ?? "brl").toUpperCase(),
           });
-          await supabaseAdmin
-            .from("payment_events")
-            .update({ processed: true })
-            .eq("provider", "stripe")
-            .eq("event_id", event.id);
+          await markProcessed();
         } catch (err) {
           const message = err instanceof Error ? err.message : String(err);
           console.error("stripe fulfillment failed", message);
