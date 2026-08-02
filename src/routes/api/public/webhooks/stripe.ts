@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
-import { fulfillPayment, planFromMetadata } from "@/lib/payments.server";
+import { fulfillPayment, planFromMetadata, syncSubscriptionStatus } from "@/lib/payments.server";
 
 function verifyStripeSignature(header: string | null, payload: string, secret: string) {
   if (!header) return false;
