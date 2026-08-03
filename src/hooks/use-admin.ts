@@ -38,6 +38,25 @@ export function useIsAdmin() {
   });
 }
 
+/** True when the signed-in user is a mentor (moderator) or admin. */
+export function useIsMentor() {
+  return useQuery({
+    queryKey: ["is-mentor"],
+    staleTime: 60_000,
+    queryFn: async () => {
+      const { data: auth } = await supabase.auth.getUser();
+      if (!auth.user) return false;
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", auth.user.id)
+        .in("role", ["admin", "moderator"]);
+      if (error) return false;
+      return (data ?? []).length > 0;
+    },
+  });
+}
+
 type Row = Record<string, unknown>;
 
 export function useAdminRows<T = Row>(table: AdminTable, orderBy = "created_at", ascending = false) {
