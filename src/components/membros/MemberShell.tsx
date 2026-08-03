@@ -8,6 +8,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useProfile, usePlan } from "@/hooks/use-member";
+import { NotificationBell } from "@/components/membros/NotificationBell";
 import { PLAN_LABEL } from "@/lib/member";
 
 const nav = [
@@ -122,7 +123,10 @@ export function MemberShell({ children }: { children: React.ReactNode }) {
           <Menu className="h-4 w-4" />
         </button>
         <span className="font-display text-sm font-semibold">Área de Membros</span>
-        <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF] text-center text-[11px] leading-8 font-bold">{initials}</div>
+        <div className="flex items-center gap-2">
+          <NotificationBell />
+          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF] text-center text-[11px] leading-8 font-bold">{initials}</div>
+        </div>
       </header>
 
       <AnimatePresence>
