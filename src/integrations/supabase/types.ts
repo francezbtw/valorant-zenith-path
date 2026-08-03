@@ -293,8 +293,12 @@ export type Database = {
       }
       mentorships: {
         Row: {
+          attachments: Json
+          completed_at: string | null
           created_at: string
           duration_minutes: number
+          feedback: string | null
+          feedback_at: string | null
           id: string
           meeting_url: string | null
           mentor_name: string
@@ -306,8 +310,12 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          attachments?: Json
+          completed_at?: string | null
           created_at?: string
           duration_minutes?: number
+          feedback?: string | null
+          feedback_at?: string | null
           id?: string
           meeting_url?: string | null
           mentor_name?: string
@@ -319,8 +327,12 @@ export type Database = {
           user_id: string
         }
         Update: {
+          attachments?: Json
+          completed_at?: string | null
           created_at?: string
           duration_minutes?: number
+          feedback?: string | null
+          feedback_at?: string | null
           id?: string
           meeting_url?: string | null
           mentor_name?: string
@@ -382,6 +394,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          kind: string
+          link: string | null
+          read: boolean
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          link?: string | null
+          read?: boolean
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          link?: string | null
+          read?: boolean
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       payment_events: {
         Row: {
@@ -911,6 +956,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      is_mentor: { Args: never; Returns: boolean }
       plan_rank: {
         Args: { _plan: Database["public"]["Enums"]["plan_tier"] }
         Returns: number
