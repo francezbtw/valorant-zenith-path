@@ -26,7 +26,7 @@ export const Route = createFileRoute("/_authenticated/mentor/$id")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: MentorDetail;
+  component: MentorDetail,
 });
 
 function MentorDetail() {
