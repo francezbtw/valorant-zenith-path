@@ -16,6 +16,7 @@ const nav = [
   { label: "Planos", to: "/admin/planos", icon: Package },
   { label: "Pagamentos", to: "/admin/pagamentos", icon: CreditCard },
   { label: "Mentorias", to: "/admin/mentorias", icon: Sparkles },
+  { label: "Painel do Mentor", to: "/mentor", icon: MessagesSquare },
   { label: "Comunidade", to: "/admin/comunidade", icon: MessagesSquare },
   { label: "Configurações", to: "/admin/configuracoes", icon: Settings },
   { label: "Usuários", to: "/admin/usuarios", icon: ShieldCheck },

@@ -15,10 +15,13 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CheckoutSucessoRouteImport } from './routes/checkout.sucesso'
 import { Route as CheckoutSlugRouteImport } from './routes/checkout.$slug'
+import { Route as AuthenticatedMentorRouteImport } from './routes/_authenticated/mentor'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenticated/mentor.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedMentorIdRouteImport } from './routes/_authenticated/mentor.$id'
 import { Route as AuthenticatedAppValorantRouteImport } from './routes/_authenticated/app.valorant'
 import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authenticated/app.suporte'
 import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
@@ -76,6 +79,11 @@ const CheckoutSlugRoute = CheckoutSlugRouteImport.update({
   path: '/checkout/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedMentorRoute = AuthenticatedMentorRouteImport.update({
+  id: '/mentor',
+  path: '/mentor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -86,6 +94,12 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMentorIndexRoute =
+  AuthenticatedMentorIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedMentorRoute,
+  } as any)
 const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -95,6 +109,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedMentorIdRoute = AuthenticatedMentorIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedMentorRoute,
 } as any)
 const AuthenticatedAppValorantRoute =
   AuthenticatedAppValorantRouteImport.update({
@@ -260,6 +279,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/mentor': typeof AuthenticatedMentorRouteWithChildren
   '/checkout/$slug': typeof CheckoutSlugRoute
   '/checkout/sucesso': typeof CheckoutSucessoRoute
   '/admin/alunos': typeof AuthenticatedAdminAlunosRoute
@@ -284,8 +304,10 @@ export interface FileRoutesByFullPath {
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/app/valorant': typeof AuthenticatedAppValorantRoute
+  '/mentor/$id': typeof AuthenticatedMentorIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
+  '/mentor/': typeof AuthenticatedMentorIndexRoute
   '/app/aluno/$id': typeof AuthenticatedAppAlunoIdRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
@@ -320,8 +342,10 @@ export interface FileRoutesByTo {
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/app/valorant': typeof AuthenticatedAppValorantRoute
+  '/mentor/$id': typeof AuthenticatedMentorIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
+  '/mentor': typeof AuthenticatedMentorIndexRoute
   '/app/aluno/$id': typeof AuthenticatedAppAlunoIdRoute
   '/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
@@ -336,6 +360,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/mentor': typeof AuthenticatedMentorRouteWithChildren
   '/checkout/$slug': typeof CheckoutSlugRoute
   '/checkout/sucesso': typeof CheckoutSucessoRoute
   '/_authenticated/admin/alunos': typeof AuthenticatedAdminAlunosRoute
@@ -360,8 +385,10 @@ export interface FileRoutesById {
   '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/_authenticated/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/_authenticated/app/valorant': typeof AuthenticatedAppValorantRoute
+  '/_authenticated/mentor/$id': typeof AuthenticatedMentorIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/mentor/': typeof AuthenticatedMentorIndexRoute
   '/_authenticated/app/aluno/$id': typeof AuthenticatedAppAlunoIdRoute
   '/_authenticated/app/curso/$slug': typeof AuthenticatedAppCursoSlugRoute
   '/api/public/webhooks/mercadopago': typeof ApiPublicWebhooksMercadopagoRoute
@@ -376,6 +403,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/admin'
     | '/app'
+    | '/mentor'
     | '/checkout/$slug'
     | '/checkout/sucesso'
     | '/admin/alunos'
@@ -400,8 +428,10 @@ export interface FileRouteTypes {
     | '/app/progresso'
     | '/app/suporte'
     | '/app/valorant'
+    | '/mentor/$id'
     | '/admin/'
     | '/app/'
+    | '/mentor/'
     | '/app/aluno/$id'
     | '/app/curso/$slug'
     | '/api/public/webhooks/mercadopago'
@@ -436,8 +466,10 @@ export interface FileRouteTypes {
     | '/app/progresso'
     | '/app/suporte'
     | '/app/valorant'
+    | '/mentor/$id'
     | '/admin'
     | '/app'
+    | '/mentor'
     | '/app/aluno/$id'
     | '/app/curso/$slug'
     | '/api/public/webhooks/mercadopago'
@@ -451,6 +483,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/admin'
     | '/_authenticated/app'
+    | '/_authenticated/mentor'
     | '/checkout/$slug'
     | '/checkout/sucesso'
     | '/_authenticated/admin/alunos'
@@ -475,8 +508,10 @@ export interface FileRouteTypes {
     | '/_authenticated/app/progresso'
     | '/_authenticated/app/suporte'
     | '/_authenticated/app/valorant'
+    | '/_authenticated/mentor/$id'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
+    | '/_authenticated/mentor/'
     | '/_authenticated/app/aluno/$id'
     | '/_authenticated/app/curso/$slug'
     | '/api/public/webhooks/mercadopago'
@@ -539,6 +574,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/mentor': {
+      id: '/_authenticated/mentor'
+      path: '/mentor'
+      fullPath: '/mentor'
+      preLoaderRoute: typeof AuthenticatedMentorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/app': {
       id: '/_authenticated/app'
       path: '/app'
@@ -553,6 +595,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mentor/': {
+      id: '/_authenticated/mentor/'
+      path: '/'
+      fullPath: '/mentor/'
+      preLoaderRoute: typeof AuthenticatedMentorIndexRouteImport
+      parentRoute: typeof AuthenticatedMentorRoute
+    }
     '/_authenticated/app/': {
       id: '/_authenticated/app/'
       path: '/'
@@ -566,6 +615,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/mentor/$id': {
+      id: '/_authenticated/mentor/$id'
+      path: '/$id'
+      fullPath: '/mentor/$id'
+      preLoaderRoute: typeof AuthenticatedMentorIdRouteImport
+      parentRoute: typeof AuthenticatedMentorRoute
     }
     '/_authenticated/app/valorant': {
       id: '/_authenticated/app/valorant'
@@ -831,14 +887,29 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
 const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
+interface AuthenticatedMentorRouteChildren {
+  AuthenticatedMentorIdRoute: typeof AuthenticatedMentorIdRoute
+  AuthenticatedMentorIndexRoute: typeof AuthenticatedMentorIndexRoute
+}
+
+const AuthenticatedMentorRouteChildren: AuthenticatedMentorRouteChildren = {
+  AuthenticatedMentorIdRoute: AuthenticatedMentorIdRoute,
+  AuthenticatedMentorIndexRoute: AuthenticatedMentorIndexRoute,
+}
+
+const AuthenticatedMentorRouteWithChildren =
+  AuthenticatedMentorRoute._addFileChildren(AuthenticatedMentorRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
+  AuthenticatedMentorRoute: typeof AuthenticatedMentorRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
+  AuthenticatedMentorRoute: AuthenticatedMentorRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

@@ -1,11 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { PlayCircle, Target, Clock, TrendingUp, Check, Flame } from "lucide-react";
+import { PlayCircle, Target, Clock, TrendingUp, Check, Flame, Sparkles } from "lucide-react";
 import { PageHeader } from "@/components/membros/MemberShell";
 import { useProfile, useLessons, useModules, useProgress } from "@/hooks/use-member";
 import { useMyStats, useTasks, useToggleTask } from "@/hooks/use-community";
 import { tierColor, tierIndex } from "@/lib/community";
 import { Reveal, Tilt } from "@/components/ui/premium";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useMyMentorships } from "@/hooks/use-mentorship";
+import { formatDateTime } from "@/lib/mentorship";
 
 export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
@@ -123,6 +126,11 @@ function DashboardHome() {
           hint={stats?.streak_days ? `${stats.streak_days} dias de sequência` : "Comece sua sequência hoje"}
         />
       </div>
+
+      {/* Minhas Mentorias */}
+      <MentorshipCard />
+
+
 
       {/* Plano de Evolução */}
       <Reveal className="mt-5">
@@ -245,6 +253,66 @@ function MetricCard({
             className="pointer-events-none absolute -bottom-14 -right-14 h-36 w-36 rounded-full opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40"
             style={{ background: accent }}
           />
+        </div>
+      </Tilt>
+    </Reveal>
+  );
+}
+
+function MentorshipCard() {
+  const { data: list = [], isLoading } = useMyMentorships();
+
+  const done = list.filter((m) => m.status === "done").length;
+  const pending = list.filter((m) => ["requested", "approved", "scheduled"].includes(m.status)).length;
+  const lastFeedback = list.find((m) => m.feedback);
+
+  if (isLoading) {
+    return <Skeleton className="mt-5 h-44 w-full rounded-[28px] bg-white/5" />;
+  }
+
+  return (
+    <Reveal className="mt-5">
+      <Tilt className="rounded-[28px]" intensity={4} glow="rgba(0,245,255,0.16)">
+        <div className="relative overflow-hidden rounded-[28px] glass-card p-7 sm:p-9">
+          <div className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-[#00F5FF]/12 blur-[110px]" />
+          <div className="relative z-10">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.28em] text-white/45">
+                  <Sparkles className="h-3.5 w-3.5" /> Minhas mentorias
+                </div>
+                <h3 className="mt-3 font-display text-2xl font-bold">Acompanhamento 1:1</h3>
+              </div>
+              <Link to="/app/mentoria" className="btn-hero inline-flex">
+                <Sparkles className="h-4 w-4" /> Nova mentoria
+              </Link>
+            </div>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-5">
+                <div className="text-[10px] uppercase tracking-[0.22em] text-white/40">Realizadas</div>
+                <div className="mt-2 font-display text-3xl font-bold text-[#3BD16F]">{done}</div>
+              </div>
+              <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-5">
+                <div className="text-[10px] uppercase tracking-[0.22em] text-white/40">Pendentes</div>
+                <div className="mt-2 font-display text-3xl font-bold text-[#E8C05A]">{pending}</div>
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-2xl border border-white/8 bg-white/[0.03] p-5">
+              <div className="text-[10px] uppercase tracking-[0.22em] text-white/40">Último feedback</div>
+              {lastFeedback ? (
+                <>
+                  <p className="mt-2 line-clamp-3 text-sm text-white/70">{lastFeedback.feedback}</p>
+                  <div className="mt-2 text-[11px] text-white/35">
+                    {lastFeedback.title} · {formatDateTime(lastFeedback.feedback_at)}
+                  </div>
+                </>
+              ) : (
+                <p className="mt-2 text-sm text-white/45">Você ainda não recebeu feedback do mentor.</p>
+              )}
+            </div>
+          </div>
         </div>
       </Tilt>
     </Reveal>
