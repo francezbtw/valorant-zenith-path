@@ -124,6 +124,11 @@ function DashboardHome() {
         />
       </div>
 
+      {/* Minhas Mentorias */}
+      <MentorshipCard />
+
+
+
       {/* Plano de Evolução */}
       <Reveal className="mt-5">
         <div className="relative overflow-hidden rounded-[28px] glass-card p-7 sm:p-9">
