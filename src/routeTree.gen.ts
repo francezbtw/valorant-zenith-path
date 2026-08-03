@@ -21,6 +21,7 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedMentorIndexRouteImport } from './routes/_authenticated/mentor.index'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedMentorIdRouteImport } from './routes/_authenticated/mentor.$id'
 import { Route as AuthenticatedAppValorantRouteImport } from './routes/_authenticated/app.valorant'
 import { Route as AuthenticatedAppSuporteRouteImport } from './routes/_authenticated/app.suporte'
 import { Route as AuthenticatedAppProgressoRouteImport } from './routes/_authenticated/app.progresso'
@@ -108,6 +109,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedMentorIdRoute = AuthenticatedMentorIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedMentorRoute,
 } as any)
 const AuthenticatedAppValorantRoute =
   AuthenticatedAppValorantRouteImport.update({
@@ -298,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/app/valorant': typeof AuthenticatedAppValorantRoute
+  '/mentor/$id': typeof AuthenticatedMentorIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/mentor/': typeof AuthenticatedMentorIndexRoute
@@ -335,6 +342,7 @@ export interface FileRoutesByTo {
   '/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/app/valorant': typeof AuthenticatedAppValorantRoute
+  '/mentor/$id': typeof AuthenticatedMentorIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/mentor': typeof AuthenticatedMentorIndexRoute
@@ -377,6 +385,7 @@ export interface FileRoutesById {
   '/_authenticated/app/progresso': typeof AuthenticatedAppProgressoRoute
   '/_authenticated/app/suporte': typeof AuthenticatedAppSuporteRoute
   '/_authenticated/app/valorant': typeof AuthenticatedAppValorantRoute
+  '/_authenticated/mentor/$id': typeof AuthenticatedMentorIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/mentor/': typeof AuthenticatedMentorIndexRoute
@@ -419,6 +428,7 @@ export interface FileRouteTypes {
     | '/app/progresso'
     | '/app/suporte'
     | '/app/valorant'
+    | '/mentor/$id'
     | '/admin/'
     | '/app/'
     | '/mentor/'
@@ -456,6 +466,7 @@ export interface FileRouteTypes {
     | '/app/progresso'
     | '/app/suporte'
     | '/app/valorant'
+    | '/mentor/$id'
     | '/admin'
     | '/app'
     | '/mentor'
@@ -497,6 +508,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/progresso'
     | '/_authenticated/app/suporte'
     | '/_authenticated/app/valorant'
+    | '/_authenticated/mentor/$id'
     | '/_authenticated/admin/'
     | '/_authenticated/app/'
     | '/_authenticated/mentor/'
@@ -603,6 +615,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/mentor/$id': {
+      id: '/_authenticated/mentor/$id'
+      path: '/$id'
+      fullPath: '/mentor/$id'
+      preLoaderRoute: typeof AuthenticatedMentorIdRouteImport
+      parentRoute: typeof AuthenticatedMentorRoute
     }
     '/_authenticated/app/valorant': {
       id: '/_authenticated/app/valorant'
@@ -869,10 +888,12 @@ const AuthenticatedAppRouteWithChildren =
   AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
 
 interface AuthenticatedMentorRouteChildren {
+  AuthenticatedMentorIdRoute: typeof AuthenticatedMentorIdRoute
   AuthenticatedMentorIndexRoute: typeof AuthenticatedMentorIndexRoute
 }
 
 const AuthenticatedMentorRouteChildren: AuthenticatedMentorRouteChildren = {
+  AuthenticatedMentorIdRoute: AuthenticatedMentorIdRoute,
   AuthenticatedMentorIndexRoute: AuthenticatedMentorIndexRoute,
 }
 
