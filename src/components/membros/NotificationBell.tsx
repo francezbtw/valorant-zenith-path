@@ -5,7 +5,6 @@ import { Bell, BellRing, Check } from "lucide-react";
 import {
   useNotifications,
   useMarkNotificationsRead,
-  useNotificationsRealtime,
   requestPushPermission,
 } from "@/hooks/use-notifications";
 import { timeAgo } from "@/lib/community";
@@ -14,7 +13,6 @@ export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const { data: items = [] } = useNotifications();
   const markRead = useMarkNotificationsRead();
-  useNotificationsRealtime();
 
   const unread = items.filter((n) => !n.read).length;
 

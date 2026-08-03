@@ -86,11 +86,14 @@ export function MemberShell({ children }: { children: React.ReactNode }) {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#7B2EFF] to-[#00F5FF] text-xs font-bold">
               {initials}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="truncate text-sm font-medium">{profile?.full_name ?? "Aluno"}</div>
               <div className="text-[10px] uppercase tracking-[0.2em] text-white/45">
                 {plan ? PLAN_LABEL[plan] : "Sem plano"}
               </div>
+            </div>
+            <div className="hidden lg:block">
+              <NotificationBell />
             </div>
           </div>
           <button
