@@ -40,8 +40,9 @@ export const Route = createFileRoute("/_authenticated/admin/aulas")({
 function Page() {
   return (
     <>
-      <AdminHeader title="Aulas" subtitle="Gerencie vídeos, materiais e ordem das aulas." />
+      <AdminHeader title="Aulas" subtitle="Gerencie vídeos, materiais, liberação por plano/data e ordem das aulas." />
       <LessonMediaManager />
+      <ReorderList table="lessons" parentKey="module_id" label="Ordem das aulas" />
       <CrudTable table="lessons" title="Aulas" fields={fields} orderBy={"position"} />
     </>
   );
