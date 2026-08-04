@@ -33,6 +33,7 @@ function Page() {
   return (
     <>
       <AdminHeader title="Módulos" subtitle="Organize os módulos de cada curso." />
+      <ReorderList table="modules" parentKey="course_id" label="Ordem dos módulos" />
       <CrudTable table="modules" title="Módulos" fields={fields} orderBy={"position"} />
     </>
   );
