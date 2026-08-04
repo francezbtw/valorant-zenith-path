@@ -76,10 +76,10 @@ export function StudentsManager() {
         <p className="py-14 text-center text-sm text-white/45">Nenhum aluno encontrado.</p>
       ) : (
         <div className="-mx-2 overflow-x-auto">
-          <table className="w-full min-w-[940px] border-collapse text-sm">
+          <table className="w-full min-w-[1080px] border-collapse text-sm">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-[0.2em] text-white/40">
-                {["Aluno", "Plano", "Status", "Cadastro", "Último acesso", "Progresso", "Conta"].map((h) => (
+                {["Aluno", "Plano", "Status", "Cadastro", "Último acesso", "Progresso", "Conta", "Ações"].map((h) => (
                   <th key={h} className="px-3 pb-3 font-medium">{h}</th>
                 ))}
               </tr>
