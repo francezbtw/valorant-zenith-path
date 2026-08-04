@@ -25,7 +25,13 @@ function fmtDate(v: string | null) {
 export function StudentsManager() {
   const { data: students, isLoading } = useStudents();
   const { setPlan, setBlocked, setStatus } = useStudentActions();
+  const { deleteStudent, resetProgress, emailStudent } = useAdminOps();
   const [query, setQuery] = useState("");
+  const [confirm, setConfirm] = useState<{ kind: "delete" | "reset"; student: StudentOverview } | null>(null);
+  const [mailTo, setMailTo] = useState<StudentOverview | null>(null);
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
