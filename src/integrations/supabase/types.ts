@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_logs: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_id: string | null
+          created_at: string
+          details: Json
+          entity: string | null
+          entity_id: string | null
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity?: string | null
+          entity_id?: string | null
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity?: string | null
+          entity_id?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
       announcements: {
         Row: {
           body: string
@@ -84,6 +117,7 @@ export type Database = {
           expires_at: string | null
           id: string
           max_uses: number | null
+          plan_slugs: string[]
           updated_at: string
           uses: number
         }
@@ -96,6 +130,7 @@ export type Database = {
           expires_at?: string | null
           id?: string
           max_uses?: number | null
+          plan_slugs?: string[]
           updated_at?: string
           uses?: number
         }
@@ -108,6 +143,7 @@ export type Database = {
           expires_at?: string | null
           id?: string
           max_uses?: number | null
+          plan_slugs?: string[]
           updated_at?: string
           uses?: number
         }
@@ -237,9 +273,11 @@ export type Database = {
           exercises: Json
           id: string
           materials: Json
+          min_tier: Database["public"]["Enums"]["plan_tier"] | null
           module_id: string
           position: number
           published: boolean
+          release_at: string | null
           slug: string
           thumbnail_url: string | null
           title: string
@@ -254,9 +292,11 @@ export type Database = {
           exercises?: Json
           id?: string
           materials?: Json
+          min_tier?: Database["public"]["Enums"]["plan_tier"] | null
           module_id: string
           position?: number
           published?: boolean
+          release_at?: string | null
           slug: string
           thumbnail_url?: string | null
           title: string
@@ -271,9 +311,11 @@ export type Database = {
           exercises?: Json
           id?: string
           materials?: Json
+          min_tier?: Database["public"]["Enums"]["plan_tier"] | null
           module_id?: string
           position?: number
           published?: boolean
+          release_at?: string | null
           slug?: string
           thumbnail_url?: string | null
           title?: string
@@ -471,6 +513,7 @@ export type Database = {
           plan: Database["public"]["Enums"]["plan_tier"] | null
           provider: string | null
           provider_ref: string | null
+          refunded_cents: number
           status: string
           updated_at: string
           user_id: string
@@ -484,6 +527,7 @@ export type Database = {
           plan?: Database["public"]["Enums"]["plan_tier"] | null
           provider?: string | null
           provider_ref?: string | null
+          refunded_cents?: number
           status?: string
           updated_at?: string
           user_id: string
@@ -497,6 +541,7 @@ export type Database = {
           plan?: Database["public"]["Enums"]["plan_tier"] | null
           provider?: string | null
           provider_ref?: string | null
+          refunded_cents?: number
           status?: string
           updated_at?: string
           user_id?: string
@@ -507,16 +552,23 @@ export type Database = {
         Row: {
           active: boolean
           checkout_url: string | null
+          compare_at_price_cents: number | null
           created_at: string
           currency: string
           description: string | null
+          enrollment_closes_at: string | null
+          enrollment_opens_at: string | null
           features: Json
           highlight: boolean
           id: string
+          is_promo: boolean
           mercadopago_price_cents: number | null
           name: string
           position: number
           price_cents: number
+          promo_price_cents: number | null
+          seats_limit: number | null
+          seats_taken: number
           slug: string
           stripe_price_id: string | null
           tagline: string | null
@@ -526,16 +578,23 @@ export type Database = {
         Insert: {
           active?: boolean
           checkout_url?: string | null
+          compare_at_price_cents?: number | null
           created_at?: string
           currency?: string
           description?: string | null
+          enrollment_closes_at?: string | null
+          enrollment_opens_at?: string | null
           features?: Json
           highlight?: boolean
           id?: string
+          is_promo?: boolean
           mercadopago_price_cents?: number | null
           name: string
           position?: number
           price_cents?: number
+          promo_price_cents?: number | null
+          seats_limit?: number | null
+          seats_taken?: number
           slug: string
           stripe_price_id?: string | null
           tagline?: string | null
@@ -545,16 +604,23 @@ export type Database = {
         Update: {
           active?: boolean
           checkout_url?: string | null
+          compare_at_price_cents?: number | null
           created_at?: string
           currency?: string
           description?: string | null
+          enrollment_closes_at?: string | null
+          enrollment_opens_at?: string | null
           features?: Json
           highlight?: boolean
           id?: string
+          is_promo?: boolean
           mercadopago_price_cents?: number | null
           name?: string
           position?: number
           price_cents?: number
+          promo_price_cents?: number | null
+          seats_limit?: number | null
+          seats_taken?: number
           slug?: string
           stripe_price_id?: string | null
           tagline?: string | null
@@ -957,13 +1023,14 @@ export type Database = {
       }
       is_admin: { Args: never; Returns: boolean }
       is_mentor: { Args: never; Returns: boolean }
+      is_support: { Args: never; Returns: boolean }
       plan_rank: {
         Args: { _plan: Database["public"]["Enums"]["plan_tier"] }
         Returns: number
       }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "moderator" | "user" | "mentor" | "support"
       plan_tier: "basico" | "intermediario" | "mentoria"
       post_kind: "post" | "achievement" | "evolution" | "certificate"
     }
@@ -1093,7 +1160,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "moderator", "user", "mentor", "support"],
       plan_tier: ["basico", "intermediario", "mentoria"],
       post_kind: ["post", "achievement", "evolution", "certificate"],
     },
