@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2, Search, Lock, Unlock } from "lucide-react";
+import { Loader2, Search, Lock, Unlock, Mail, RotateCcw, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { useStudents, useStudentActions, type StudentOverview } from "@/hooks/use-admin";
+import { useAdminOps } from "@/hooks/use-admin-ops";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 const PLANS = [
   { value: "basico", label: "Básico" },
