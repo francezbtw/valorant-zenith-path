@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { CrudTable, type Field } from "@/components/admin/CrudTable";
+import { RolesManager } from "@/components/admin/RolesManager";
 
 const profileFields: Field[] = [
   { key: "full_name", label: "Nome" },
