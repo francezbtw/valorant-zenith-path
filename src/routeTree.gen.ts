@@ -36,6 +36,8 @@ import { Route as AuthenticatedAdminPlanosRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminPagamentosRouteImport } from './routes/_authenticated/admin.pagamentos'
 import { Route as AuthenticatedAdminModulosRouteImport } from './routes/_authenticated/admin.modulos'
 import { Route as AuthenticatedAdminMentoriasRouteImport } from './routes/_authenticated/admin.mentorias'
+import { Route as AuthenticatedAdminLogsRouteImport } from './routes/_authenticated/admin.logs'
+import { Route as AuthenticatedAdminFinanceiroRouteImport } from './routes/_authenticated/admin.financeiro'
 import { Route as AuthenticatedAdminCursosRouteImport } from './routes/_authenticated/admin.cursos'
 import { Route as AuthenticatedAdminCuponsRouteImport } from './routes/_authenticated/admin.cupons'
 import { Route as AuthenticatedAdminConteudoRouteImport } from './routes/_authenticated/admin.conteudo'
@@ -197,6 +199,17 @@ const AuthenticatedAdminMentoriasRoute =
     path: '/mentorias',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminLogsRoute = AuthenticatedAdminLogsRouteImport.update({
+  id: '/logs',
+  path: '/logs',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminFinanceiroRoute =
+  AuthenticatedAdminFinanceiroRouteImport.update({
+    id: '/financeiro',
+    path: '/financeiro',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminCursosRoute =
   AuthenticatedAdminCursosRouteImport.update({
     id: '/cursos',
@@ -290,6 +303,8 @@ export interface FileRoutesByFullPath {
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
   '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/financeiro': typeof AuthenticatedAdminFinanceiroRoute
+  '/admin/logs': typeof AuthenticatedAdminLogsRoute
   '/admin/mentorias': typeof AuthenticatedAdminMentoriasRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
@@ -328,6 +343,8 @@ export interface FileRoutesByTo {
   '/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
   '/admin/cupons': typeof AuthenticatedAdminCuponsRoute
   '/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/admin/financeiro': typeof AuthenticatedAdminFinanceiroRoute
+  '/admin/logs': typeof AuthenticatedAdminLogsRoute
   '/admin/mentorias': typeof AuthenticatedAdminMentoriasRoute
   '/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
@@ -371,6 +388,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/conteudo': typeof AuthenticatedAdminConteudoRoute
   '/_authenticated/admin/cupons': typeof AuthenticatedAdminCuponsRoute
   '/_authenticated/admin/cursos': typeof AuthenticatedAdminCursosRoute
+  '/_authenticated/admin/financeiro': typeof AuthenticatedAdminFinanceiroRoute
+  '/_authenticated/admin/logs': typeof AuthenticatedAdminLogsRoute
   '/_authenticated/admin/mentorias': typeof AuthenticatedAdminMentoriasRoute
   '/_authenticated/admin/modulos': typeof AuthenticatedAdminModulosRoute
   '/_authenticated/admin/pagamentos': typeof AuthenticatedAdminPagamentosRoute
@@ -414,6 +433,8 @@ export interface FileRouteTypes {
     | '/admin/conteudo'
     | '/admin/cupons'
     | '/admin/cursos'
+    | '/admin/financeiro'
+    | '/admin/logs'
     | '/admin/mentorias'
     | '/admin/modulos'
     | '/admin/pagamentos'
@@ -452,6 +473,8 @@ export interface FileRouteTypes {
     | '/admin/conteudo'
     | '/admin/cupons'
     | '/admin/cursos'
+    | '/admin/financeiro'
+    | '/admin/logs'
     | '/admin/mentorias'
     | '/admin/modulos'
     | '/admin/pagamentos'
@@ -494,6 +517,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/conteudo'
     | '/_authenticated/admin/cupons'
     | '/_authenticated/admin/cursos'
+    | '/_authenticated/admin/financeiro'
+    | '/_authenticated/admin/logs'
     | '/_authenticated/admin/mentorias'
     | '/_authenticated/admin/modulos'
     | '/_authenticated/admin/pagamentos'
@@ -721,6 +746,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminMentoriasRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/logs': {
+      id: '/_authenticated/admin/logs'
+      path: '/logs'
+      fullPath: '/admin/logs'
+      preLoaderRoute: typeof AuthenticatedAdminLogsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/financeiro': {
+      id: '/_authenticated/admin/financeiro'
+      path: '/financeiro'
+      fullPath: '/admin/financeiro'
+      preLoaderRoute: typeof AuthenticatedAdminFinanceiroRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/cursos': {
       id: '/_authenticated/admin/cursos'
       path: '/cursos'
@@ -824,6 +863,8 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminConteudoRoute: typeof AuthenticatedAdminConteudoRoute
   AuthenticatedAdminCuponsRoute: typeof AuthenticatedAdminCuponsRoute
   AuthenticatedAdminCursosRoute: typeof AuthenticatedAdminCursosRoute
+  AuthenticatedAdminFinanceiroRoute: typeof AuthenticatedAdminFinanceiroRoute
+  AuthenticatedAdminLogsRoute: typeof AuthenticatedAdminLogsRoute
   AuthenticatedAdminMentoriasRoute: typeof AuthenticatedAdminMentoriasRoute
   AuthenticatedAdminModulosRoute: typeof AuthenticatedAdminModulosRoute
   AuthenticatedAdminPagamentosRoute: typeof AuthenticatedAdminPagamentosRoute
@@ -842,6 +883,8 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminConteudoRoute: AuthenticatedAdminConteudoRoute,
   AuthenticatedAdminCuponsRoute: AuthenticatedAdminCuponsRoute,
   AuthenticatedAdminCursosRoute: AuthenticatedAdminCursosRoute,
+  AuthenticatedAdminFinanceiroRoute: AuthenticatedAdminFinanceiroRoute,
+  AuthenticatedAdminLogsRoute: AuthenticatedAdminLogsRoute,
   AuthenticatedAdminMentoriasRoute: AuthenticatedAdminMentoriasRoute,
   AuthenticatedAdminModulosRoute: AuthenticatedAdminModulosRoute,
   AuthenticatedAdminPagamentosRoute: AuthenticatedAdminPagamentosRoute,

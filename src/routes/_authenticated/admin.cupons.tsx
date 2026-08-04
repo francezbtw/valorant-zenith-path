@@ -6,6 +6,7 @@ const fields: Field[] = [
   { key: "code", label: "Código", required: true },
   { key: "discount_type", label: "Tipo", type: "select", options: [{ value: "percent", label: "Percentual" }, { value: "fixed", label: "Valor fixo" }], defaultValue: "percent" },
   { key: "discount_value", label: "Valor", type: "number" },
+  { key: "plan_slug", label: "Restringir ao plano (slug)", hideInTable: true },
   { key: "max_uses", label: "Usos máximos", type: "number" },
   { key: "uses", label: "Usos", type: "number", hideInForm: true },
   { key: "expires_at", label: "Expira em", type: "datetime" },

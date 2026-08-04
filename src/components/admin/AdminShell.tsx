@@ -4,11 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, Users, GraduationCap, Layers, PlayCircle, Sparkles,
   CreditCard, Ticket, FileText, Settings, BarChart3, LifeBuoy, Menu, X,
-  ArrowLeft, ShieldCheck, Package, MessagesSquare,
+  ArrowLeft, ShieldCheck, Package, MessagesSquare, Wallet, ScrollText,
 } from "lucide-react";
 
 const nav = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard },
+  { label: "Financeiro", to: "/admin/financeiro", icon: Wallet },
   { label: "Alunos", to: "/admin/alunos", icon: Users },
   { label: "Cursos", to: "/admin/cursos", icon: GraduationCap },
   { label: "Módulos", to: "/admin/modulos", icon: Layers },
@@ -19,10 +20,11 @@ const nav = [
   { label: "Painel do Mentor", to: "/mentor", icon: MessagesSquare },
   { label: "Comunidade", to: "/admin/comunidade", icon: MessagesSquare },
   { label: "Configurações", to: "/admin/configuracoes", icon: Settings },
-  { label: "Usuários", to: "/admin/usuarios", icon: ShieldCheck },
+  { label: "Usuários e permissões", to: "/admin/usuarios", icon: ShieldCheck },
   { label: "Cupons", to: "/admin/cupons", icon: Ticket },
   { label: "Conteúdo", to: "/admin/conteudo", icon: FileText },
   { label: "Analytics", to: "/admin/analytics", icon: BarChart3 },
+  { label: "Logs", to: "/admin/logs", icon: ScrollText },
   { label: "Suporte", to: "/admin/suporte", icon: LifeBuoy },
 ] as const;
 

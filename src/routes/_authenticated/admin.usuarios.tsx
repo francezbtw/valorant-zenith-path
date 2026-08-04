@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { CrudTable, type Field } from "@/components/admin/CrudTable";
+import { RolesManager } from "@/components/admin/RolesManager";
 
 const profileFields: Field[] = [
   { key: "full_name", label: "Nome" },
@@ -43,10 +44,14 @@ export const Route = createFileRoute("/_authenticated/admin/usuarios")({
 function Page() {
   return (
     <>
-      <AdminHeader title="Usuários" subtitle="Perfis da plataforma e papéis de acesso." />
-      <CrudTable table="profiles" title="Usuários" fields={profileFields} canCreate={false} orderBy="created_at" />
+      <AdminHeader title="Usuários e permissões" subtitle="Perfis da plataforma e níveis de acesso (Admin, Mentor, Suporte, Aluno)." />
+      <RolesManager />
       <div className="mt-8">
-        <h2 className="mb-4 font-display text-xl font-semibold">Papéis de acesso</h2>
+        <h2 className="mb-4 font-display text-xl font-semibold">Perfis</h2>
+        <CrudTable table="profiles" title="Usuários" fields={profileFields} canCreate={false} orderBy="created_at" />
+      </div>
+      <div className="mt-8">
+        <h2 className="mb-4 font-display text-xl font-semibold">Registros de papéis</h2>
         <CrudTable table="user_roles" title="Papéis" fields={roleFields} orderBy="created_at" />
       </div>
     </>

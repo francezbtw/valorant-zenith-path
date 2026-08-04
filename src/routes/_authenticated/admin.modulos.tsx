@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { CrudTable, type Field } from "@/components/admin/CrudTable";
+import { ReorderList } from "@/components/admin/ReorderList";
 
 const fields: Field[] = [
   { key: "title", label: "Título", required: true },
@@ -32,6 +33,7 @@ function Page() {
   return (
     <>
       <AdminHeader title="Módulos" subtitle="Organize os módulos de cada curso." />
+      <ReorderList table="modules" parentKey="course_id" label="Ordem dos módulos" />
       <CrudTable table="modules" title="Módulos" fields={fields} orderBy={"position"} />
     </>
   );
