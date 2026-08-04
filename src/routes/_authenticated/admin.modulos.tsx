@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminHeader } from "@/components/admin/AdminShell";
 import { CrudTable, type Field } from "@/components/admin/CrudTable";
+import { ReorderList } from "@/components/admin/ReorderList";
 
 const fields: Field[] = [
   { key: "title", label: "Título", required: true },
