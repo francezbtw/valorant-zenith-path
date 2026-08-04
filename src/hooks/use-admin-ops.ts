@@ -44,7 +44,7 @@ export async function logAdmin(action: string, entity: string, entityId: string 
     action,
     entity,
     entity_id: entityId,
-    details,
+    details: details as never,
   });
 }
 
