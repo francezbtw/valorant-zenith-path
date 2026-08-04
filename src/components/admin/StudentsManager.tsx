@@ -155,6 +155,31 @@ export function StudentsManager() {
                       {s.blocked ? "Bloqueada" : "Ativa"}
                     </button>
                   </td>
+                  <td className="px-3 py-3">
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => { setMailTo(s); setSubject(""); setMessage(""); }}
+                        aria-label="Enviar e-mail"
+                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-white/60 transition hover:text-white"
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        onClick={() => setConfirm({ kind: "reset", student: s })}
+                        aria-label="Resetar progresso"
+                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-white/60 transition hover:text-white"
+                      >
+                        <RotateCcw className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        onClick={() => setConfirm({ kind: "delete", student: s })}
+                        aria-label="Excluir conta"
+                        className="rounded-lg border border-white/10 bg-white/5 p-2 text-white/60 transition hover:border-red-500/40 hover:text-red-300"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
