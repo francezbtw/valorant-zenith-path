@@ -186,6 +186,77 @@ export function StudentsManager() {
           </table>
         </div>
       )}
+
+      <ConfirmDialog
+        open={!!confirm}
+        title={confirm?.kind === "delete" ? "Excluir conta do aluno" : "Resetar progresso"}
+        description={
+          confirm?.kind === "delete"
+            ? `A conta de ${confirm?.student.email ?? "este aluno"} e todos os seus dados serão removidos permanentemente.`
+            : `Todo o progresso de ${confirm?.student.email ?? "este aluno"} nas aulas será zerado.`
+        }
+        confirmLabel={confirm?.kind === "delete" ? "Excluir conta" : "Resetar"}
+        phrase={confirm?.kind === "delete" ? "EXCLUIR" : undefined}
+        busy={deleteStudent.isPending || resetProgress.isPending}
+        onCancel={() => setConfirm(null)}
+        onConfirm={async () => {
+          if (!confirm) return;
+          const userId = confirm.student.id;
+          await run(
+            confirm.kind === "delete"
+              ? deleteStudent.mutateAsync({ userId })
+              : resetProgress.mutateAsync({ userId }),
+            confirm.kind === "delete" ? "Conta excluída." : "Progresso resetado.",
+          );
+          setConfirm(null);
+        }}
+      />
+
+      {mailTo && (
+        <>
+          <div className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm" onClick={() => setMailTo(null)} />
+          <div className="fixed left-1/2 top-1/2 z-[61] w-[min(520px,92vw)] -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-white/10 bg-[#0a0713]/95 p-6 backdrop-blur-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="font-display text-lg font-bold">Enviar e-mail</h3>
+                <p className="mt-1 text-xs text-white/45">{mailTo.email}</p>
+              </div>
+              <button onClick={() => setMailTo(null)} aria-label="Fechar" className="rounded-lg p-1.5 text-white/50 hover:text-white">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <input
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              placeholder="Assunto"
+              className="mt-5 w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm outline-none focus:border-[#00F5FF]/40"
+            />
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              rows={6}
+              placeholder="Mensagem para o aluno"
+              className="mt-3 w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm outline-none focus:border-[#00F5FF]/40"
+            />
+            <div className="mt-5 flex justify-end gap-3">
+              <button onClick={() => setMailTo(null)} className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white/70">Cancelar</button>
+              <button
+                disabled={!subject.trim() || !message.trim() || emailStudent.isPending}
+                onClick={async () => {
+                  await run(
+                    emailStudent.mutateAsync({ userId: mailTo.id, email: mailTo.email ?? "", subject, message }),
+                    "E-mail enviado.",
+                  );
+                  setMailTo(null);
+                }}
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#7B2EFF] to-[#00AEEF] px-4 py-2.5 text-sm font-semibold disabled:opacity-40"
+              >
+                {emailStudent.isPending && <Loader2 className="h-4 w-4 animate-spin" />} Enviar
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
