@@ -1001,6 +1001,51 @@ export type Database = {
         }
         Relationships: []
       }
+      student_stats_public: {
+        Row: {
+          active_days: number | null
+          current_tier: string | null
+          entry_tier: string | null
+          goal_tier: string | null
+          headshot_pct: number | null
+          hours_studied: number | null
+          joined_at: string | null
+          mentorships_done: number | null
+          streak_days: number | null
+          user_id: string | null
+          win_rate: number | null
+          xp: number | null
+        }
+        Insert: {
+          active_days?: number | null
+          current_tier?: string | null
+          entry_tier?: string | null
+          goal_tier?: string | null
+          headshot_pct?: number | null
+          hours_studied?: number | null
+          joined_at?: string | null
+          mentorships_done?: number | null
+          streak_days?: number | null
+          user_id?: string | null
+          win_rate?: number | null
+          xp?: number | null
+        }
+        Update: {
+          active_days?: number | null
+          current_tier?: string | null
+          entry_tier?: string | null
+          goal_tier?: string | null
+          headshot_pct?: number | null
+          hours_studied?: number | null
+          joined_at?: string | null
+          mentorships_done?: number | null
+          streak_days?: number | null
+          user_id?: string | null
+          win_rate?: number | null
+          xp?: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       current_plan: {
