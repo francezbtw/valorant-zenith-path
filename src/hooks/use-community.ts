@@ -53,7 +53,7 @@ export function useCommunityMembers() {
     queryFn: async (): Promise<CommunityMember[]> => {
       const [profilesRes, statsRes, badgesRes] = await Promise.all([
         supabase.from("public_profiles").select("*"),
-        supabase.from("student_stats").select("*"),
+        supabase.from("student_stats_public").select("*"),
         supabase.from("user_badges").select("user_id, badge_key"),
       ]);
       if (profilesRes.error) throw profilesRes.error;
